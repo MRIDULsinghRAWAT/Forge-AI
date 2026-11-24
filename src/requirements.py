@@ -80,7 +80,9 @@ class RequirementsInterviewer:
         
         # Audience and scope derivation: prioritize procurement keywords first if present
         brief_lower = brief.lower()
-        if any(k in brief_lower for k in ["procurement", "spares", "spare parts", "po", "purchase order", "sourcing", "supplier", "catalogue", "catalog"]):
+        has_po_reference = re.search(r"\bpo\b", brief_lower) is not None
+        procurement_keywords = ["procurement", "spares", "spare parts", "purchase order", "sourcing", "supplier", "catalogue", "catalog"]
+        if has_po_reference or any(k in brief_lower for k in procurement_keywords):
             agent_type = "procurement"
             scope = "OceanTech Marine Vessel Spares Sourcing, Catalog Lookup, and Purchase Order Authorization"
             audience = "Technical Superintendents, Fleet Managers, Chief Engineers, and Procurement Officers"

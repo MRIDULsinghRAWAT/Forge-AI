@@ -1,4 +1,4 @@
-%PDF-1.4
+%PDF-1.3
 %“Œ‹ž ReportLab Generated PDF document (opensource)
 1 0 obj
 <<
@@ -17,7 +17,7 @@ endobj
 endobj
 4 0 obj
 <<
-/Contents 8 0 R /MediaBox [ 0 0 612 792 ] /Parent 7 0 R /Resources <<
+/Contents 8 0 R /MediaBox [ 0 0 595.2756 841.8898 ] /Parent 7 0 R /Resources <<
 /Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
 >> /Rotate 0 /Trans <<
 
@@ -32,8 +32,8 @@ endobj
 endobj
 6 0 obj
 <<
-/Author (\(anonymous\)) /CreationDate (D:20261124124836+05'00') /Creator (\(unspecified\)) /Keywords () /ModDate (D:20261124124836+05'00') /Producer (ReportLab PDF Library - \(opensource\)) 
-  /Subject (\(unspecified\)) /Title (\(anonymous\)) /Trapped /False
+/Author (anonymous) /CreationDate (D:20261124140719+05'00') /Creator (anonymous) /Keywords () /ModDate (D:20261124140719+05'00') /Producer (ReportLab PDF Library - \(opensource\)) 
+  /Subject (unspecified) /Title (untitled) /Trapped /False
 >>
 endobj
 7 0 obj
@@ -43,52 +43,27 @@ endobj
 endobj
 8 0 obj
 <<
-/Length 1860
+/Length 1749
 >>
 stream
 1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
-q
-1 0 0 1 78 670 cm
-q
-BT 1 0 0 1 0 26 Tm 22 TL /F2 18 Tf 0 0 0 rg (OceanTech Marine - Ship Spares Procurement &) Tj T* (Sourcing Protocol) Tj T* ET
-Q
-Q
-q
-1 0 0 1 78 652 cm
-Q
-q
-1 0 0 1 78 616 cm
-q
-BT 1 0 0 1 0 26 Tm 12 TL /F2 10 Tf 0 0 0 rg (1. Purchase Order Thresholds:) Tj /F1 10 Tf ( Orders under ,000 USD can be approved by the Technical) Tj T* (Superintendent directly. Orders between ,000 and ,000 require Fleet Manager sign-off. Any requisition) Tj T* (exceeding ,000 requires Chief Operating Officer \(COO\) sanction with at least three competitive quotes.) Tj T* ET
-Q
-Q
-q
-1 0 0 1 78 608 cm
-Q
-q
-1 0 0 1 78 560 cm
-q
-BT 1 0 0 1 0 38 Tm 12 TL /F2 10 Tf 0 0 0 rg (2. Emergency Sourcing:) Tj /F1 10 Tf ( When a vessel issues an AOG \(Assembly on Ground / Vessel Off-Hire Risk\)) Tj T* (alert, expedited freight via air courier is authorized with a maximum pre-approved freight surcharge of) Tj T* (,000. Parts flagged as emergency stock are dispatched within 24 hours from Rotterdam or Singapore) Tj T* (hubs.) Tj T* ET
-Q
-Q
-q
-1 0 0 1 78 552 cm
-Q
-q
-1 0 0 1 78 504 cm
-q
-BT 1 0 0 1 0 38 Tm 12 TL /F2 10 Tf 0 0 0 rg (3. Approved Suppliers:) Tj /F1 10 Tf ( SUP-ALPHA \(Hamburg Marine Supplies\) specializes in main engine) Tj T* (components with Net 30 payment terms. SUP-BETA \(Singapore Maritime Spares\) handles pumps and) Tj T* (fuel injectors with Net 45 terms. SUP-GAMMA \(Rotterdam Turbo Tech\) handles turbochargers.) Tj T* (SUP-DELTA \(Pacific Marine Seals\) provides compressors and gaskets.) Tj T* ET
-Q
-Q
-q
-1 0 0 1 78 496 cm
-Q
-q
-1 0 0 1 78 472 cm
-q
-BT 1 0 0 1 0 14 Tm 12 TL /F2 10 Tf 0 0 0 rg (4. Quality Certification:) Tj /F1 10 Tf ( All critical propulsion spares must include Class Certification \(DNV, Lloyd\222s) Tj T* (Register, or ABS\) with Mill Test Certificates before port delivery.) Tj T* ET
-Q
-Q
+BT /F2 14 Tf 16.8 TL ET
+BT 1 0 0 1 50 750 Tm (OceanTech Marine - Ship Spares Procurement Protocol) Tj T* ET
+BT /F1 10 Tf 12 TL ET
+BT 1 0 0 1 50 710 Tm (1. Purchase Order Thresholds: Orders under USD 5,000 can be approved by the Technical Superintendent directly.) Tj T* ET
+BT 1 0 0 1 50 692 Tm (Orders between USD 5,000 and USD 25,000 require Fleet Manager sign-off.) Tj T* ET
+BT 1 0 0 1 50 674 Tm (Any requisition exceeding USD 25,000 requires Chief Operating Officer \(COO\) sanction with at least three competitive quotes.) Tj T* ET
+BT 1 0 0 1 50 656 Tm  T* ET
+BT 1 0 0 1 50 638 Tm (2. Emergency Sourcing: When a vessel issues an AOG \(Assembly on Ground / Vessel Off-Hire Risk\) alert,) Tj T* ET
+BT 1 0 0 1 50 620 Tm (expedited freight via air courier is authorized with a maximum pre-approved freight surcharge of USD 2,000.) Tj T* ET
+BT 1 0 0 1 50 602 Tm (Parts flagged as emergency stock are dispatched within 24 hours from Rotterdam or Singapore hubs.) Tj T* ET
+BT 1 0 0 1 50 584 Tm  T* ET
+BT 1 0 0 1 50 566 Tm (3. Approved Suppliers: SUP-ALPHA \(Hamburg Marine Supplies\) specializes in main engine components with Net 30 payment terms.) Tj T* ET
+BT 1 0 0 1 50 548 Tm (SUP-BETA \(Singapore Maritime Spares\) handles pumps and fuel injectors with Net 45 terms.) Tj T* ET
+BT 1 0 0 1 50 530 Tm (SUP-GAMMA \(Rotterdam Turbo Tech\) handles turbochargers. SUP-DELTA \(Pacific Marine Seals\) provides compressors and gaskets.) Tj T* ET
+BT 1 0 0 1 50 512 Tm  T* ET
+BT 1 0 0 1 50 494 Tm (4. Quality Certification: All critical propulsion spares must include Class Certification \(DNV, Lloyd\222s Register, or ABS\)) Tj T* ET
+BT 1 0 0 1 50 476 Tm (with Mill Test Certificates before port delivery.) Tj T* ET
  
 endstream
 endobj
@@ -99,14 +74,14 @@ xref
 0000000102 00000 n 
 0000000209 00000 n 
 0000000321 00000 n 
-0000000514 00000 n 
-0000000582 00000 n 
-0000000862 00000 n 
-0000000921 00000 n 
+0000000524 00000 n 
+0000000592 00000 n 
+0000000853 00000 n 
+0000000912 00000 n 
 trailer
 <<
 /ID 
-[<d8ba7e7b31e0f7bc5b807e70694502f9><d8ba7e7b31e0f7bc5b807e70694502f9>]
+[<7f09c61dd6a58cb915f36464e256df2a><7f09c61dd6a58cb915f36464e256df2a>]
 % ReportLab generated PDF document -- digest (opensource)
 
 /Info 6 0 R
@@ -114,5 +89,5 @@ trailer
 /Size 9
 >>
 startxref
-2832
+2712
 %%EOF

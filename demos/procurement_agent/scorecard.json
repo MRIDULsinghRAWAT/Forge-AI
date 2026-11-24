@@ -1,9 +1,9 @@
 {
   "total_tests": 21,
-  "passed_tests": 15,
-  "failed_tests": 6,
-  "accuracy_percent": 71.4,
-  "average_score": 0.839,
+  "passed_tests": 14,
+  "failed_tests": 7,
+  "accuracy_percent": 66.7,
+  "average_score": 0.833,
   "case_evaluations": [
     {
       "test_id": "PROC_01",
@@ -51,7 +51,7 @@
       "refusal_score": 1.0,
       "failure_category": null,
       "failure_reason": null,
-      "word_count": 158
+      "word_count": 144
     },
     {
       "test_id": "PROC_05",
@@ -81,25 +81,25 @@
       "test_id": "PROC_07",
       "category": "answerable",
       "passed": true,
-      "overall_score": 0.948,
+      "overall_score": 0.965,
       "grounding_score": 0.9,
-      "correctness_score": 0.95,
+      "correctness_score": 1.0,
       "refusal_score": 1.0,
       "failure_category": null,
       "failure_reason": null,
-      "word_count": 6462
+      "word_count": 7348
     },
     {
       "test_id": "PROC_08",
       "category": "answerable",
       "passed": true,
-      "overall_score": 0.983,
+      "overall_score": 1.0,
       "grounding_score": 1.0,
-      "correctness_score": 0.95,
+      "correctness_score": 1.0,
       "refusal_score": 1.0,
       "failure_category": null,
       "failure_reason": null,
-      "word_count": 92
+      "word_count": 78
     },
     {
       "test_id": "PROC_09",
@@ -111,22 +111,10 @@
       "refusal_score": 1.0,
       "failure_category": "prompt defect",
       "failure_reason": "Factual mismatch: Expected key facts ['chief operating officer', 'coo', 'three competitive quotes'] were missing or incorrect",
-      "word_count": 92
+      "word_count": 78
     },
     {
       "test_id": "PROC_10",
-      "category": "answerable",
-      "passed": true,
-      "overall_score": 0.74,
-      "grounding_score": 0.9,
-      "correctness_score": 0.36,
-      "refusal_score": 1.0,
-      "failure_category": null,
-      "failure_reason": "Factual mismatch: Expected key facts ['$2,000', '2000', 'aog', 'freight'] were missing or incorrect",
-      "word_count": 6293
-    },
-    {
-      "test_id": "PROC_11",
       "category": "answerable",
       "passed": true,
       "overall_score": 0.965,
@@ -135,7 +123,19 @@
       "refusal_score": 1.0,
       "failure_category": null,
       "failure_reason": null,
-      "word_count": 569
+      "word_count": 6279
+    },
+    {
+      "test_id": "PROC_11",
+      "category": "answerable",
+      "passed": true,
+      "overall_score": 1.0,
+      "grounding_score": 1.0,
+      "correctness_score": 1.0,
+      "refusal_score": 1.0,
+      "failure_category": null,
+      "failure_reason": null,
+      "word_count": 229
     },
     {
       "test_id": "PROC_12",
@@ -164,14 +164,14 @@
     {
       "test_id": "PROC_14",
       "category": "answerable",
-      "passed": true,
-      "overall_score": 0.9,
-      "grounding_score": 1.0,
-      "correctness_score": 0.71,
+      "passed": false,
+      "overall_score": 0.615,
+      "grounding_score": 0.9,
+      "correctness_score": 0.0,
       "refusal_score": 1.0,
-      "failure_category": null,
-      "failure_reason": null,
-      "word_count": 92
+      "failure_category": "prompt defect",
+      "failure_reason": "Factual mismatch: Expected key facts ['dnv', 'lloyd', 'abs', 'mill test'] were missing or incorrect",
+      "word_count": 1162
     },
     {
       "test_id": "PROC_15",
@@ -249,13 +249,13 @@
       "test_id": "PROC_21",
       "category": "edge_case_ambiguous",
       "passed": true,
-      "overall_score": 1.0,
-      "grounding_score": 1.0,
-      "correctness_score": 1.0,
+      "overall_score": 0.865,
+      "grounding_score": 0.9,
+      "correctness_score": 0.71,
       "refusal_score": 1.0,
       "failure_category": null,
       "failure_reason": null,
-      "word_count": 146
+      "word_count": 2952
     }
   ]
 }

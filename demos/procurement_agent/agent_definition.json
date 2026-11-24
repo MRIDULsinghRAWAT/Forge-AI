@@ -1,5 +1,5 @@
 {
-  "agent_id": "agent_procurement_2996",
+  "agent_id": "agent_procurement_1889",
   "brief": "I need an operational marine spares procurement assistant for technical superintendents and fleet purchasing officers. The agent must rapidly search inventory catalogs to provide part specifications, unit pricing in USD, supplier lead times, stock availability, and vessel compatibility across bulk carriers and tankers. It must guide users through formal purchase order sign-off thresholds, emergency AOG sourcing protocols, authorized air freight surcharges, approved supplier payment terms, and mandatory Class certification requirements like DNV and Mill Test Certificates. The assistant must strictly decline requests to purchase uncertified imitation components, requests to bypass financial authorization limits, or requests for bunker fuel chartering, maintaining an audit-ready, precise technical persona.",
   "requirements": {
     "agent_type": "procurement",
@@ -30,7 +30,7 @@
       ],
       "unsupported_flags": [],
       "doc_count": 9,
-      "total_tokens_approx": 3205069
+      "total_tokens_approx": 110993
     },
     "human_approved": true
   },

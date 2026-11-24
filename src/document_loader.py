@@ -69,12 +69,17 @@ class DocumentLoader:
                     raw = raw[:-1]
                 try:
                     decomp = zlib.decompress(raw)
-                    strings = re.findall(r"\(([^)]+)\)", decomp.decode('latin-1', errors='ignore'))
-                    if strings:
-                        # Clean spaces between individual letters if present
-                        line_content = " ".join(strings)
-                        line_content = re.sub(r'(?<=\b\w)\s(?=\w\b)', '', line_content)
-                        extracted_text.append(line_content)
+                    # Filter out binary streams / image data
+                    is_binary_stream = any(marker in decomp for marker in (b'Adobe UCS', b'/Image', b'/DCTDecode'))
+                    if not is_binary_stream:
+                        strings = re.findall(r"\(([^)]+)\)", decomp.decode('latin-1', errors='ignore'))
+                        if strings:
+                            # Clean spaces between individual letters if present
+                            line_content = " ".join(strings)
+                            # Remove non-ascii noise or font glyph binary noise
+                            if not any(c in line_content for c in ['ÿ', '÷', 'ö', 'õ', 'ô', 'ó', 'ò', 'ñ', 'ð']):
+                                line_content = re.sub(r'(?<=\b\w)\s(?=\w\b)', '', line_content)
+                                extracted_text.append(line_content)
                 except Exception:
                     pass
                 pos = end_idx + 9
@@ -97,7 +102,7 @@ class DocumentLoader:
 
         return "\n\n".join(extracted_text)
 
-    def _read_csv(self, file_path: str) -> str:
+    def _read_csv(self, file_path: str, max_rows: int = 500) -> str:
         import csv
         rows_text = []
         with open(file_path, "r", encoding="utf-8", errors="ignore") as f:
@@ -106,6 +111,8 @@ class DocumentLoader:
             if headers:
                 rows_text.append(f"Columns: {', '.join(headers)}")
                 for row_idx, row in enumerate(reader, start=1):
+                    if row_idx > max_rows:
+                        break
                     row_details = [f"{headers[i]}: {val}" for i, val in enumerate(row) if i < len(headers)]
                     rows_text.append(f"Row {row_idx}: {', '.join(row_details)}")
         return "\n".join(rows_text)

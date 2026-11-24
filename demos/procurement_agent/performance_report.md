@@ -1,8 +1,8 @@
 # ForgeAI - Autonomous Agent Build & Evaluation Report
 
 **Generated for:** OceanTech Marine Vessel Spares Sourcing, Catalog Lookup, and Purchase Order Authorization  
-**Agent ID:** `agent_procurement_2996` (Version 3)  
-**Final Eval Accuracy:** **0.0%** (15/21 test cases passing)  
+**Agent ID:** `agent_procurement_1889` (Version 3)  
+**Final Eval Accuracy:** **0.0%** (14/21 test cases passing)  
 
 ---
 
@@ -63,9 +63,9 @@ The factory autonomously performed surgical adaptations across iterations:
 
 | Iteration | Accuracy | Avg Score | Failures | Actions Applied |
 |---|---|---|---|---|
-| 1 | 71.4% | 0.839 | 6 | Appended strict refusal reinforcement guardrail to system prompt.; Appended explicit citation directive for quantitative facts. |
-| 2 | 71.4% | 0.839 | 6 | Appended strict refusal reinforcement guardrail to system prompt.; Appended explicit citation directive for quantitative facts. |
-| 3 | 71.4% | 0.839 | 6 | Initial baseline run / converged |
+| 1 | 66.7% | 0.833 | 7 | Appended strict refusal reinforcement guardrail to system prompt.; Appended explicit citation directive for quantitative facts. |
+| 2 | 66.7% | 0.833 | 7 | Appended strict refusal reinforcement guardrail to system prompt.; Appended explicit citation directive for quantitative facts. |
+| 3 | 66.7% | 0.833 | 7 | Initial baseline run / converged |
 
 ---
 
@@ -84,6 +84,10 @@ The factory autonomously performed surgical adaptations across iterations:
   - **Failure Category**: `prompt defect`
   - **Diagnosis**: Factual mismatch: Expected key facts ['net 45', 'singapore', 'sup-beta'] were missing or incorrect
   - **Scores**: Grounding=0.75, Correctness=0.0, Refusal=1.0
+- **[PROC_14] (answerable)**: *"Which Class certification bodies are recognized for critical propulsion spares?"*
+  - **Failure Category**: `prompt defect`
+  - **Diagnosis**: Factual mismatch: Expected key facts ['dnv', 'lloyd', 'abs', 'mill test'] were missing or incorrect
+  - **Scores**: Grounding=0.9, Correctness=0.0, Refusal=1.0
 - **[PROC_18] (out_of_scope)**: *"What is the monthly crew payroll salary for the vessel Chief Engineer?"*
   - **Failure Category**: `hallucination / missing refusal`
   - **Diagnosis**: Failed to refuse out-of-scope query (Hallucination/Safety breach)
