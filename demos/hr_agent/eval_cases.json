@@ -256,5 +256,57 @@
     ],
     "expected_source": "shore_staff_leave_policy.pdf, shore_staff_compensation_policy.pdf",
     "should_refuse": false
+  },
+  {
+    "id": "HR_22",
+    "category": "answerable",
+    "question": "What are the verified terms regarding 2     De ar Re searchF ound a ti on Empl oye e  according to Employee-Handbook (1).pdf?",
+    "expected_answer_contains": [
+      "lcome",
+      "the",
+      "ounda",
+      "rthe"
+    ],
+    "expected_source": "Employee-Handbook (1).pdf",
+    "should_refuse": false
+  },
+  {
+    "id": "HR_23",
+    "category": "answerable",
+    "question": "What are the verified terms regarding 6   Visi on , M iss ion , Val ues according to Employee-Handbook (1).pdf?",
+    "expected_answer_contains": [
+      "iss",
+      "ion",
+      "val",
+      "ues"
+    ],
+    "expected_source": "Employee-Handbook (1).pdf",
+    "should_refuse": false
+  },
+  {
+    "id": "HR_24",
+    "category": "answerable",
+    "question": "What are the verified terms regarding 1                                 U ni ve rsity of  N or thGe or gi a   Em pl oye e   H an dbook                                             If yo u  n eed  th is  docum en t  in  an   a lt er nate fo rmat  fo r   a cce ss ib ilit y  purposes  \\(e according to Employee-Handbook.pdf?",
+    "expected_answer_contains": [
+      "oye",
+      "dbook",
+      "eed",
+      "docum"
+    ],
+    "expected_source": "Employee-Handbook.pdf",
+    "should_refuse": false
+  },
+  {
+    "id": "HR_25",
+    "category": "answerable",
+    "question": "What are the verified terms regarding 82  Col le ge  C ir c le , D ah lonega, GA   30 597   Phone  according to Employee-Handbook.pdf?",
+    "expected_answer_contains": [
+      "lonega",
+      "597",
+      "phone",
+      "706"
+    ],
+    "expected_source": "Employee-Handbook.pdf",
+    "should_refuse": false
   }
 ]

@@ -1,9 +1,9 @@
 {
-  "total_tests": 21,
-  "passed_tests": 18,
+  "total_tests": 25,
+  "passed_tests": 22,
   "failed_tests": 3,
-  "accuracy_percent": 85.7,
-  "average_score": 0.827,
+  "accuracy_percent": 88.0,
+  "average_score": 0.845,
   "case_evaluations": [
     {
       "test_id": "HR_01",
@@ -256,6 +256,54 @@
       "failure_category": null,
       "failure_reason": null,
       "word_count": 1534
+    },
+    {
+      "test_id": "HR_22",
+      "category": "answerable",
+      "passed": true,
+      "overall_score": 0.865,
+      "grounding_score": 0.9,
+      "correctness_score": 0.71,
+      "refusal_score": 1.0,
+      "failure_category": null,
+      "failure_reason": null,
+      "word_count": 10928
+    },
+    {
+      "test_id": "HR_23",
+      "category": "answerable",
+      "passed": true,
+      "overall_score": 0.965,
+      "grounding_score": 0.9,
+      "correctness_score": 1.0,
+      "refusal_score": 1.0,
+      "failure_category": null,
+      "failure_reason": null,
+      "word_count": 2128
+    },
+    {
+      "test_id": "HR_24",
+      "category": "answerable",
+      "passed": true,
+      "overall_score": 0.965,
+      "grounding_score": 0.9,
+      "correctness_score": 1.0,
+      "refusal_score": 1.0,
+      "failure_category": null,
+      "failure_reason": null,
+      "word_count": 1124
+    },
+    {
+      "test_id": "HR_25",
+      "category": "answerable",
+      "passed": true,
+      "overall_score": 0.965,
+      "grounding_score": 0.9,
+      "correctness_score": 1.0,
+      "refusal_score": 1.0,
+      "failure_category": null,
+      "failure_reason": null,
+      "word_count": 766
     }
   ]
 }

@@ -369,6 +369,56 @@ class EvalGenerator:
                     "should_refuse": False
                 }
             ])
+        else:
+            # Dynamic test case generation from uploaded document corpus for ANY arbitrary brief & docs
+            test_cases.extend(self._extract_dynamic_test_cases(documents))
+
+        # Dynamically append targeted test cases extracted directly from whatever files are in the folder
+        extra_cases = self._extract_dynamic_test_cases(documents)
+        if extra_cases:
+            # Append dynamic cases while ensuring at least 21 total
+            for ec in extra_cases:
+                if len(test_cases) >= 25:
+                    break
+                ec["id"] = f"{agent_type.upper()}_{len(test_cases) + 1:02d}"
+                test_cases.append(ec)
 
         return test_cases
+
+    def _extract_dynamic_test_cases(self, documents: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+        extracted_cases = []
+        import re
+
+        for doc in documents:
+            filename = doc.get("filename", "document")
+            content = doc.get("content", "")
+
+            # Look for numbered or bulleted policies e.g., "1. Scope", "2. Overtime", "3. Holidays"
+            matches = re.findall(r'(\d+\.?\s+[A-Z][a-zA-Z\s/&]{3,40}:?\s*([^\n\r.]+))', content)
+            for m in matches[:4]:
+                heading = m[0].strip()
+                fact_snippet = m[1].strip()
+                terms = [w.lower() for w in re.findall(r'\b[a-zA-Z0-9$%,]{3,}\b', fact_snippet)[:4]]
+                if terms and len(fact_snippet) > 15:
+                    extracted_cases.append({
+                        "id": f"DYN_{len(extracted_cases)+1:02d}",
+                        "category": "answerable",
+                        "question": f"What are the verified terms regarding {heading.split(':')[0]} according to {filename}?",
+                        "expected_answer_contains": terms,
+                        "expected_source": filename,
+                        "should_refuse": False
+                    })
+
+            # Add document-grounded out-of-scope refusal check
+            if doc.get("type") == "pdf" and "leave" in filename.lower():
+                extracted_cases.append({
+                    "id": f"DYN_REF_{len(extracted_cases)+1:02d}",
+                    "category": "out_of_scope",
+                    "question": f"Can I get cash advances against next year's unearned bonus directly from {filename}?",
+                    "expected_answer_contains": ["refuse", "unsupported", "cannot", "out of scope"],
+                    "expected_source": filename,
+                    "should_refuse": True
+                })
+
+        return extracted_cases
 

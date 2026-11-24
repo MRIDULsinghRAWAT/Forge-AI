@@ -1,9 +1,9 @@
 {
-  "total_tests": 21,
-  "passed_tests": 14,
-  "failed_tests": 7,
-  "accuracy_percent": 66.7,
-  "average_score": 0.833,
+  "total_tests": 25,
+  "passed_tests": 16,
+  "failed_tests": 9,
+  "accuracy_percent": 64.0,
+  "average_score": 0.832,
   "case_evaluations": [
     {
       "test_id": "PROC_01",
@@ -256,6 +256,54 @@
       "failure_category": null,
       "failure_reason": null,
       "word_count": 2952
+    },
+    {
+      "test_id": "PROCUREMENT_22",
+      "category": "answerable",
+      "passed": true,
+      "overall_score": 0.965,
+      "grounding_score": 0.9,
+      "correctness_score": 1.0,
+      "refusal_score": 1.0,
+      "failure_category": null,
+      "failure_reason": null,
+      "word_count": 9301
+    },
+    {
+      "test_id": "PROCUREMENT_23",
+      "category": "answerable",
+      "passed": true,
+      "overall_score": 0.965,
+      "grounding_score": 0.9,
+      "correctness_score": 1.0,
+      "refusal_score": 1.0,
+      "failure_category": null,
+      "failure_reason": null,
+      "word_count": 9347
+    },
+    {
+      "test_id": "PROCUREMENT_24",
+      "category": "answerable",
+      "passed": false,
+      "overall_score": 0.688,
+      "grounding_score": 0.75,
+      "correctness_score": 0.36,
+      "refusal_score": 1.0,
+      "failure_category": "prompt defect",
+      "failure_reason": "Factual mismatch: Expected key facts ['status', 'discontinued', '017', '6255'] were missing or incorrect",
+      "word_count": 179
+    },
+    {
+      "test_id": "PROCUREMENT_25",
+      "category": "answerable",
+      "passed": false,
+      "overall_score": 0.688,
+      "grounding_score": 0.75,
+      "correctness_score": 0.36,
+      "refusal_score": 1.0,
+      "failure_category": "prompt defect",
+      "failure_reason": "Factual mismatch: Expected key facts ['status', 'backordered', '569', '8856'] were missing or incorrect",
+      "word_count": 179
     }
   ]
 }

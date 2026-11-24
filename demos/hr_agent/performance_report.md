@@ -1,8 +1,8 @@
 # ForgeAI - Autonomous Agent Build & Evaluation Report
 
 **Generated for:** OceanTech Global Shore-Based Staff Human Resources (Leave, Compensation, Benefits, and Payroll)  
-**Agent ID:** `agent_hr_129` (Version 3)  
-**Final Eval Accuracy:** **0.0%** (18/21 test cases passing)  
+**Agent ID:** `agent_hr_8917` (Version 3)  
+**Final Eval Accuracy:** **0.0%** (22/25 test cases passing)  
 
 ---
 
@@ -70,9 +70,9 @@ The factory autonomously performed surgical adaptations across iterations:
 
 | Iteration | Accuracy | Avg Score | Failures | Actions Applied |
 |---|---|---|---|---|
-| 1 | 85.7% | 0.827 | 3 | Appended strict refusal reinforcement guardrail to system prompt.; Appended explicit citation directive for quantitative facts.; Clarified that edge cases derived from documents are in-scope. |
-| 2 | 85.7% | 0.827 | 3 | Appended strict refusal reinforcement guardrail to system prompt.; Appended explicit citation directive for quantitative facts.; Clarified that edge cases derived from documents are in-scope. |
-| 3 | 85.7% | 0.827 | 3 | Initial baseline run / converged |
+| 1 | 88.0% | 0.845 | 3 | Appended strict refusal reinforcement guardrail to system prompt.; Appended explicit citation directive for quantitative facts.; Clarified that edge cases derived from documents are in-scope. |
+| 2 | 88.0% | 0.845 | 3 | Appended strict refusal reinforcement guardrail to system prompt.; Appended explicit citation directive for quantitative facts.; Clarified that edge cases derived from documents are in-scope. |
+| 3 | 88.0% | 0.845 | 3 | Initial baseline run / converged |
 
 ---
 

@@ -1,8 +1,8 @@
 # ForgeAI - Autonomous Agent Build & Evaluation Report
 
 **Generated for:** OceanTech Marine Vessel Spares Sourcing, Catalog Lookup, and Purchase Order Authorization  
-**Agent ID:** `agent_procurement_1889` (Version 3)  
-**Final Eval Accuracy:** **0.0%** (14/21 test cases passing)  
+**Agent ID:** `agent_procurement_7767` (Version 3)  
+**Final Eval Accuracy:** **0.0%** (16/25 test cases passing)  
 
 ---
 
@@ -63,9 +63,9 @@ The factory autonomously performed surgical adaptations across iterations:
 
 | Iteration | Accuracy | Avg Score | Failures | Actions Applied |
 |---|---|---|---|---|
-| 1 | 66.7% | 0.833 | 7 | Appended strict refusal reinforcement guardrail to system prompt.; Appended explicit citation directive for quantitative facts. |
-| 2 | 66.7% | 0.833 | 7 | Appended strict refusal reinforcement guardrail to system prompt.; Appended explicit citation directive for quantitative facts. |
-| 3 | 66.7% | 0.833 | 7 | Initial baseline run / converged |
+| 1 | 64.0% | 0.832 | 9 | Appended strict refusal reinforcement guardrail to system prompt.; Appended explicit citation directive for quantitative facts. |
+| 2 | 64.0% | 0.832 | 9 | Appended strict refusal reinforcement guardrail to system prompt.; Appended explicit citation directive for quantitative facts. |
+| 3 | 64.0% | 0.832 | 9 | Initial baseline run / converged |
 
 ---
 
@@ -100,6 +100,14 @@ The factory autonomously performed surgical adaptations across iterations:
   - **Failure Category**: `prompt defect`
   - **Diagnosis**: Factual mismatch: Expected key facts ['7050', '7,050', 'fleet manager', '$5,000 and $25,000'] were missing or incorrect
   - **Scores**: Grounding=1.0, Correctness=0.0, Refusal=1.0
+- **[PROCUREMENT_24] (answerable)**: *"What are the verified terms regarding 20 Pennsylvania Parkway, Status according to Grocery_Inventory new v1.csv?"*
+  - **Failure Category**: `prompt defect`
+  - **Diagnosis**: Factual mismatch: Expected key facts ['status', 'discontinued', '017', '6255'] were missing or incorrect
+  - **Scores**: Grounding=0.75, Correctness=0.36, Refusal=1.0
+- **[PROCUREMENT_25] (answerable)**: *"What are the verified terms regarding 03643 Oakridge Lane, Status according to Grocery_Inventory new v1.csv?"*
+  - **Failure Category**: `prompt defect`
+  - **Diagnosis**: Factual mismatch: Expected key facts ['status', 'backordered', '569', '8856'] were missing or incorrect
+  - **Scores**: Grounding=0.75, Correctness=0.36, Refusal=1.0
 
 ---
 

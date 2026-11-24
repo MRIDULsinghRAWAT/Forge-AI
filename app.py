@@ -176,12 +176,26 @@ with tabs[1]:
 # TAB 3: REPORTS
 with tabs[2]:
     st.header("Evaluation Scorecards & Audit Logs")
-    rep_files = ["demos/hr_agent/performance_report.md", "demos/procurement_agent/performance_report.md"]
-    found_reps = [f for f in rep_files if os.path.exists(f)]
-    if not found_reps:
+    # Dynamically find all reports in demos folder
+    import glob
+    rep_files = glob.glob("demos/**/performance_report.md", recursive=True)
+    if not rep_files:
         st.info("No saved reports yet. Run the demonstrations to inspect artifacts.")
     else:
-        selected_rep = st.selectbox("Select Report to View:", found_reps)
+        selected_rep = st.selectbox("Select Report to View:", rep_files, key="rep_selector")
+        # Show scorecard metrics alongside markdown
+        json_scorecard = selected_rep.replace("performance_report.md", "scorecard.json")
+        if os.path.exists(json_scorecard):
+            try:
+                with open(json_scorecard, "r", encoding="utf-8") as sc_f:
+                    sc_data = json.load(sc_f)
+                    c1, c2, c3, c4 = st.columns(4)
+                    c1.metric("Final Accuracy", f"{sc_data.get('accuracy_percent', 0)}%")
+                    c2.metric("Passed Tests", sc_data.get('passed_tests', 0))
+                    c3.metric("Failed Tests", sc_data.get('failed_tests', 0))
+                    c4.metric("Average Score", sc_data.get('average_score', 0))
+            except Exception:
+                pass
         with open(selected_rep, "r", encoding="utf-8") as f:
             st.markdown(f.read())
 
