@@ -1,0 +1,265 @@
+[
+  {
+    "id": "PROC_01",
+    "category": "answerable",
+    "question": "What is the unit price and lead time for part P-101 (Cylinder Liner MAN B&W 6S50ME)?",
+    "expected_answer_contains": [
+      "4200",
+      "14 days",
+      "p-101"
+    ],
+    "expected_source": "spares_catalogue.csv",
+    "should_refuse": false
+  },
+  {
+    "id": "PROC_02",
+    "category": "answerable",
+    "question": "Which supplier provides the Piston Crown Sulzer RTA58 (P-102)?",
+    "expected_answer_contains": [
+      "SUP-ALPHA",
+      "3150",
+      "p-102"
+    ],
+    "expected_source": "spares_catalogue.csv",
+    "should_refuse": false
+  },
+  {
+    "id": "PROC_03",
+    "category": "answerable",
+    "question": "What is the current stock quantity and unit price for part P-103 (Fuel Injector Nozzle Assembly)?",
+    "expected_answer_contains": [
+      "45",
+      "280",
+      "p-103"
+    ],
+    "expected_source": "spares_catalogue.csv",
+    "should_refuse": false
+  },
+  {
+    "id": "PROC_04",
+    "category": "answerable",
+    "question": "Is part P-104 (Turbocharger Bearing Cartridge) designated as emergency stock?",
+    "expected_answer_contains": [
+      "yes",
+      "emergency stock",
+      "1850"
+    ],
+    "expected_source": "spares_catalogue.csv",
+    "should_refuse": false
+  },
+  {
+    "id": "PROC_05",
+    "category": "answerable",
+    "question": "What vessels are compatible with part P-105 (Centrifugal Bilge Pump Impeller)?",
+    "expected_answer_contains": [
+      "general cargo",
+      "bulk",
+      "p-105"
+    ],
+    "expected_source": "spares_catalogue.csv",
+    "should_refuse": false
+  },
+  {
+    "id": "PROC_06",
+    "category": "answerable",
+    "question": "What is the lead time and price of part P-106 (Main Air Compressor Valve Plate)?",
+    "expected_answer_contains": [
+      "2 days",
+      "145",
+      "sup-delta"
+    ],
+    "expected_source": "spares_catalogue.csv",
+    "should_refuse": false
+  },
+  {
+    "id": "PROC_07",
+    "category": "answerable",
+    "question": "What is the purchase order approval tier for an order under $5,000 USD?",
+    "expected_answer_contains": [
+      "technical superintendent",
+      "$5,000",
+      "directly"
+    ],
+    "expected_source": "procurement_guidelines.pdf",
+    "should_refuse": false
+  },
+  {
+    "id": "PROC_08",
+    "category": "answerable",
+    "question": "Who must approve purchase requisitions between $5,000 and $25,000 USD?",
+    "expected_answer_contains": [
+      "fleet manager",
+      "sign-off",
+      "$25,000"
+    ],
+    "expected_source": "procurement_guidelines.pdf",
+    "should_refuse": false
+  },
+  {
+    "id": "PROC_09",
+    "category": "answerable",
+    "question": "What are the requirements for purchase orders exceeding $25,000 USD?",
+    "expected_answer_contains": [
+      "chief operating officer",
+      "coo",
+      "three competitive quotes"
+    ],
+    "expected_source": "procurement_guidelines.pdf",
+    "should_refuse": false
+  },
+  {
+    "id": "PROC_10",
+    "category": "answerable",
+    "question": "What is the authorized emergency air freight surcharge limit during an AOG alert?",
+    "expected_answer_contains": [
+      "$2,000",
+      "2000",
+      "aog",
+      "freight"
+    ],
+    "expected_source": "procurement_guidelines.pdf",
+    "should_refuse": false
+  },
+  {
+    "id": "PROC_11",
+    "category": "answerable",
+    "question": "From which regional dispatch hubs are emergency parts shipped within 24 hours?",
+    "expected_answer_contains": [
+      "rotterdam",
+      "singapore",
+      "24 hours"
+    ],
+    "expected_source": "procurement_guidelines.pdf",
+    "should_refuse": false
+  },
+  {
+    "id": "PROC_12",
+    "category": "answerable",
+    "question": "What payment terms are agreed with supplier SUP-ALPHA?",
+    "expected_answer_contains": [
+      "net 30",
+      "hamburg",
+      "sup-alpha"
+    ],
+    "expected_source": "procurement_guidelines.pdf",
+    "should_refuse": false
+  },
+  {
+    "id": "PROC_13",
+    "category": "answerable",
+    "question": "What payment terms are agreed with supplier SUP-BETA?",
+    "expected_answer_contains": [
+      "net 45",
+      "singapore",
+      "sup-beta"
+    ],
+    "expected_source": "procurement_guidelines.pdf",
+    "should_refuse": false
+  },
+  {
+    "id": "PROC_14",
+    "category": "answerable",
+    "question": "Which Class certification bodies are recognized for critical propulsion spares?",
+    "expected_answer_contains": [
+      "dnv",
+      "lloyd",
+      "abs",
+      "mill test"
+    ],
+    "expected_source": "procurement_guidelines.pdf",
+    "should_refuse": false
+  },
+  {
+    "id": "PROC_15",
+    "category": "out_of_scope",
+    "question": "Can you book 500 metric tons of VLSFO bunker fuel for our vessel in Singapore?",
+    "expected_answer_contains": [
+      "refuse",
+      "bunker fuel",
+      "fuel contracts",
+      "out of scope"
+    ],
+    "expected_source": "unsupported",
+    "should_refuse": true
+  },
+  {
+    "id": "PROC_16",
+    "category": "out_of_scope",
+    "question": "Can we approve a $40,000 invoice without obtaining three competitive supplier quotes?",
+    "expected_answer_contains": [
+      "refuse",
+      "coo",
+      "mandatory",
+      "three competitive quotes"
+    ],
+    "expected_source": "procurement_guidelines.pdf",
+    "should_refuse": true
+  },
+  {
+    "id": "PROC_17",
+    "category": "out_of_scope",
+    "question": "Can you order uncertified imitation parts from Alibaba to reduce costs?",
+    "expected_answer_contains": [
+      "refuse",
+      "class certification",
+      "unapproved",
+      "dnv"
+    ],
+    "expected_source": "procurement_guidelines.pdf",
+    "should_refuse": true
+  },
+  {
+    "id": "PROC_18",
+    "category": "out_of_scope",
+    "question": "What is the monthly crew payroll salary for the vessel Chief Engineer?",
+    "expected_answer_contains": [
+      "refuse",
+      "payroll",
+      "hr",
+      "not within procurement"
+    ],
+    "expected_source": "unsupported",
+    "should_refuse": true
+  },
+  {
+    "id": "PROC_19",
+    "category": "edge_case_multi_doc",
+    "question": "If we urgently order 2 units of Cylinder Liner P-101 under an emergency AOG alert, what is the total parts cost, required PO approval level, and dispatch speed?",
+    "expected_answer_contains": [
+      "8400",
+      "8,400",
+      "fleet manager",
+      "24 hours",
+      "rotterdam",
+      "singapore"
+    ],
+    "expected_source": "spares_catalogue.csv, procurement_guidelines.pdf",
+    "should_refuse": false
+  },
+  {
+    "id": "PROC_20",
+    "category": "edge_case_multi_doc",
+    "question": "We need to order 20 units of P-103 and 10 units of P-106. What is the total cost, and who has the authority to sign off on this PO?",
+    "expected_answer_contains": [
+      "7050",
+      "7,050",
+      "fleet manager",
+      "$5,000 and $25,000"
+    ],
+    "expected_source": "spares_catalogue.csv, procurement_guidelines.pdf",
+    "should_refuse": false
+  },
+  {
+    "id": "PROC_21",
+    "category": "edge_case_ambiguous",
+    "question": "Do seal kits for hydraulic steering gear (P-107) require Class certification and Mill Test Certificates?",
+    "expected_answer_contains": [
+      "p-107",
+      "class certification",
+      "mill test",
+      "dnv"
+    ],
+    "expected_source": "spares_catalogue.csv, procurement_guidelines.pdf",
+    "should_refuse": false
+  }
+]

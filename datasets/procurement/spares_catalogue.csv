@@ -1,0 +1,9 @@
+part_id,part_name,category,compatible_vessels,unit_price_usd,lead_time_days,stock_quantity,supplier_id,emergency_stock
+P-101,Cylinder Liner MAN B&W 6S50ME,Main Engine,"Bulk Carriers, Tankers",4200.00,14,6,SUP-ALPHA,Yes
+P-102,Piston Crown Sulzer RTA58,Main Engine,Container Ships,3150.00,21,3,SUP-ALPHA,No
+P-103,Fuel Injector Nozzle Assembly,Fuel Injection,All Diesel Fleets,280.00,3,45,SUP-BETA,Yes
+P-104,Turbocharger Bearing Cartridge,Turbochargers,"Container Ships, Tankers",1850.00,10,8,SUP-GAMMA,Yes
+P-105,Centrifugal Bilge Pump Impeller,Auxiliary Machinery,"General Cargo, Bulk",620.00,7,15,SUP-BETA,No
+P-106,Main Air Compressor Valve Plate,Air Systems,All Diesel Fleets,145.00,2,60,SUP-DELTA,Yes
+P-107,Hydraulic Steering Actuator Seal Kit,Steering Gear,All Ocean Fleets,490.00,5,22,SUP-ALPHA,Yes
+P-108,Sea Water Cooling Heat Exchanger Gasket,Cooling System,"Tankers, Bulk",310.00,4,30,SUP-DELTA,No
