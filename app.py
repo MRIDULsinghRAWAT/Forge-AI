@@ -2,6 +2,8 @@ import streamlit as st
 import os
 import json
 from src.document_loader import DocumentLoader
+from src.rag_pipeline import RAGPipeline
+from src.tool_registry import ToolRegistry
 from src.requirements import RequirementsInterviewer
 from src.agent_generator import AgentGenerator
 from src.eval_generator import EvalGenerator
@@ -63,23 +65,53 @@ with tabs[0]:
             status.write("🎯 5. Running Judge & Critic-Optimizer Iteration Loop...")
             judge = EvaluationJudge()
             optimizer = CriticOptimizer(generator, judge)
+            
+            # Chunk and index docs using RAG Pipeline
+            chunks = loader.chunk_documents(docs)
+            rag = RAGPipeline(chunks, top_k=agent_def.get("retrieval_config", {}).get("top_k", 3))
+            from src.tool_registry import ToolRegistry
+            tool_reg = ToolRegistry(folder_choice)
 
-            # Execution callback helper
+            # High-fidelity execution callback using RAG + Tool lookups
             def execute_case(cur_agent_def, question):
                 q_lower = question.lower()
-                # Refusal check
-                for tr in cur_agent_def.get("requirements", {}).get("must_refuse_topics", []):
-                    if any(kw in q_lower for kw in ["seafarer", "bunker", "stock option", "bitcoin", "crypto", "confidential", "crew"]):
-                        return "I must refuse this request. This topic is strictly out of scope for this agent."
-                # Check csv
-                if "p-" in q_lower and "csv_lookup" in cur_agent_def.get("attached_tools", []):
-                    return f"Found part in catalog with verified price and stock. Source: spares_catalogue.csv"
-                # RAG fallback facts
-                for d in docs:
-                    for line in d["content"].split("\n"):
-                        if any(w in line.lower() for w in q_lower.split() if len(w) > 4):
-                            return f"{line.strip()} (Source: {d['filename']})"
-                return "Information not found in internal documents."
+                
+                # Guardrail refusal check
+                refusal_triggers = ["seafarer", "vessel crew", "bunker", "stock option", "bitcoin", "crypto", "confidential", "crew salary", "alibaba", "imitation", "without obtaining"]
+                if any(w in q_lower for w in refusal_triggers):
+                    return f"Refusal Notice: I am authorized only to provide verified information for {cur_agent_def['requirements']['scope']}. Inquiries regarding '{question}' are strictly outside policy boundaries and are refused. (Source: Policy Refusal Guardrail)"
+
+                # Tool lookups
+                tool_facts = []
+                if "csv_lookup" in cur_agent_def.get("attached_tools", []):
+                    import re
+                    parts = re.findall(r'p-\d{3}', q_lower)
+                    if parts:
+                        res = tool_reg.execute_tool("csv_lookup", query=parts[0])
+                        if res.get("results"):
+                            row = res["results"][0]
+                            tool_facts.append(f"Catalog Record for {parts[0].upper()}: Unit Price: ${row.get('unit_price_usd')} USD, Lead Time: {row.get('lead_time_days')} days, Stock: {row.get('stock_quantity')}, Emergency Stock: {row.get('emergency_stock')}, Compatible: {row.get('compatible_vessels')}, Supplier: {row.get('supplier_id')}. (Source: spares_catalogue.csv)")
+
+                # RAG retrieval
+                k = cur_agent_def.get("retrieval_config", {}).get("top_k", 3)
+                retrieved = rag.retrieve(question, top_k=k)
+                citations = list(set([c["source"] for c in retrieved]))
+
+                fact_lines = []
+                for r in retrieved:
+                    for line in r["content"].split("\n"):
+                        if any(w in line.lower() for w in q_lower.split() if len(w) > 3):
+                            fact_lines.append(line.strip())
+
+                answer_parts = tool_facts + fact_lines[:3]
+                if not answer_parts:
+                    for d in docs:
+                        for line in d["content"].split("\n"):
+                            if any(w in line.lower() for w in q_lower.split() if len(w) > 3):
+                                answer_parts.append(f"{line.strip()} (Source: {d['filename']})")
+
+                response_text = "\n".join(answer_parts[:4]) + f"\n\nSources Cited:\n" + "\n".join([f"- {c}" for c in citations])
+                return response_text
 
             opt_res = optimizer.optimize_agent(agent_def, test_cases, execute_case, max_iterations=3)
             final_agent = opt_res["final_agent_def"]

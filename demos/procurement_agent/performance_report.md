@@ -1,13 +1,13 @@
 # ForgeAI - Autonomous Agent Build & Evaluation Report
 
 **Generated for:** OceanTech Marine Vessel Spares Sourcing, Catalog Lookup, and Purchase Order Authorization  
-**Agent ID:** `agent_procurement_8697` (Version 3)  
+**Agent ID:** `agent_procurement_2996` (Version 3)  
 **Final Eval Accuracy:** **0.0%** (15/21 test cases passing)  
 
 ---
 
 ## 1. Executive Summary & Brief Analysis
-- **User Brief**: *"I need a ship-spares procurement assistant over a catalogue CSV plus supplier and purchasing protocol PDFs."*
+- **User Brief**: *"I need an operational marine spares procurement assistant for technical superintendents and fleet purchasing officers. The agent must rapidly search inventory catalogs to provide part specifications, unit pricing in USD, supplier lead times, stock availability, and vessel compatibility across bulk carriers and tankers. It must guide users through formal purchase order sign-off thresholds, emergency AOG sourcing protocols, authorized air freight surcharges, approved supplier payment terms, and mandatory Class certification requirements like DNV and Mill Test Certificates. The assistant must strictly decline requests to purchase uncertified imitation components, requests to bypass financial authorization limits, or requests for bunker fuel chartering, maintaining an audit-ready, precise technical persona."*
 - **Target Audience**: Technical Superintendents, Fleet Managers, Chief Engineers, and Procurement Officers
 - **Persona & Tone**: Precise, operational, concise, and audit-compliant
 - **Groundability Guard Status**:
@@ -16,7 +16,7 @@ No unsupported requests detected in brief.
 ---
 
 ## 2. Declarative Agent Definition
-- **Attached Tools**: `['csv_lookup', 'calculator']` *(Verified: Only tools needed by the brief are attached)*
+- **Attached Tools**: `['csv_lookup', 'calculator', 'current_date']` *(Verified: Only tools needed by the brief are attached)*
 - **Retrieval Parameters**: Top-K: `4`, Chunk Size: `500`, Algorithm: `tfidf_cosine`
 - **System Prompt Snapshot**:
 ```text
@@ -41,7 +41,7 @@ When refusing out-of-scope or unauthorized requests, provide a clear refusal rat
 - Approved supplier payment terms and regional dispatch hubs (Rotterdam, Singapore)
 - Class certification requirements (DNV, Lloyd's Register, ABS) and Mill Test Certificates
 5. AVAILABLE TOOLS:
-[csv_lookup, calculator]
+[csv_lookup, calculator, current_date]
 Use these tools when precise calculations or table lookups are needed.
 
 OUTPUT CONTRACT:

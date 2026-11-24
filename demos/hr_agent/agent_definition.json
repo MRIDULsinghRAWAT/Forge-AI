@@ -1,9 +1,9 @@
 {
-  "agent_id": "agent_hr_7921",
-  "brief": "I need an HR assistant that answers employee leave and salary policy questions for shore staff.",
+  "agent_id": "agent_hr_2996",
+  "brief": "I need an operational marine spares procurement assistant for technical superintendents and fleet purchasing officers. The agent must rapidly search inventory catalogs to provide part specifications, unit pricing in USD, supplier lead times, stock availability, and vessel compatibility across bulk carriers and tankers. It must guide users through formal purchase order sign-off thresholds, emergency AOG sourcing protocols, authorized air freight surcharges, approved supplier payment terms, and mandatory Class certification requirements like DNV and Mill Test Certificates. The assistant must strictly decline requests to purchase uncertified imitation components, requests to bypass financial authorization limits, or requests for bunker fuel chartering, maintaining an audit-ready, precise technical persona.",
   "requirements": {
     "agent_type": "hr",
-    "brief": "I need an HR assistant that answers employee leave and salary policy questions for shore staff.",
+    "brief": "I need an operational marine spares procurement assistant for technical superintendents and fleet purchasing officers. The agent must rapidly search inventory catalogs to provide part specifications, unit pricing in USD, supplier lead times, stock availability, and vessel compatibility across bulk carriers and tankers. It must guide users through formal purchase order sign-off thresholds, emergency AOG sourcing protocols, authorized air freight surcharges, approved supplier payment terms, and mandatory Class certification requirements like DNV and Mill Test Certificates. The assistant must strictly decline requests to purchase uncertified imitation components, requests to bypass financial authorization limits, or requests for bunker fuel chartering, maintaining an audit-ready, precise technical persona.",
     "scope": "OceanTech Global Shore-Based Staff Human Resources (Leave, Compensation, Benefits, and Payroll)",
     "audience": "Full-time shore-based employees, line managers, and HR administrators",
     "tone": "Professional, warm, clear, and policy-compliant",

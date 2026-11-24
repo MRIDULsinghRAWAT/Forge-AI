@@ -1,13 +1,13 @@
 # ForgeAI - Autonomous Agent Build & Evaluation Report
 
 **Generated for:** OceanTech Global Shore-Based Staff Human Resources (Leave, Compensation, Benefits, and Payroll)  
-**Agent ID:** `agent_hr_7921` (Version 3)  
-**Final Eval Accuracy:** **0.0%** (3/21 test cases passing)  
+**Agent ID:** `agent_hr_2996` (Version 3)  
+**Final Eval Accuracy:** **0.0%** (6/21 test cases passing)  
 
 ---
 
 ## 1. Executive Summary & Brief Analysis
-- **User Brief**: *"I need an HR assistant that answers employee leave and salary policy questions for shore staff."*
+- **User Brief**: *"I need an operational marine spares procurement assistant for technical superintendents and fleet purchasing officers. The agent must rapidly search inventory catalogs to provide part specifications, unit pricing in USD, supplier lead times, stock availability, and vessel compatibility across bulk carriers and tankers. It must guide users through formal purchase order sign-off thresholds, emergency AOG sourcing protocols, authorized air freight surcharges, approved supplier payment terms, and mandatory Class certification requirements like DNV and Mill Test Certificates. The assistant must strictly decline requests to purchase uncertified imitation components, requests to bypass financial authorization limits, or requests for bunker fuel chartering, maintaining an audit-ready, precise technical persona."*
 - **Target Audience**: Full-time shore-based employees, line managers, and HR administrators
 - **Persona & Tone**: Professional, warm, clear, and policy-compliant
 - **Groundability Guard Status**:
@@ -66,9 +66,9 @@ The factory autonomously performed surgical adaptations across iterations:
 
 | Iteration | Accuracy | Avg Score | Failures | Actions Applied |
 |---|---|---|---|---|
-| 1 | 14.3% | 0.554 | 18 | Appended strict refusal reinforcement guardrail to system prompt.; Appended explicit citation directive for quantitative facts. |
-| 2 | 14.3% | 0.554 | 18 | Appended strict refusal reinforcement guardrail to system prompt.; Appended explicit citation directive for quantitative facts. |
-| 3 | 14.3% | 0.554 | 18 | Initial baseline run / converged |
+| 1 | 28.6% | 0.575 | 15 | Appended strict refusal reinforcement guardrail to system prompt.; Appended explicit citation directive for quantitative facts. |
+| 2 | 28.6% | 0.575 | 15 | Appended strict refusal reinforcement guardrail to system prompt.; Appended explicit citation directive for quantitative facts. |
+| 3 | 28.6% | 0.575 | 15 | Initial baseline run / converged |
 
 ---
 
@@ -79,10 +79,6 @@ The factory autonomously performed surgical adaptations across iterations:
   - **Failure Category**: `prompt defect`
   - **Diagnosis**: Factual mismatch: Expected key facts ['2.0 days', 'month'] were missing or incorrect
   - **Scores**: Grounding=0.75, Correctness=0.0, Refusal=1.0
-- **[HR_03] (answerable)**: *"How many unused annual leave days can be carried over into the next year, and when do they expire?"*
-  - **Failure Category**: `prompt defect`
-  - **Diagnosis**: Factual mismatch: Expected key facts ['8', 'march 31', 'carry over'] were missing or incorrect
-  - **Scores**: Grounding=0.75, Correctness=0.0, Refusal=1.0
 - **[HR_04] (answerable)**: *"When is an employee required to submit an official medical certificate for sick leave?"*
   - **Failure Category**: `prompt defect`
   - **Diagnosis**: Factual mismatch: Expected key facts ['2 consecutive', '48 hours', 'medical certificate'] were missing or incorrect
@@ -90,14 +86,6 @@ The factory autonomously performed surgical adaptations across iterations:
 - **[HR_05] (answerable)**: *"What is the duration of maternity leave for primary caregivers?"*
   - **Failure Category**: `prompt defect`
   - **Diagnosis**: Factual mismatch: Expected key facts ['26', 'weeks', 'maternity'] were missing or incorrect
-  - **Scores**: Grounding=0.75, Correctness=0.0, Refusal=1.0
-- **[HR_06] (answerable)**: *"How many weeks of paternity leave are granted to secondary caregivers?"*
-  - **Failure Category**: `prompt defect`
-  - **Diagnosis**: Factual mismatch: Expected key facts ['3', 'weeks', 'paternity'] were missing or incorrect
-  - **Scores**: Grounding=0.75, Correctness=0.0, Refusal=1.0
-- **[HR_07] (answerable)**: *"How many days of emergency leave are permitted for bereavement of an immediate family member?"*
-  - **Failure Category**: `prompt defect`
-  - **Diagnosis**: Factual mismatch: Expected key facts ['5', 'days', 'bereavement'] were missing or incorrect
   - **Scores**: Grounding=0.75, Correctness=0.0, Refusal=1.0
 - **[HR_08] (answerable)**: *"On which day of the month are monthly salaries credited to employee accounts?"*
   - **Failure Category**: `prompt defect`
@@ -142,7 +130,7 @@ The factory autonomously performed surgical adaptations across iterations:
 - **[HR_20] (edge_case_ambiguous)**: *"I need to take 4 days off next week for urgent personal family reasons. How much advance notice is required?"*
   - **Failure Category**: `prompt defect`
   - **Diagnosis**: Factual mismatch: Expected key facts ['10 business days', '3 consecutive', 'hrms', 'department head'] were missing or incorrect
-  - **Scores**: Grounding=0.75, Correctness=0.0, Refusal=1.0
+  - **Scores**: Grounding=0.68, Correctness=0.0, Refusal=1.0
 - **[HR_21] (edge_case_multi_doc)**: *"Does taking 26 weeks of maternity leave reduce an employee's annual medical insurance limit below $50,000?"*
   - **Failure Category**: `prompt defect`
   - **Diagnosis**: Factual mismatch: Expected key facts ['$50,000', 'maternity', 'coverage remains', 'insurance'] were missing or incorrect

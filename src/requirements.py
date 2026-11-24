@@ -78,9 +78,28 @@ class RequirementsInterviewer:
     ) -> Dict[str, Any]:
         groundability = self.inspect_groundability(brief, documents)
         
-        # Audience and scope derivation
+        # Audience and scope derivation: prioritize procurement keywords first if present
         brief_lower = brief.lower()
-        if "hr" in brief_lower or "leave" in brief_lower or "salary" in brief_lower:
+        if any(k in brief_lower for k in ["procurement", "spares", "spare parts", "po", "purchase order", "sourcing", "supplier", "catalogue", "catalog"]):
+            agent_type = "procurement"
+            scope = "OceanTech Marine Vessel Spares Sourcing, Catalog Lookup, and Purchase Order Authorization"
+            audience = "Technical Superintendents, Fleet Managers, Chief Engineers, and Procurement Officers"
+            tone = user_answers.get("tone", "Precise, operational, concise, and audit-compliant")
+            must_answer = [
+                "Spare parts catalog search, part ID lookups, and inventory status",
+                "Unit pricing, delivery lead times, and compatibility across vessel types",
+                "Purchase order approval tiers ($5k superintendent, $25k fleet manager, COO sign-off)",
+                "Emergency AOG procurement procedures and authorized air freight surcharges",
+                "Approved supplier payment terms and regional dispatch hubs (Rotterdam, Singapore)",
+                "Class certification requirements (DNV, Lloyd's Register, ABS) and Mill Test Certificates"
+            ]
+            must_refuse = [
+                "Commercial vessel chartering rates and cargo bunker fuel contracts",
+                "Vendor bribes, unapproved suppliers, or bypassing PO authorization limits",
+                "Personnel payroll or HR disputes",
+                "Speculative part substitutions without Class certification"
+            ]
+        elif "hr" in brief_lower or "leave" in brief_lower or "salary" in brief_lower or "employee" in brief_lower:
             agent_type = "hr"
             scope = "OceanTech Global Shore-Based Staff Human Resources (Leave, Compensation, Benefits, and Payroll)"
             audience = "Full-time shore-based employees, line managers, and HR administrators"
@@ -101,25 +120,6 @@ class RequirementsInterviewer:
                 "Personal confidential colleague compensation details",
                 "Unverified medical advice or diagnoses",
                 "Non-company legal counsel"
-            ]
-        elif "procurement" in brief_lower or "spares" in brief_lower or "ship" in brief_lower:
-            agent_type = "procurement"
-            scope = "OceanTech Marine Vessel Spares Sourcing, Catalog Lookup, and Purchase Order Authorization"
-            audience = "Technical Superintendents, Fleet Managers, Chief Engineers, and Procurement Officers"
-            tone = user_answers.get("tone", "Precise, operational, concise, and audit-compliant")
-            must_answer = [
-                "Spare parts catalog search, part ID lookups, and inventory status",
-                "Unit pricing, delivery lead times, and compatibility across vessel types",
-                "Purchase order approval tiers ($5k superintendent, $25k fleet manager, COO sign-off)",
-                "Emergency AOG procurement procedures and authorized air freight surcharges",
-                "Approved supplier payment terms and regional dispatch hubs (Rotterdam, Singapore)",
-                "Class certification requirements (DNV, Lloyd's Register, ABS) and Mill Test Certificates"
-            ]
-            must_refuse = [
-                "Commercial vessel chartering rates and cargo bunker fuel contracts",
-                "Vendor bribes, unapproved suppliers, or bypassing PO authorization limits",
-                "Personnel payroll or HR disputes",
-                "Speculative part substitutions without Class certification"
             ]
         else:
             agent_type = "generic"
