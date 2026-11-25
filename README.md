@@ -2,6 +2,8 @@
 
 **Live Demo:** https://forge-ai-v5kapbchk2c6skg3ppudms.streamlit.app/
 
+![ForgeAI Web UI](assets/ui_preview.jpg)
+
 ForgeAI is an autonomous AI agent factory that takes a user brief and a corpus of internal documents, and autonomously produces a fully configured, tested, and optimized production agent. Rather than manually hand-crafting prompts and configurations, ForgeAI acts as an automated engineering pipeline that interviews the requester, drafts declarative agent specifications, generates synthetic test suites, evaluates performance, and applies iterative surgical optimizations.
 
 ---
