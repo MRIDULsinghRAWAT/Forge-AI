@@ -14,8 +14,188 @@ from chat_runner import ChatRunner
 
 st.set_page_config(page_title="ForgeAI - The Agent That Builds Agents", page_icon="⚡", layout="wide")
 
-st.title("⚡ ForgeAI - Autonomous AI Agent Builder & QA Factory")
-st.markdown("Enter a one-paragraph brief and document folder. ForgeAI will interview, draft, test with 20+ auto-generated cases, optimize, and deliver a production-ready agent.")
+# Custom Digitalists-inspired Neo-Brutalist Theme CSS
+st.markdown("""
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
+
+/* Main canvas background with yellow accent frame */
+html, body, [data-testid="stAppViewContainer"] {
+    background-color: #F4F4F2 !important;
+    color: #111111 !important;
+    font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif !important;
+}
+
+/* Yellow border frame inspired by digitalists.at */
+[data-testid="stAppViewContainer"] {
+    border: 14px solid #FFE600 !important;
+    box-sizing: border-box !important;
+}
+
+/* Header Navbar style banner */
+.brand-banner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #FFE600;
+    padding: 12px 24px;
+    margin: -14px -14px 25px -14px;
+    border-bottom: 2px solid #111111;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+.brand-logo {
+    font-size: 22px;
+    font-weight: 800;
+    color: #111111;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.brand-pill {
+    background: #111111;
+    color: #FFE600;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 2px;
+    text-transform: uppercase;
+}
+
+/* Brutalist Typography */
+h1, h2, h3, h4 {
+    color: #111111 !important;
+    font-family: 'Space Grotesk', sans-serif !important;
+    font-weight: 700 !important;
+    letter-spacing: -1px !important;
+}
+
+/* Cards & containers */
+[data-testid="stVerticalBlock"] > div:has(div.stMarkdown) {
+    border-radius: 0px;
+}
+
+/* Tabs styling */
+.stTabs [data-baseweb="tab-list"] {
+    gap: 8px;
+    background-color: transparent;
+    border-bottom: 2px solid #111111;
+}
+.stTabs [data-baseweb="tab"] {
+    background-color: #FFFFFF !important;
+    color: #111111 !important;
+    border: 2px solid #111111 !important;
+    border-bottom: none !important;
+    font-family: 'Space Grotesk', sans-serif !important;
+    font-weight: 700 !important;
+    border-radius: 0px !important;
+    padding: 10px 20px !important;
+    box-shadow: 3px 3px 0px #111111 !important;
+    margin-bottom: 4px;
+}
+.stTabs [aria-selected="true"] {
+    background-color: #FFE600 !important;
+    color: #111111 !important;
+    box-shadow: 4px 4px 0px #111111 !important;
+}
+
+/* Buttons - Brutalist Black / Yellow */
+div.stButton > button:first-child {
+    background-color: #111111 !important;
+    color: #FFE600 !important;
+    font-family: 'Space Mono', monospace !important;
+    font-weight: 700 !important;
+    font-size: 14px !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    border: 2px solid #111111 !important;
+    border-radius: 0px !important;
+    padding: 12px 28px !important;
+    box-shadow: 4px 4px 0px #FFE600, 6px 6px 0px #111111 !important;
+    transition: all 0.15s ease-in-out !important;
+}
+div.stButton > button:first-child:hover {
+    background-color: #FFE600 !important;
+    color: #111111 !important;
+    box-shadow: 2px 2px 0px #111111 !important;
+    transform: translate(2px, 2px) !important;
+}
+
+/* Inputs & Text Areas */
+div[data-baseweb="input"], div[data-baseweb="textarea"] {
+    background-color: #FFFFFF !important;
+    border: 2px solid #111111 !important;
+    border-radius: 0px !important;
+    box-shadow: 3px 3px 0px #111111 !important;
+}
+input, textarea {
+    color: #111111 !important;
+    font-family: 'Space Grotesk', sans-serif !important;
+}
+
+/* Metric Cards */
+[data-testid="stMetric"] {
+    background-color: #FFFFFF !important;
+    border: 2px solid #111111 !important;
+    box-shadow: 4px 4px 0px #111111 !important;
+    padding: 14px 18px !important;
+}
+[data-testid="stMetricValue"] {
+    font-family: 'Space Mono', monospace !important;
+    font-size: 30px !important;
+    font-weight: 800 !important;
+    color: #111111 !important;
+}
+[data-testid="stMetricLabel"] {
+    font-weight: 700 !important;
+    color: #555555 !important;
+    text-transform: uppercase !important;
+    font-size: 11px !important;
+}
+
+/* Chat Messages */
+[data-testid="stChatMessage"] {
+    background-color: #FFFFFF !important;
+    border: 2px solid #111111 !important;
+    border-radius: 0px !important;
+    box-shadow: 4px 4px 0px #111111 !important;
+    margin-bottom: 12px !important;
+}
+[data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-user"]) {
+    background-color: #FFFDE6 !important;
+    border-left: 8px solid #FFE600 !important;
+}
+[data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-assistant"]) {
+    border-left: 8px solid #111111 !important;
+}
+
+/* Status box */
+div[data-testid="stStatusWidget"] {
+    border: 2px solid #111111 !important;
+    background-color: #FFFFFF !important;
+    border-radius: 0px !important;
+    box-shadow: 4px 4px 0px #111111 !important;
+}
+
+/* Info and Warning alerts */
+div[data-testid="stAlert"] {
+    border-radius: 0px !important;
+    border: 2px solid #111111 !important;
+    box-shadow: 3px 3px 0px #111111 !important;
+    font-family: 'Space Mono', monospace !important;
+    font-size: 13px !important;
+}
+</style>
+
+<div class="brand-banner">
+    <div class="brand-logo">FORGE.AI <span class="brand-pill">SYSTEM V2.0</span></div>
+    <div>AUTONOMOUS AGENT FACTORY & QA PIPELINE</div>
+    <div style="font-family:'Space Mono', monospace; font-size:12px;">STATUS: OPERATIONAL</div>
+</div>
+""", unsafe_allow_html=True)
+
+st.title("ForgeAI — Agent Factory")
+st.markdown("**Autonomous agent builder that interviews, drafts, auto-evaluates, and optimizes AI agents under strict groundability constraints.**")
 
 tabs = st.tabs(["🏭 Build New Agent (Factory)", "💬 Interactive Chat Runner", "📊 Evaluation Reports & Scorecards"])
 
