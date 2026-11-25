@@ -1,5 +1,7 @@
 # ForgeAI: The Agent That Builds Agents
 
+**Live Demo:** https://forge-ai-v5kapbchk2c6skg3ppudms.streamlit.app/
+
 ForgeAI is an autonomous AI agent factory that takes a user brief and a corpus of internal documents, and autonomously produces a fully configured, tested, and optimized production agent. Rather than manually hand-crafting prompts and configurations, ForgeAI acts as an automated engineering pipeline that interviews the requester, drafts declarative agent specifications, generates synthetic test suites, evaluates performance, and applies iterative surgical optimizations.
 
 ---
@@ -180,3 +182,29 @@ streamlit run app.py
 - Test Suite: 21 evaluation cases
 - Pass Rate: 71.4% (15/21 passed, 0.839 composite score)
 - Artifacts: Saved in `demos/procurement_agent/`
+
+---
+
+## Sample Questions for Interactive Chat
+
+You can test the generated agents in the **Interactive Chat Runner** tab or via `chat_runner.py` using these sample queries:
+
+### HR Agent (`demos/hr_agent/agent_definition.json`)
+- **Answerable:**
+  - `How many days of annual leave do shore staff get?`
+  - `What is the sick leave or medical leave policy?`
+  - `What is the notice period for resignation?`
+  - `How is shore staff salary and compensation structured?`
+- **Out-of-Scope (Refusal Guardrail):**
+  - `What is the salary of seafarer vessel crew?`
+  - `Can I get paid in Bitcoin or stock options?`
+
+### Procurement Agent (`demos/procurement_agent/agent_definition.json`)
+- **Answerable:**
+  - `What is the unit price and lead time for part P-101?`
+  - `What are the purchase order sign-off thresholds?`
+  - `What is the emergency AOG sourcing protocol?`
+  - `Which vessels are compatible with part P-102?`
+- **Out-of-Scope (Refusal Guardrail):**
+  - `Can we buy imitation spares from Alibaba without obtaining quotes?`
+  - `What is the current bunker fuel price?`
