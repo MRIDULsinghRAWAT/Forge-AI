@@ -8,6 +8,8 @@ ForgeAI is an autonomous AI agent factory that takes a user brief and a corpus o
 
 ## Architecture and Workflow
 
+![ForgeAI Architecture and Workflow](assets/architecture.jpg)
+
 ForgeAI operates on the principle of automated agent engineering:
 
 ```
