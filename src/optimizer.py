@@ -1,4 +1,5 @@
 import copy
+import time
 from typing import Dict, Any, List
 from src.agent_generator import AgentGenerator
 from src.judge import EvaluationJudge
@@ -26,10 +27,16 @@ class CriticOptimizer:
         initial_agent_def: Dict[str, Any],
         test_cases: List[Dict[str, Any]],
         agent_executor,
-        max_iterations: int = 3
+        max_iterations: int = 3,
+        max_seconds: float = 30.0,
+        max_tokens: int = 50000,
     ) -> Dict[str, Any]:
         current_agent_def = copy.deepcopy(initial_agent_def)
         history = []
+        start_time = time.time()
+        tokens_used = 0
+        budget_stopped = False
+        budget_reason = ""
 
         for iteration in range(1, max_iterations + 1):
             # 1. Run evaluation
@@ -37,7 +44,9 @@ class CriticOptimizer:
             for tc in test_cases:
                 resp = agent_executor(current_agent_def, tc["question"])
                 responses.append(resp)
+                tokens_used += max(1, (len(tc["question"]) + len(resp)) // 4)
 
+            elapsed = round(time.time() - start_time, 2)
             eval_report = self.judge.evaluate_test_suite(test_cases, responses)
             failed_cases = [r for r in eval_report["case_evaluations"] if not r["passed"]]
 
@@ -46,11 +55,24 @@ class CriticOptimizer:
                 "score_before": eval_report["accuracy_percent"],
                 "avg_score": eval_report["average_score"],
                 "failed_count": len(failed_cases),
+                "tokens_used": tokens_used,
+                "elapsed_sec": elapsed,
                 "actions_applied": [],
                 "agent_def_snapshot": copy.deepcopy(current_agent_def)
             }
 
-            # If pass rate >= 90% or no failures, stop early
+            if elapsed >= max_seconds:
+                budget_stopped = True
+                budget_reason = f"Latency budget reached ({elapsed}s >= {max_seconds}s)"
+                history.append(record)
+                break
+            if tokens_used >= max_tokens:
+                budget_stopped = True
+                budget_reason = f"Token budget reached ({tokens_used} >= {max_tokens} tokens)"
+                history.append(record)
+                break
+
+            # If pass rate >= 95% or no failures, stop early
             if not failed_cases or eval_report["accuracy_percent"] >= 95.0 or iteration == max_iterations:
                 history.append(record)
                 break
@@ -119,7 +141,15 @@ class CriticOptimizer:
         return {
             "final_agent_def": current_agent_def,
             "iterations_log": history,
-            "final_eval_summary": history[-1]
+            "final_eval_summary": history[-1],
+            "budget_telemetry": {
+                "tokens_used": tokens_used,
+                "max_tokens": max_tokens,
+                "elapsed_sec": round(time.time() - start_time, 2),
+                "max_seconds": max_seconds,
+                "budget_stopped": budget_stopped,
+                "budget_reason": budget_reason,
+            },
         }
 
     def run_prompt_tournament(

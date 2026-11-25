@@ -529,6 +529,11 @@ with right_workspace:
                         "Out-of-Scope / Refusal Topics (comma-separated):",
                         value=", ".join(reqs.get("out_of_scope_refusals", [])),
                     )
+                    b1, b2 = st.columns(2)
+                    with b1:
+                        max_budget_sec = st.number_input("Max Latency Budget (sec):", min_value=5, max_value=300, value=30)
+                    with b2:
+                        max_budget_tokens = st.number_input("Max Token Budget:", min_value=5000, max_value=500000, value=50000, step=5000)
 
                 if st.button("2. Approve Requirements & Build Agent", type="primary"):
                     # Apply human-edited requirements
@@ -614,8 +619,20 @@ with right_workspace:
                     st.write("**Prompt Tournament Results:**")
                     st.table(tournament["results"])
 
-                    status.write("6. Running Judge & Critic-Optimizer Iteration Loop...")
-                    opt_res = optimizer.optimize_agent(agent_def, test_cases, execute_case, max_iterations=3)
+                    status.write("6. Running Judge & Critic-Optimizer Iteration Loop (with Budget Enforcement)...")
+                    opt_res = optimizer.optimize_agent(
+                        agent_def,
+                        test_cases,
+                        execute_case,
+                        max_iterations=3,
+                        max_seconds=float(max_budget_sec),
+                        max_tokens=int(max_budget_tokens),
+                    )
+                    budget_info = opt_res.get("budget_telemetry", {})
+                    if budget_info.get("budget_stopped"):
+                        st.warning(f"Budget Enforcement triggered: {budget_info.get('budget_reason')}")
+                    else:
+                        st.info(f"Budget Telemetry: {budget_info.get('tokens_used', 0)}/{max_budget_tokens} tokens | {budget_info.get('elapsed_sec', 0)}s/{max_budget_sec}s")
                     final_agent = opt_res["final_agent_def"]
                     history = opt_res["iterations_log"]
 

@@ -1,7 +1,7 @@
 # ForgeAI - Autonomous Agent Build & Evaluation Report
 
 **Generated for:** OceanTech Global Shore-Based Staff Human Resources (Leave, Compensation, Benefits, and Payroll)  
-**Agent ID:** `agent_hr_6299` (Version 3)  
+**Agent ID:** `agent_hr_6299` (Version 1)  
 **Final Eval Accuracy:** **0.0%** (22/25 test cases passing)  
 
 ---
@@ -50,18 +50,6 @@ Use these tools when precise calculations or table lookups are needed.
 OUTPUT CONTRACT:
 Structure your answers clearly using concise paragraphs or bullet points. Include a 'Sources Cited' section at the end of each substantive answer.
 STYLE: Zero speculation. Refuse any out-of-scope or unverified query immediately.
-
-CRITICAL MANDATORY INSTRUCTION: You must strictly reject topics outside your documented scope. If the user asks about seafarer policies, vessel crew rates, bunker fuel, or unauthorized personal data, you MUST immediately answer with a refusal notice stating this is outside authorized scope.
-
-OUTPUT REINFORCEMENT: When providing numbers, dates, or prices, quote the exact values and name the source document explicitly in your explanation.
-
-CLARIFICATION: Do not refuse edge case questions (such as leave notice or combined part orders) if the facts can be derived from the provided document guidelines.
-
-CRITICAL MANDATORY INSTRUCTION: You must strictly reject topics outside your documented scope. If the user asks about seafarer policies, vessel crew rates, bunker fuel, or unauthorized personal data, you MUST immediately answer with a refusal notice stating this is outside authorized scope.
-
-OUTPUT REINFORCEMENT: When providing numbers, dates, or prices, quote the exact values and name the source document explicitly in your explanation.
-
-CLARIFICATION: Do not refuse edge case questions (such as leave notice or combined part orders) if the facts can be derived from the provided document guidelines.
 ```
 
 ---
@@ -71,9 +59,7 @@ The factory autonomously performed surgical adaptations across iterations:
 
 | Iteration | Accuracy | Avg Score | Failures | Actions Applied |
 |---|---|---|---|---|
-| 1 | 88.0% | 0.845 | 3 | Appended strict refusal reinforcement guardrail to system prompt.; Appended explicit citation directive for quantitative facts.; Clarified that edge cases derived from documents are in-scope. |
-| 2 | 88.0% | 0.845 | 3 | Appended strict refusal reinforcement guardrail to system prompt.; Appended explicit citation directive for quantitative facts.; Clarified that edge cases derived from documents are in-scope. |
-| 3 | 88.0% | 0.845 | 3 | Initial baseline run / converged |
+| 1 | 88.0% | 0.845 | 3 | Initial baseline run / converged |
 
 ---
 
