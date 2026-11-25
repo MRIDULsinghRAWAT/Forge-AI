@@ -14,290 +14,368 @@ from chat_runner import ChatRunner
 
 st.set_page_config(page_title="ForgeAI - The Agent That Builds Agents", page_icon="⚡", layout="wide")
 
-# Custom Digitalists Theme with Glassmorphism Effect
+# Clean Dark Theme — Hiregram-inspired
 st.markdown("""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
 
-/* ─── Light background (Digitalists off-white) with yellow frame ─── */
-html, body, [data-testid="stAppViewContainer"] {
-    background-color: #F4F4F2 !important;
-    color: #111111 !important;
-    font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif !important;
+/* ─── All-black canvas ─── */
+html, body, [data-testid="stAppViewContainer"], [data-testid="stApp"] {
+    background-color: #000000 !important;
+    color: #e5e5e5 !important;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
 }
-
-/* Yellow border frame — Digitalists signature */
+[data-testid="stHeader"] {
+    background-color: #000000 !important;
+}
+[data-testid="stToolbar"] {
+    display: none !important;
+}
 [data-testid="stAppViewContainer"] {
-    border: 14px solid #FFE600 !important;
-    box-sizing: border-box !important;
+    border: none !important;
 }
 
-/* Sidebar glass on light */
+/* Sidebar */
 [data-testid="stSidebar"] {
-    background: rgba(255, 255, 255, 0.5) !important;
-    backdrop-filter: blur(20px) !important;
-    -webkit-backdrop-filter: blur(20px) !important;
-    border-right: 1px solid rgba(17, 17, 17, 0.08) !important;
+    background-color: #0a0a0a !important;
+    border-right: 1px solid #1a1a1a !important;
 }
 
-/* ─── Header Banner — solid Digitalists yellow ─── */
+/* ─── Top Banner (Hiregram-style minimal header) ─── */
 .brand-banner {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #FFE600;
-    padding: 12px 24px;
-    margin: -14px -14px 25px -14px;
-    border-bottom: 2px solid #111111;
-    font-weight: 700;
-    letter-spacing: -0.5px;
+    background-color: #000000;
+    padding: 16px 32px;
+    margin: -1rem -1rem 28px -1rem;
+    border-bottom: 1px solid #161616;
 }
 .brand-logo {
-    font-size: 22px;
-    font-weight: 800;
-    color: #111111;
+    font-size: 19px;
+    font-weight: 700;
+    color: #ffffff;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
+    letter-spacing: -0.5px;
+    font-family: 'Inter', sans-serif !important;
+}
+.brand-mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border: 1.5px solid #ffffff;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 700;
+}
+.brand-nav {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.brand-nav-link {
+    color: #888888;
+    font-size: 13px;
+    font-weight: 500;
 }
 .brand-pill {
-    background: #111111;
-    color: #FFE600;
-    font-family: 'Space Mono', monospace;
-    font-size: 11px;
-    padding: 3px 8px;
-    border-radius: 2px;
-    text-transform: uppercase;
+    background: #141414;
+    color: #ffffff;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 6px 16px;
+    border-radius: 9999px;
+    border: 1px solid #2a2a2a;
 }
 
-/* ─── Digitalists Typography ─── */
-h1, h2, h3, h4 {
-    color: #111111 !important;
-    font-family: 'Space Grotesk', sans-serif !important;
-    font-weight: 700 !important;
+/* ─── Hero Editorial Serif Headline ─── */
+.hero-headline {
+    font-family: 'Instrument Serif', Georgia, serif !important;
+    font-size: 52px !important;
+    font-weight: 400 !important;
+    line-height: 1.05 !important;
     letter-spacing: -1px !important;
+    color: #ffffff !important;
+    margin-bottom: 10px !important;
+}
+.hero-headline em {
+    font-style: italic !important;
+    color: #9a9a9a !important;
+    font-family: 'Instrument Serif', Georgia, serif !important;
+}
+.hero-sub {
+    color: #777777 !important;
+    font-size: 14px !important;
+    font-weight: 400 !important;
+    margin-bottom: 28px !important;
 }
 
-/* ─── Glass Card Containers ─── */
+/* ─── Clean Typography ─── */
+h1 {
+    color: #ffffff !important;
+    font-family: 'Instrument Serif', Georgia, serif !important;
+    font-weight: 400 !important;
+    font-size: 42px !important;
+    letter-spacing: -0.8px !important;
+    line-height: 1.1 !important;
+}
+h2 {
+    color: #ffffff !important;
+    font-family: 'Inter', sans-serif !important;
+    font-weight: 600 !important;
+    font-size: 20px !important;
+    letter-spacing: -0.5px !important;
+}
+h3, h4 {
+    color: #d4d4d4 !important;
+    font-family: 'Inter', sans-serif !important;
+    font-weight: 600 !important;
+    letter-spacing: -0.3px !important;
+}
+p, span, label, div {
+    font-family: 'Inter', sans-serif !important;
+}
+
+/* ─── Card Containers ─── */
 [data-testid="stVerticalBlock"] > div:has(div.stMarkdown) {
-    border-radius: 16px;
+    border-radius: 12px;
 }
 
-/* ─── Glass Tabs ─── */
+/* ─── Tabs ─── */
 .stTabs [data-baseweb="tab-list"] {
-    gap: 8px;
+    gap: 4px;
     background-color: transparent;
-    border-bottom: 2px solid #111111;
+    border-bottom: 1px solid #1e1e1e;
+    padding-bottom: 0;
 }
 .stTabs [data-baseweb="tab"] {
-    background: rgba(255, 255, 255, 0.45) !important;
-    backdrop-filter: blur(16px) !important;
-    -webkit-backdrop-filter: blur(16px) !important;
-    color: #111111 !important;
-    border: 1px solid rgba(17, 17, 17, 0.12) !important;
-    border-bottom: none !important;
-    font-family: 'Space Grotesk', sans-serif !important;
-    font-weight: 700 !important;
-    border-radius: 14px 14px 0 0 !important;
-    padding: 10px 20px !important;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06) !important;
-    transition: all 0.25s ease !important;
+    background: transparent !important;
+    color: #666666 !important;
+    border: none !important;
+    border-bottom: 2px solid transparent !important;
+    font-family: 'Inter', sans-serif !important;
+    font-weight: 500 !important;
+    font-size: 14px !important;
+    border-radius: 0 !important;
+    padding: 12px 20px !important;
+    box-shadow: none !important;
+    transition: all 0.2s ease !important;
 }
 .stTabs [data-baseweb="tab"]:hover {
-    background: rgba(255, 230, 0, 0.18) !important;
+    color: #cccccc !important;
 }
 .stTabs [aria-selected="true"] {
-    background: rgba(255, 230, 0, 0.3) !important;
-    color: #111111 !important;
-    border: 1px solid rgba(255, 230, 0, 0.5) !important;
-    border-bottom: none !important;
-    box-shadow: 0 4px 20px rgba(255, 230, 0, 0.15) !important;
+    background: transparent !important;
+    color: #ffffff !important;
+    border-bottom: 2px solid #ffffff !important;
 }
 
-/* ─── Glass Buttons — Digitalists Black/Yellow ─── */
+/* ─── Buttons ─── */
 div.stButton > button:first-child {
-    background: rgba(17, 17, 17, 0.85) !important;
-    backdrop-filter: blur(12px) !important;
-    -webkit-backdrop-filter: blur(12px) !important;
-    color: #FFE600 !important;
-    font-family: 'Space Mono', monospace !important;
-    font-weight: 700 !important;
+    background: #ffffff !important;
+    color: #0a0a0a !important;
+    font-family: 'Inter', sans-serif !important;
+    font-weight: 600 !important;
     font-size: 14px !important;
-    text-transform: uppercase !important;
-    letter-spacing: 0.5px !important;
-    border: 1px solid rgba(17, 17, 17, 0.9) !important;
-    border-radius: 12px !important;
-    padding: 12px 28px !important;
-    box-shadow: 0 8px 32px rgba(17, 17, 17, 0.15) !important;
-    transition: all 0.25s ease !important;
+    letter-spacing: -0.2px !important;
+    border: none !important;
+    border-radius: 8px !important;
+    padding: 10px 24px !important;
+    box-shadow: none !important;
+    transition: all 0.2s ease !important;
+    text-transform: none !important;
 }
 div.stButton > button:first-child:hover {
-    background: rgba(255, 230, 0, 0.9) !important;
-    color: #111111 !important;
-    box-shadow: 0 8px 32px rgba(255, 230, 0, 0.3) !important;
-    transform: translateY(-2px) !important;
-    border-color: #FFE600 !important;
+    background: #e0e0e0 !important;
+    color: #0a0a0a !important;
+    transform: none !important;
+    box-shadow: none !important;
 }
 
-/* ─── Glass Inputs & Text Areas ─── */
+/* ─── Inputs & Text Areas ─── */
 div[data-baseweb="input"], div[data-baseweb="textarea"] {
-    background: rgba(255, 255, 255, 0.5) !important;
-    backdrop-filter: blur(12px) !important;
-    -webkit-backdrop-filter: blur(12px) !important;
-    border: 1px solid rgba(17, 17, 17, 0.1) !important;
-    border-radius: 12px !important;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06) !important;
+    background: #141414 !important;
+    border: 1px solid #2a2a2a !important;
+    border-radius: 8px !important;
+    box-shadow: none !important;
+}
+div[data-baseweb="input"]:focus-within, div[data-baseweb="textarea"]:focus-within {
+    border-color: #444444 !important;
 }
 input, textarea {
-    color: #111111 !important;
-    font-family: 'Space Grotesk', sans-serif !important;
+    color: #e5e5e5 !important;
+    font-family: 'Inter', sans-serif !important;
+    font-size: 14px !important;
 }
 input::placeholder, textarea::placeholder {
-    color: rgba(17, 17, 17, 0.35) !important;
+    color: #555555 !important;
 }
 
 /* Select / Dropdown */
 div[data-baseweb="select"] {
-    background: rgba(255, 255, 255, 0.5) !important;
-    border-radius: 12px !important;
+    background: #141414 !important;
+    border-radius: 8px !important;
 }
 div[data-baseweb="select"] > div {
-    background: rgba(255, 255, 255, 0.5) !important;
-    backdrop-filter: blur(12px) !important;
-    -webkit-backdrop-filter: blur(12px) !important;
-    border: 1px solid rgba(17, 17, 17, 0.1) !important;
-    border-radius: 12px !important;
-    color: #111111 !important;
+    background: #141414 !important;
+    border: 1px solid #2a2a2a !important;
+    border-radius: 8px !important;
+    color: #e5e5e5 !important;
+}
+/* Dropdown menu */
+ul[data-baseweb="menu"] {
+    background: #1a1a1a !important;
+    border: 1px solid #2a2a2a !important;
+}
+li[data-baseweb="menu-item"] {
+    color: #cccccc !important;
+}
+li[data-baseweb="menu-item"]:hover {
+    background: #252525 !important;
 }
 
-/* ─── Glass Metric Cards ─── */
+/* ─── Metric Cards ─── */
 [data-testid="stMetric"] {
-    background: rgba(255, 255, 255, 0.45) !important;
-    backdrop-filter: blur(16px) !important;
-    -webkit-backdrop-filter: blur(16px) !important;
-    border: 1px solid rgba(17, 17, 17, 0.08) !important;
-    border-radius: 16px !important;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08) !important;
-    padding: 18px 20px !important;
+    background: #141414 !important;
+    border: 1px solid #1e1e1e !important;
+    border-radius: 12px !important;
+    box-shadow: none !important;
+    padding: 20px !important;
 }
 [data-testid="stMetricValue"] {
-    font-family: 'Space Mono', monospace !important;
-    font-size: 30px !important;
+    font-family: 'Inter', sans-serif !important;
+    font-size: 32px !important;
     font-weight: 800 !important;
-    color: #111111 !important;
+    color: #ffffff !important;
+    letter-spacing: -1px;
 }
 [data-testid="stMetricLabel"] {
-    font-weight: 700 !important;
-    color: #555555 !important;
+    font-weight: 500 !important;
+    color: #666666 !important;
     text-transform: uppercase !important;
     font-size: 11px !important;
+    letter-spacing: 0.5px !important;
 }
 
-/* ─── Glass Chat Messages ─── */
+/* ─── Chat Messages ─── */
 [data-testid="stChatMessage"] {
-    background: rgba(255, 255, 255, 0.45) !important;
-    backdrop-filter: blur(16px) !important;
-    -webkit-backdrop-filter: blur(16px) !important;
-    border: 1px solid rgba(17, 17, 17, 0.08) !important;
-    border-radius: 16px !important;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06) !important;
-    margin-bottom: 12px !important;
+    background: #141414 !important;
+    border: 1px solid #1e1e1e !important;
+    border-radius: 12px !important;
+    box-shadow: none !important;
+    margin-bottom: 8px !important;
 }
 [data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-user"]) {
-    background: rgba(255, 243, 179, 0.4) !important;
-    border-left: 4px solid #FFE600 !important;
+    background: #1a1a1a !important;
+    border-left: 3px solid #444444 !important;
 }
 [data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-assistant"]) {
-    border-left: 4px solid #111111 !important;
+    border-left: 3px solid #ffffff !important;
 }
 
-/* Chat input container */
+/* Chat input */
 [data-testid="stChatInput"] {
-    background: rgba(255, 255, 255, 0.45) !important;
-    backdrop-filter: blur(12px) !important;
-    -webkit-backdrop-filter: blur(12px) !important;
-    border: 1px solid rgba(17, 17, 17, 0.08) !important;
-    border-radius: 16px !important;
+    background: #141414 !important;
+    border: 1px solid #2a2a2a !important;
+    border-radius: 10px !important;
 }
 [data-testid="stChatInput"] textarea {
-    color: #111111 !important;
+    color: #e5e5e5 !important;
 }
 
-/* ─── Glass Status Widget ─── */
+/* ─── Status Widget ─── */
 div[data-testid="stStatusWidget"] {
-    border: 1px solid rgba(17, 17, 17, 0.08) !important;
-    background: rgba(255, 255, 255, 0.45) !important;
-    backdrop-filter: blur(16px) !important;
-    -webkit-backdrop-filter: blur(16px) !important;
-    border-radius: 16px !important;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06) !important;
+    border: 1px solid #1e1e1e !important;
+    background: #141414 !important;
+    border-radius: 12px !important;
+    box-shadow: none !important;
 }
 
-/* ─── Glass Alerts ─── */
+/* ─── Alerts ─── */
 div[data-testid="stAlert"] {
-    border-radius: 12px !important;
-    border: 1px solid rgba(17, 17, 17, 0.08) !important;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05) !important;
-    font-family: 'Space Mono', monospace !important;
+    border-radius: 10px !important;
+    border: 1px solid #1e1e1e !important;
+    box-shadow: none !important;
+    font-family: 'Inter', sans-serif !important;
     font-size: 13px !important;
-    background: rgba(255, 255, 255, 0.45) !important;
-    backdrop-filter: blur(12px) !important;
-    -webkit-backdrop-filter: blur(12px) !important;
+    background: #141414 !important;
 }
 
-/* ─── Expander Glass ─── */
+/* ─── Expander ─── */
 details {
-    background: rgba(255, 255, 255, 0.4) !important;
-    backdrop-filter: blur(12px) !important;
-    -webkit-backdrop-filter: blur(12px) !important;
-    border: 1px solid rgba(17, 17, 17, 0.06) !important;
-    border-radius: 12px !important;
+    background: #111111 !important;
+    border: 1px solid #1e1e1e !important;
+    border-radius: 10px !important;
+}
+details summary {
+    color: #cccccc !important;
 }
 
-/* ─── Download Button Glass ─── */
+/* ─── Download Button ─── */
 div.stDownloadButton > button {
-    background: rgba(17, 17, 17, 0.08) !important;
-    backdrop-filter: blur(12px) !important;
-    -webkit-backdrop-filter: blur(12px) !important;
-    color: #111111 !important;
-    border: 1px solid rgba(17, 17, 17, 0.12) !important;
-    border-radius: 12px !important;
-    font-family: 'Space Mono', monospace !important;
-    font-weight: 700 !important;
-    transition: all 0.25s ease !important;
+    background: #1a1a1a !important;
+    color: #cccccc !important;
+    border: 1px solid #2a2a2a !important;
+    border-radius: 8px !important;
+    font-family: 'JetBrains Mono', monospace !important;
+    font-weight: 500 !important;
+    font-size: 13px !important;
+    transition: all 0.2s ease !important;
 }
 div.stDownloadButton > button:hover {
-    background: rgba(255, 230, 0, 0.3) !important;
-    transform: translateY(-2px) !important;
-    border-color: #FFE600 !important;
+    background: #252525 !important;
+    color: #ffffff !important;
+    border-color: #444444 !important;
 }
 
 /* ─── Scrollbar ─── */
-::-webkit-scrollbar { width: 8px; }
-::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.03); }
-::-webkit-scrollbar-thumb { background: rgba(17, 17, 17, 0.2); border-radius: 4px; }
-::-webkit-scrollbar-thumb:hover { background: rgba(17, 17, 17, 0.35); }
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #0a0a0a; }
+::-webkit-scrollbar-thumb { background: #2a2a2a; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #3a3a3a; }
 
 /* ─── Markdown ─── */
-.stMarkdown { color: #111111 !important; }
-.stMarkdown a { color: #111111 !important; text-decoration: underline; }
+.stMarkdown { color: #cccccc !important; }
+.stMarkdown a { color: #ffffff !important; text-decoration: underline; text-underline-offset: 3px; }
+.stMarkdown strong { color: #ffffff !important; }
 .stMarkdown code {
-    background: rgba(17, 17, 17, 0.06) !important;
-    color: #111111 !important;
-    border-radius: 6px !important;
+    background: #1a1a1a !important;
+    color: #e5e5e5 !important;
+    border-radius: 4px !important;
     padding: 2px 6px !important;
+    font-family: 'JetBrains Mono', monospace !important;
+    font-size: 13px !important;
+}
+
+/* ─── Label styling ─── */
+.stSelectbox label, .stTextArea label, .stTextInput label {
+    color: #888888 !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.3px !important;
 }
 </style>
 
 <div class="brand-banner">
-    <div class="brand-logo">⚡ FORGE.AI <span class="brand-pill">SYSTEM V2.0</span></div>
-    <div>AUTONOMOUS AGENT FACTORY & QA PIPELINE</div>
-    <div style="font-family:'Space Mono', monospace; font-size:12px;">STATUS: OPERATIONAL</div>
+    <div class="brand-logo"><span class="brand-mark">F</span> forgeai</div>
+    <div class="brand-nav">
+        <span class="brand-nav-link">Factory</span>
+        <span class="brand-nav-link">QA Pipeline</span>
+        <span class="brand-pill"><span style="color:#4ade80;">●</span> v2.0 Online</span>
+    </div>
 </div>
 """, unsafe_allow_html=True)
 
-st.title("ForgeAI — Agent Factory")
-st.markdown("**Autonomous agent builder that interviews, drafts, auto-evaluates, and optimizes AI agents under strict groundability constraints.**")
+st.markdown("""
+<div class="hero-headline">ForgeAI helps you build the agents<br><em>teams stop worrying about.</em></div>
+<div class="hero-sub">Autonomous agent builder that interviews, drafts, auto-evaluates, and optimizes AI agents under strict groundability constraints.</div>
+""", unsafe_allow_html=True)
 
 tabs = st.tabs(["🏭 Build New Agent (Factory)", "💬 Interactive Chat Runner", "📊 Evaluation Reports & Scorecards"])
 
