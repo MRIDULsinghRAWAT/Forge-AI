@@ -603,12 +603,12 @@ with right_workspace:
 
                     status.update(label=f"Agent Built & Certified | Score: {final_scorecards['accuracy_percent']}%", state="complete")
 
-                st.balloons()
-                st.subheader("Agent Generation Summary")
-                st.write(f"**Agent ID:** `{final_agent['agent_id']}` (Version {final_agent['version']})")
-                st.write(f"**Final Accuracy:** `{final_scorecards['accuracy_percent']}%` ({final_scorecards['passed_tests']}/{final_scorecards['total_tests']} tests passed)")
-                st.download_button("Download Agent Definition (JSON)", json.dumps(final_agent, indent=2), "agent_definition.json")
-                st.download_button("Download Evaluation Report (Markdown)", report_md, "performance_report.md")
+                    st.balloons()
+                    st.subheader("Agent Generation Summary")
+                    st.write(f"**Agent ID:** `{final_agent['agent_id']}` (Version {final_agent['version']})")
+                    st.write(f"**Final Accuracy:** `{final_scorecards['accuracy_percent']}%` ({final_scorecards['passed_tests']}/{final_scorecards['total_tests']} tests passed)")
+                    st.download_button("Download Agent Definition (JSON)", json.dumps(final_agent, indent=2), "agent_definition.json")
+                    st.download_button("Download Evaluation Report (Markdown)", report_md, "performance_report.md")
 
         elif st.session_state["active_view"] == 1:
             st.header("Interactive Agent Chat Runner")
