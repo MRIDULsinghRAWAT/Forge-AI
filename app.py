@@ -137,8 +137,11 @@ h3, h4 {
     font-weight: 600 !important;
     letter-spacing: -0.3px !important;
 }
-p, span, label, div {
+p, label {
     font-family: 'Inter', sans-serif !important;
+}
+[data-testid="stIconMaterial"], .material-symbols-rounded {
+    font-family: 'Material Symbols Rounded' !important;
 }
 
 /* ─── Card Containers ─── */
