@@ -722,3 +722,12 @@ with right_workspace:
                 with open(selected_rep, "r", encoding="utf-8") as f:
                     st.markdown(f.read())
 
+st.markdown(
+    """
+    <div style="position: fixed; bottom: 14px; left: 24px; z-index: 999; font-family: 'Inter', sans-serif; font-size: 12px; color: rgba(245, 245, 247, 0.55); letter-spacing: 0.2px; pointer-events: none;">
+        Built by Mridul Singh Rawat
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
+
