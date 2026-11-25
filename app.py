@@ -1,6 +1,7 @@
 import streamlit as st
 import os
 import json
+import base64
 from src.document_loader import DocumentLoader
 from src.rag_pipeline import RAGPipeline
 from src.tool_registry import ToolRegistry
@@ -14,6 +15,19 @@ from chat_runner import ChatRunner
 
 st.set_page_config(page_title="ForgeAI - The Agent That Builds Agents", layout="wide")
 
+_bg_css = ""
+if os.path.exists("assets/forge_bg.jpg"):
+    with open("assets/forge_bg.jpg", "rb") as _img_f:
+        _b64 = base64.b64encode(_img_f.read()).decode()
+    _bg_css = f"""
+    [data-testid="stAppViewContainer"] {{
+        background-image: linear-gradient(rgba(5, 5, 5, 0.80), rgba(5, 5, 5, 0.90)), url("data:image/jpeg;base64,{_b64}") !important;
+        background-size: cover !important;
+        background-position: center !important;
+        background-attachment: fixed !important;
+    }}
+    """
+
 # Clean Dark Theme — Hiregram-inspired
 st.markdown("""
 <style>
@@ -26,7 +40,7 @@ html, body, [data-testid="stAppViewContainer"], [data-testid="stApp"] {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
 }
 [data-testid="stHeader"] {
-    background-color: #000000 !important;
+    background-color: transparent !important;
 }
 [data-testid="stToolbar"] {
     display: none !important;
@@ -34,6 +48,13 @@ html, body, [data-testid="stAppViewContainer"], [data-testid="stApp"] {
 [data-testid="stAppViewContainer"] {
     border: none !important;
 }
+[data-testid="stVerticalBlockBorderWrapper"] {
+    background-color: rgba(14, 14, 16, 0.88) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    border-radius: 14px !important;
+}
+__BG_CSS__
 
 /* Sidebar */
 [data-testid="stSidebar"] {
@@ -46,10 +67,10 @@ html, body, [data-testid="stAppViewContainer"], [data-testid="stApp"] {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #000000;
+    background-color: transparent;
     padding: 16px 32px;
     margin: -1rem -1rem 28px -1rem;
-    border-bottom: 1px solid #161616;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 .brand-logo {
     font-size: 19px;
@@ -179,7 +200,8 @@ p, label {
 }
 
 /* ─── Buttons ─── */
-div.stButton > button[kind="primary"] {
+div.stButton > button[kind="primary"],
+[data-testid="stFormSubmitButton"] > button {
     background: #ffffff !important;
     color: #0a0a0a !important;
     font-family: 'Inter', sans-serif !important;
@@ -193,7 +215,12 @@ div.stButton > button[kind="primary"] {
     transition: all 0.2s ease !important;
     text-transform: none !important;
 }
-div.stButton > button[kind="primary"]:hover {
+div.stButton > button[kind="primary"] p,
+[data-testid="stFormSubmitButton"] > button p {
+    color: #0a0a0a !important;
+}
+div.stButton > button[kind="primary"]:hover,
+[data-testid="stFormSubmitButton"] > button:hover {
     background: #e0e0e0 !important;
     color: #0a0a0a !important;
 }
@@ -417,12 +444,12 @@ div.stDownloadButton > button:hover {
         <span class="brand-pill"><span style="color:#4ade80;">●</span> v2.0 Online</span>
     </div>
 </div>
-""", unsafe_allow_html=True)
+""".replace("__BG_CSS__", _bg_css), unsafe_allow_html=True)
 
 st.markdown("""
 <div class="hero-headline">ForgeAI helps you build the agents<br><em>teams stop worrying about.</em></div>
 <div class="hero-sub">Autonomous agent builder that interviews, drafts, auto-evaluates, and optimizes AI agents under strict groundability constraints.</div>
-""", unsafe_allow_html=True)
+""".replace("__BG_CSS__", _bg_css), unsafe_allow_html=True)
 
 if "active_view" not in st.session_state:
     st.session_state["active_view"] = 0
@@ -619,26 +646,56 @@ with right_workspace:
                 st.warning("No generated agent definitions found yet. Please run the Factory in Tab 1 or run the demonstrations first.")
             else:
                 chosen_agent = st.selectbox("Select Generated Agent to Chat With:", avail_agents)
+                with st.expander("Sample Questions (In-Scope & Out-of-Scope)", expanded=False):
+                    if "hr_agent" in chosen_agent:
+                        st.markdown("""
+**In-Scope (Expect grounded answer with source citations):**
+- `How many days of annual leave do shore staff get?`
+- `What is the sick leave or medical leave policy?`
+- `What is the notice period for resignation?`
+- `How is shore staff salary and compensation structured?`
+
+**Out-of-Scope (Expect strict policy refusal):**
+- `What is the salary of seafarer vessel crew?`
+- `Can I get paid in Bitcoin or stock options?`
+""")
+                    else:
+                        st.markdown("""
+**In-Scope (Expect grounded answer with catalog/policy citations):**
+- `What is the unit price and lead time for part P-101?`
+- `What are the purchase order sign-off thresholds?`
+- `What is the emergency AOG sourcing protocol?`
+- `Which vessels are compatible with part P-102?`
+
+**Out-of-Scope (Expect strict policy refusal):**
+- `Can we buy imitation spares from Alibaba without obtaining quotes?`
+- `What is the current bunker fuel price?`
+""")
                 if "chat_runner_instance" not in st.session_state or st.session_state.get("current_agent_file") != chosen_agent:
                     st.session_state.chat_runner_instance = ChatRunner(chosen_agent)
                     st.session_state.current_agent_file = chosen_agent
                     st.session_state.chat_history = []
 
+                with st.form("chat_form", clear_on_submit=True):
+                    in_col, btn_col = st.columns([0.85, 0.15])
+                    with in_col:
+                        user_msg = st.text_input(
+                            "Ask a question:",
+                            placeholder="Ask a question to the generated agent...",
+                            label_visibility="collapsed",
+                        )
+                    with btn_col:
+                        submitted = st.form_submit_button("Ask", type="primary", use_container_width=True)
+
+                if submitted and user_msg.strip():
+                    st.session_state.chat_history.append({"role": "user", "content": user_msg})
+                    resp = st.session_state.chat_runner_instance.respond(user_msg)
+                    st.session_state.chat_history.append({"role": "assistant", "content": resp["answer"]})
+
                 # Display Chat History
                 for msg in st.session_state.get("chat_history", []):
                     with st.chat_message(msg["role"]):
                         st.write(msg["content"])
-
-                user_msg = st.chat_input("Ask a question to the generated agent...")
-                if user_msg:
-                    st.session_state.chat_history.append({"role": "user", "content": user_msg})
-                    with st.chat_message("user"):
-                        st.write(user_msg)
-
-                    resp = st.session_state.chat_runner_instance.respond(user_msg)
-                    with st.chat_message("assistant"):
-                        st.write(resp["answer"])
-                    st.session_state.chat_history.append({"role": "assistant", "content": resp["answer"]})
 
         elif st.session_state["active_view"] == 2:
             st.header("Evaluation Scorecards & Audit Logs")
