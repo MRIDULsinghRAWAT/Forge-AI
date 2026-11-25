@@ -395,27 +395,69 @@ with tabs[0]:
         if folder_choice == "Custom Folder":
             folder_choice = st.text_input("Enter custom folder path:", "datasets/hr_policies")
 
-    if st.button("Run ForgeAI Factory (End-to-End)", type="primary"):
-        with st.status("ForgeAI Orchestration in progress...", expanded=True) as status:
-            # 1. Load Docs
-            status.write("1. Reading uploaded documents...")
+    if st.button("1. Analyze Documents & Requirements", type="primary"):
+        with st.spinner("Reading documents and running Groundability Guard..."):
             loader = DocumentLoader(folder_choice)
             docs = loader.load_documents()
-            st.info(f"Loaded {len(docs)} documents: {[d['filename'] for d in docs]}")
-
-            # 2. Requirements & Groundability Guard
-            status.write("2. Requirements Interviewer & Groundability Guard...")
             interviewer = RequirementsInterviewer()
             groundability = interviewer.inspect_groundability(brief_input, docs)
-            if groundability["unsupported_flags"]:
-                st.warning(f"Groundability Guard flagged: {groundability['unsupported_flags']}")
             reqs = interviewer.build_requirements_document(brief_input, {}, docs)
+            st.session_state["checkpoint_data"] = {
+                "brief": brief_input,
+                "folder": folder_choice,
+                "docs": docs,
+                "groundability": groundability,
+                "reqs": reqs,
+            }
 
-            # 3. Agent Generator
-            status.write("3. Generating Declarative Agent Definition & Tool Selection...")
-            generator = AgentGenerator()
-            agent_def = generator.generate_agent_definition(brief_input, reqs, docs)
-            st.success(f"Attached Tools: {agent_def['attached_tools']}")
+    if "checkpoint_data" in st.session_state:
+        cp = st.session_state["checkpoint_data"]
+        docs = cp["docs"]
+        groundability = cp["groundability"]
+        reqs = cp["reqs"]
+
+        st.subheader("Step 2: Human Checkpoint — Review & Edit Requirements")
+        st.info(f"Loaded {len(docs)} documents: {[d['filename'] for d in docs]}")
+        if groundability["unsupported_flags"]:
+            st.warning(f"Groundability Guard flagged: {groundability['unsupported_flags']}")
+
+        c_left, c_right = st.columns(2)
+        with c_left:
+            edited_scope = st.text_input("Agent Scope:", value=reqs.get("scope", ""))
+            edited_audience = st.text_input("Target Audience:", value=reqs.get("target_audience", "Internal Staff"))
+            edited_type = st.selectbox(
+                "Agent Domain Type:",
+                ["hr", "procurement"],
+                index=0 if reqs.get("agent_type", "hr") == "hr" else 1,
+            )
+        with c_right:
+            edited_allowed = st.text_input(
+                "Allowed Topics (comma-separated):",
+                value=", ".join(reqs.get("allowed_topics", [])),
+            )
+            edited_refusals = st.text_input(
+                "Out-of-Scope / Refusal Topics (comma-separated):",
+                value=", ".join(reqs.get("out_of_scope_refusals", [])),
+            )
+
+        if st.button("2. Approve Requirements & Build Agent", type="primary"):
+            # Apply human-edited requirements
+            reqs["scope"] = edited_scope.strip()
+            reqs["target_audience"] = edited_audience.strip()
+            reqs["agent_type"] = edited_type
+            reqs["allowed_topics"] = [t.strip() for t in edited_allowed.split(",") if t.strip()]
+            reqs["out_of_scope_refusals"] = [t.strip() for t in edited_refusals.split(",") if t.strip()]
+
+            brief_input = cp["brief"]
+            folder_choice = cp["folder"]
+            loader = DocumentLoader(folder_choice)
+
+            with st.status("ForgeAI Orchestration in progress...", expanded=True) as status:
+                # 3. Agent Generator
+                status.write("3. Generating Declarative Agent Definition & Tool Selection...")
+                generator = AgentGenerator()
+                agent_def = generator.generate_agent_definition(brief_input, reqs, docs)
+                st.success(f"Attached Tools: {agent_def['attached_tools']}")
 
             # 4. Eval Generator
             status.write("4. Auto-generating 20+ Evaluation Test Cases...")
