@@ -608,6 +608,13 @@ with right_workspace:
                         response_text = "\n".join(answer_parts[:4]) + f"\n\nSources Cited:\n" + "\n".join([f"- {c}" for c in citations])
                         return response_text
 
+                    status.write("5. Running Prompt Tournament (3 Candidates)...")
+                    tournament = optimizer.run_prompt_tournament(agent_def, test_cases, execute_case)
+                    agent_def = tournament["winner_agent_def"]
+                    st.write("**Prompt Tournament Results:**")
+                    st.table(tournament["results"])
+
+                    status.write("6. Running Judge & Critic-Optimizer Iteration Loop...")
                     opt_res = optimizer.optimize_agent(agent_def, test_cases, execute_case, max_iterations=3)
                     final_agent = opt_res["final_agent_def"]
                     history = opt_res["iterations_log"]

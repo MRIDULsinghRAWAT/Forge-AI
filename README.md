@@ -187,6 +187,24 @@ streamlit run app.py
 
 ---
 
+## Human Checkpoint Input Examples
+
+When reviewing or editing requirements at **Step 2: Human Checkpoint**, you can use these examples:
+
+### HR Agent (`datasets/hr_policies`)
+- **Allowed Topics (comma-separated):**
+  `annual leave, sick leave, shore staff salary, notice period, benefits, workplace policies`
+- **Out-of-Scope / Refusal Topics (comma-separated):**
+  `seafarer crew salary, vessel crew contracts, bitcoin, stock options, personal tax advice`
+
+### Procurement Agent (`datasets/procurement`)
+- **Allowed Topics (comma-separated):**
+  `spares catalogue, unit pricing, lead times, PO sign-off thresholds, AOG sourcing, vessel compatibility`
+- **Out-of-Scope / Refusal Topics (comma-separated):**
+  `imitation spares, Alibaba sourcing, bunker fuel prices, unapproved vendors`
+
+---
+
 ## Sample Questions for Interactive Chat
 
 You can test the generated agents in the **Interactive Chat Runner** tab or via `chat_runner.py` using these sample queries:

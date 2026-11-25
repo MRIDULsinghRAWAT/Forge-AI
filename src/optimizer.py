@@ -122,3 +122,65 @@ class CriticOptimizer:
             "final_eval_summary": history[-1]
         }
 
+    def run_prompt_tournament(
+        self,
+        base_agent_def: Dict[str, Any],
+        test_cases: List[Dict[str, Any]],
+        agent_executor,
+    ) -> Dict[str, Any]:
+        """
+        Generates 3 candidate system prompt / retrieval variants, evaluates all 3
+        on the test suite, and selects the highest-scoring winner.
+        """
+        base_prompt = base_agent_def.get("system_prompt", "")
+        base_k = base_agent_def.get("retrieval_config", {}).get("top_k", 3)
+
+        candidates = [
+            (
+                "Candidate A: Concise & Direct",
+                base_prompt + "\nSTYLE: Answer in concise bullet points with exact source citations.",
+                base_k,
+            ),
+            (
+                "Candidate B: Detailed & Structured",
+                base_prompt + "\nSTYLE: Provide structured policy breakdowns, cite every figure, and state explicit boundaries.",
+                min(base_k + 2, 6),
+            ),
+            (
+                "Candidate C: Conservative & Guarded",
+                base_prompt + "\nSTYLE: Zero speculation. Refuse any out-of-scope or unverified query immediately.",
+                max(base_k, 3),
+            ),
+        ]
+
+        results = []
+        best_def = base_agent_def
+        best_score = -1.0
+
+        for name, prompt_text, top_k in candidates:
+            cand_def = copy.deepcopy(base_agent_def)
+            cand_def["system_prompt"] = prompt_text
+            cand_def.setdefault("retrieval_config", {})["top_k"] = top_k
+
+            responses = [agent_executor(cand_def, tc["question"]) for tc in test_cases]
+            eval_report = self.judge.evaluate_test_suite(test_cases, responses)
+            acc = eval_report["accuracy_percent"]
+            avg = eval_report["average_score"]
+
+            results.append({
+                "Candidate": name,
+                "top_k": top_k,
+                "Accuracy (%)": acc,
+                "Avg Score": avg,
+                "Passed": f"{eval_report['passed_tests']}/{eval_report['total_tests']}",
+            })
+
+            if (acc, avg) > (best_score, -1.0):
+                best_score = acc
+                best_def = cand_def
+
+        return {
+            "winner_agent_def": best_def,
+            "results": results,
+        }
+

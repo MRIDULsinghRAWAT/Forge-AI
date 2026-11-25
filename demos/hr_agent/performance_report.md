@@ -1,7 +1,7 @@
 # ForgeAI - Autonomous Agent Build & Evaluation Report
 
 **Generated for:** OceanTech Global Shore-Based Staff Human Resources (Leave, Compensation, Benefits, and Payroll)  
-**Agent ID:** `agent_hr_1338` (Version 3)  
+**Agent ID:** `agent_hr_6299` (Version 3)  
 **Final Eval Accuracy:** **0.0%** (22/25 test cases passing)  
 
 ---
@@ -49,6 +49,7 @@ Use these tools when precise calculations or table lookups are needed.
 
 OUTPUT CONTRACT:
 Structure your answers clearly using concise paragraphs or bullet points. Include a 'Sources Cited' section at the end of each substantive answer.
+STYLE: Zero speculation. Refuse any out-of-scope or unverified query immediately.
 
 CRITICAL MANDATORY INSTRUCTION: You must strictly reject topics outside your documented scope. If the user asks about seafarer policies, vessel crew rates, bunker fuel, or unauthorized personal data, you MUST immediately answer with a refusal notice stating this is outside authorized scope.
 
