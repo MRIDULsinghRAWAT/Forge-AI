@@ -12,7 +12,7 @@ from src.optimizer import CriticOptimizer
 from src.report_generator import ReportGenerator
 from chat_runner import ChatRunner
 
-st.set_page_config(page_title="ForgeAI - The Agent That Builds Agents", page_icon="⚡", layout="wide")
+st.set_page_config(page_title="ForgeAI - The Agent That Builds Agents", layout="wide")
 
 # Clean Dark Theme — Hiregram-inspired
 st.markdown("""
@@ -377,7 +377,7 @@ st.markdown("""
 <div class="hero-sub">Autonomous agent builder that interviews, drafts, auto-evaluates, and optimizes AI agents under strict groundability constraints.</div>
 """, unsafe_allow_html=True)
 
-tabs = st.tabs(["🏭 Build New Agent (Factory)", "💬 Interactive Chat Runner", "📊 Evaluation Reports & Scorecards"])
+tabs = st.tabs(["Build New Agent (Factory)", "Interactive Chat Runner", "Evaluation Reports & Scorecards"])
 
 # TAB 1: FACTORY
 with tabs[0]:
@@ -392,16 +392,16 @@ with tabs[0]:
         if folder_choice == "Custom Folder":
             folder_choice = st.text_input("Enter custom folder path:", "datasets/hr_policies")
 
-    if st.button("🚀 Run ForgeAI Factory (End-to-End)", type="primary"):
+    if st.button("Run ForgeAI Factory (End-to-End)", type="primary"):
         with st.status("ForgeAI Orchestration in progress...", expanded=True) as status:
             # 1. Load Docs
-            status.write("📂 1. Reading uploaded documents...")
+            status.write("1. Reading uploaded documents...")
             loader = DocumentLoader(folder_choice)
             docs = loader.load_documents()
             st.info(f"Loaded {len(docs)} documents: {[d['filename'] for d in docs]}")
 
             # 2. Requirements & Groundability Guard
-            status.write("🛡️ 2. Requirements Interviewer & Groundability Guard...")
+            status.write("2. Requirements Interviewer & Groundability Guard...")
             interviewer = RequirementsInterviewer()
             groundability = interviewer.inspect_groundability(brief_input, docs)
             if groundability["unsupported_flags"]:
@@ -409,20 +409,20 @@ with tabs[0]:
             reqs = interviewer.build_requirements_document(brief_input, {}, docs)
 
             # 3. Agent Generator
-            status.write("⚙️ 3. Generating Declarative Agent Definition & Tool Selection...")
+            status.write("3. Generating Declarative Agent Definition & Tool Selection...")
             generator = AgentGenerator()
             agent_def = generator.generate_agent_definition(brief_input, reqs, docs)
             st.success(f"Attached Tools: {agent_def['attached_tools']}")
 
             # 4. Eval Generator
-            status.write("🧪 4. Auto-generating 20+ Evaluation Test Cases...")
+            status.write("4. Auto-generating 20+ Evaluation Test Cases...")
             eval_gen = EvalGenerator()
             agent_type = reqs.get("agent_type", "hr")
             test_cases = eval_gen.generate_evaluation_set(agent_type, docs)
             st.info(f"Generated {len(test_cases)} evaluation cases (Answerable, Out-of-Scope, Edge Cases)")
 
             # 5. Judge + Critic-Optimizer
-            status.write("🎯 5. Running Judge & Critic-Optimizer Iteration Loop...")
+            status.write("5. Running Judge & Critic-Optimizer Iteration Loop...")
             judge = EvaluationJudge()
             optimizer = CriticOptimizer(generator, judge)
             
@@ -478,7 +478,7 @@ with tabs[0]:
             history = opt_res["iterations_log"]
 
             # 6. Report Generator
-            status.write("📋 6. Generating Honest Performance Report...")
+            status.write("6. Generating Honest Performance Report...")
             report_gen = ReportGenerator()
             final_summary = history[-1]
             # full scorecards
@@ -493,14 +493,14 @@ with tabs[0]:
             demo_dir = f"demos/{agent_type}_agent"
             report_gen.save_artifacts(demo_dir, report_md, final_agent, test_cases, final_scorecards)
 
-            status.update(label=f"✅ Agent Built & Certified! Score: {final_scorecards['accuracy_percent']}%", state="complete")
+            status.update(label=f"Agent Built & Certified | Score: {final_scorecards['accuracy_percent']}%", state="complete")
 
         st.balloons()
         st.subheader("Agent Generation Summary")
         st.write(f"**Agent ID:** `{final_agent['agent_id']}` (Version {final_agent['version']})")
         st.write(f"**Final Accuracy:** `{final_scorecards['accuracy_percent']}%` ({final_scorecards['passed_tests']}/{final_scorecards['total_tests']} tests passed)")
-        st.download_button("📥 Download Agent Definition (JSON)", json.dumps(final_agent, indent=2), "agent_definition.json")
-        st.download_button("📥 Download Evaluation Report (Markdown)", report_md, "performance_report.md")
+        st.download_button("Download Agent Definition (JSON)", json.dumps(final_agent, indent=2), "agent_definition.json")
+        st.download_button("Download Evaluation Report (Markdown)", report_md, "performance_report.md")
 
 # TAB 2: CHAT RUNNER
 with tabs[1]:

@@ -28,7 +28,7 @@ def run_factory_demo(brief: str, data_folder: str, demo_output_dir: str):
     groundability = interviewer.inspect_groundability(brief, docs)
     print(f"[2] Groundability Guard: {len(groundability['supported_topics'])} supported topics, {len(groundability['unsupported_flags'])} unsupported flags")
     for flag in groundability["unsupported_flags"]:
-        print(f"    ⚠️  FLAG: {flag}")
+        print(f"    FLAG: {flag}")
 
     reqs = interviewer.build_requirements_document(brief, {}, docs)
 
@@ -120,5 +120,5 @@ if __name__ == "__main__":
     brief_proc = "I need a ship-spares procurement assistant over a catalogue CSV plus supplier and purchasing protocol PDFs."
     run_factory_demo(brief_proc, "datasets/procurement", "demos/procurement_agent")
 
-    print("\n✅ BOTH DEMO RUNS COMPLETED AND COMMITTED SUCCESSFULLY.")
+    print("\nBOTH DEMO RUNS COMPLETED AND COMMITTED SUCCESSFULLY.")
 

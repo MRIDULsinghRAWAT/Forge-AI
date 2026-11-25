@@ -52,7 +52,7 @@ class ReportGenerator:
 
         # Groundability Guard section
         unsupported = requirements.get("groundability_assessment", {}).get("unsupported_flags", [])
-        groundability_text = "\n".join([f"- ⚠️ {u}" for u in unsupported]) if unsupported else "No unsupported requests detected in brief."
+        groundability_text = "\n".join([f"- [FLAG] {u}" for u in unsupported]) if unsupported else "No unsupported requests detected in brief."
 
         report = f"""# ForgeAI - Autonomous Agent Build & Evaluation Report
 
