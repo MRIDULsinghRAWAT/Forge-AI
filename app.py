@@ -14,183 +14,319 @@ from chat_runner import ChatRunner
 
 st.set_page_config(page_title="ForgeAI - The Agent That Builds Agents", page_icon="⚡", layout="wide")
 
-# Custom Digitalists-inspired Neo-Brutalist Theme CSS
+# Custom Glassmorphism Theme CSS with Digitalists Yellow Accent
 st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
 
-/* Main canvas background with yellow accent frame */
+/* ─── Deep gradient background for glass effect ─── */
 html, body, [data-testid="stAppViewContainer"] {
-    background-color: #F4F4F2 !important;
-    color: #111111 !important;
+    background: linear-gradient(135deg, #0f0c29 0%, #1a1a3e 25%, #24243e 50%, #0f3460 75%, #1a1a2e 100%) !important;
+    background-attachment: fixed !important;
+    color: #f0f0f0 !important;
     font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif !important;
 }
 
-/* Yellow border frame inspired by digitalists.at */
+/* Full-page background override */
 [data-testid="stAppViewContainer"] {
-    border: 14px solid #FFE600 !important;
-    box-sizing: border-box !important;
+    border: none !important;
 }
 
-/* Header Navbar style banner */
+/* Sidebar glass */
+[data-testid="stSidebar"] {
+    background: rgba(15, 15, 40, 0.6) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+}
+
+/* ─── Animated gradient orbs behind content (decorative) ─── */
+[data-testid="stAppViewContainer"]::before {
+    content: '';
+    position: fixed;
+    top: -120px;
+    right: -120px;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(255, 230, 0, 0.15) 0%, transparent 70%);
+    border-radius: 50%;
+    z-index: 0;
+    pointer-events: none;
+}
+[data-testid="stAppViewContainer"]::after {
+    content: '';
+    position: fixed;
+    bottom: -100px;
+    left: -100px;
+    width: 450px;
+    height: 450px;
+    background: radial-gradient(circle, rgba(0, 100, 255, 0.12) 0%, transparent 70%);
+    border-radius: 50%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* ─── Glass Header Banner ─── */
 .brand-banner {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #FFE600;
-    padding: 12px 24px;
-    margin: -14px -14px 25px -14px;
-    border-bottom: 2px solid #111111;
+    background: rgba(255, 230, 0, 0.12);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    padding: 14px 28px;
+    margin: -1rem -1rem 25px -1rem;
+    border-bottom: 1px solid rgba(255, 230, 0, 0.3);
     font-weight: 700;
     letter-spacing: -0.5px;
+    color: #f0f0f0;
 }
 .brand-logo {
     font-size: 22px;
     font-weight: 800;
-    color: #111111;
+    color: #FFE600;
     display: flex;
     align-items: center;
     gap: 8px;
+    text-shadow: 0 0 20px rgba(255, 230, 0, 0.3);
 }
 .brand-pill {
-    background: #111111;
+    background: rgba(255, 230, 0, 0.2);
     color: #FFE600;
     font-family: 'Space Mono', monospace;
     font-size: 11px;
-    padding: 3px 8px;
-    border-radius: 2px;
+    padding: 3px 10px;
+    border-radius: 20px;
     text-transform: uppercase;
+    border: 1px solid rgba(255, 230, 0, 0.35);
 }
 
-/* Brutalist Typography */
+/* ─── Glass Typography ─── */
 h1, h2, h3, h4 {
-    color: #111111 !important;
+    color: #FFFFFF !important;
     font-family: 'Space Grotesk', sans-serif !important;
     font-weight: 700 !important;
     letter-spacing: -1px !important;
 }
-
-/* Cards & containers */
-[data-testid="stVerticalBlock"] > div:has(div.stMarkdown) {
-    border-radius: 0px;
+p, span, label, div {
+    color: #e0e0e0;
 }
 
-/* Tabs styling */
+/* ─── Glass Card Mixin (applied everywhere) ─── */
+[data-testid="stVerticalBlock"] > div:has(div.stMarkdown) {
+    border-radius: 16px;
+}
+
+/* ─── Glass Tabs ─── */
 .stTabs [data-baseweb="tab-list"] {
     gap: 8px;
     background-color: transparent;
-    border-bottom: 2px solid #111111;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 .stTabs [data-baseweb="tab"] {
-    background-color: #FFFFFF !important;
-    color: #111111 !important;
-    border: 2px solid #111111 !important;
+    background: rgba(255, 255, 255, 0.06) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    color: #cccccc !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
     border-bottom: none !important;
     font-family: 'Space Grotesk', sans-serif !important;
     font-weight: 700 !important;
-    border-radius: 0px !important;
+    border-radius: 12px 12px 0 0 !important;
     padding: 10px 20px !important;
-    box-shadow: 3px 3px 0px #111111 !important;
-    margin-bottom: 4px;
+    box-shadow: none !important;
+    transition: all 0.25s ease !important;
+}
+.stTabs [data-baseweb="tab"]:hover {
+    background: rgba(255, 230, 0, 0.08) !important;
+    color: #FFE600 !important;
 }
 .stTabs [aria-selected="true"] {
-    background-color: #FFE600 !important;
-    color: #111111 !important;
-    box-shadow: 4px 4px 0px #111111 !important;
+    background: rgba(255, 230, 0, 0.15) !important;
+    color: #FFE600 !important;
+    border: 1px solid rgba(255, 230, 0, 0.35) !important;
+    border-bottom: none !important;
+    box-shadow: 0 0 20px rgba(255, 230, 0, 0.1) !important;
 }
 
-/* Buttons - Brutalist Black / Yellow */
+/* ─── Glass Buttons ─── */
 div.stButton > button:first-child {
-    background-color: #111111 !important;
+    background: rgba(255, 230, 0, 0.15) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
     color: #FFE600 !important;
     font-family: 'Space Mono', monospace !important;
     font-weight: 700 !important;
     font-size: 14px !important;
     text-transform: uppercase !important;
     letter-spacing: 0.5px !important;
-    border: 2px solid #111111 !important;
-    border-radius: 0px !important;
+    border: 1px solid rgba(255, 230, 0, 0.35) !important;
+    border-radius: 12px !important;
     padding: 12px 28px !important;
-    box-shadow: 4px 4px 0px #FFE600, 6px 6px 0px #111111 !important;
-    transition: all 0.15s ease-in-out !important;
+    box-shadow: 0 8px 32px rgba(255, 230, 0, 0.1) !important;
+    transition: all 0.25s ease !important;
 }
 div.stButton > button:first-child:hover {
-    background-color: #FFE600 !important;
+    background: rgba(255, 230, 0, 0.25) !important;
     color: #111111 !important;
-    box-shadow: 2px 2px 0px #111111 !important;
-    transform: translate(2px, 2px) !important;
+    box-shadow: 0 8px 32px rgba(255, 230, 0, 0.25) !important;
+    transform: translateY(-2px) !important;
+    border-color: rgba(255, 230, 0, 0.6) !important;
 }
 
-/* Inputs & Text Areas */
+/* ─── Glass Inputs & Text Areas ─── */
 div[data-baseweb="input"], div[data-baseweb="textarea"] {
-    background-color: #FFFFFF !important;
-    border: 2px solid #111111 !important;
-    border-radius: 0px !important;
-    box-shadow: 3px 3px 0px #111111 !important;
+    background: rgba(255, 255, 255, 0.06) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    border-radius: 12px !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15) !important;
 }
 input, textarea {
-    color: #111111 !important;
+    color: #f0f0f0 !important;
     font-family: 'Space Grotesk', sans-serif !important;
 }
+input::placeholder, textarea::placeholder {
+    color: rgba(255, 255, 255, 0.4) !important;
+}
 
-/* Metric Cards */
+/* Select / Dropdown */
+div[data-baseweb="select"] {
+    background: rgba(255, 255, 255, 0.06) !important;
+    border-radius: 12px !important;
+}
+div[data-baseweb="select"] > div {
+    background: rgba(255, 255, 255, 0.06) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    border-radius: 12px !important;
+    color: #f0f0f0 !important;
+}
+
+/* ─── Glass Metric Cards ─── */
 [data-testid="stMetric"] {
-    background-color: #FFFFFF !important;
-    border: 2px solid #111111 !important;
-    box-shadow: 4px 4px 0px #111111 !important;
-    padding: 14px 18px !important;
+    background: rgba(255, 255, 255, 0.08) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    border-radius: 16px !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2) !important;
+    padding: 18px 20px !important;
 }
 [data-testid="stMetricValue"] {
     font-family: 'Space Mono', monospace !important;
     font-size: 30px !important;
     font-weight: 800 !important;
-    color: #111111 !important;
+    color: #FFE600 !important;
+    text-shadow: 0 0 10px rgba(255, 230, 0, 0.2);
 }
 [data-testid="stMetricLabel"] {
     font-weight: 700 !important;
-    color: #555555 !important;
+    color: rgba(255, 255, 255, 0.6) !important;
     text-transform: uppercase !important;
     font-size: 11px !important;
 }
 
-/* Chat Messages */
+/* ─── Glass Chat Messages ─── */
 [data-testid="stChatMessage"] {
-    background-color: #FFFFFF !important;
-    border: 2px solid #111111 !important;
-    border-radius: 0px !important;
-    box-shadow: 4px 4px 0px #111111 !important;
+    background: rgba(255, 255, 255, 0.07) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    border-radius: 16px !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15) !important;
     margin-bottom: 12px !important;
 }
 [data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-user"]) {
-    background-color: #FFFDE6 !important;
-    border-left: 8px solid #FFE600 !important;
+    background: rgba(255, 230, 0, 0.08) !important;
+    border-left: 4px solid rgba(255, 230, 0, 0.5) !important;
 }
 [data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-assistant"]) {
-    border-left: 8px solid #111111 !important;
+    border-left: 4px solid rgba(100, 150, 255, 0.4) !important;
 }
 
-/* Status box */
+/* Chat input container */
+[data-testid="stChatInput"] {
+    background: rgba(255, 255, 255, 0.06) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    border-radius: 16px !important;
+}
+[data-testid="stChatInput"] textarea {
+    color: #f0f0f0 !important;
+}
+
+/* ─── Glass Status Widget ─── */
 div[data-testid="stStatusWidget"] {
-    border: 2px solid #111111 !important;
-    background-color: #FFFFFF !important;
-    border-radius: 0px !important;
-    box-shadow: 4px 4px 0px #111111 !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    background: rgba(255, 255, 255, 0.07) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    border-radius: 16px !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15) !important;
 }
 
-/* Info and Warning alerts */
+/* ─── Glass Alerts ─── */
 div[data-testid="stAlert"] {
-    border-radius: 0px !important;
-    border: 2px solid #111111 !important;
-    box-shadow: 3px 3px 0px #111111 !important;
+    border-radius: 12px !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1) !important;
     font-family: 'Space Mono', monospace !important;
     font-size: 13px !important;
+    background: rgba(255, 255, 255, 0.06) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+}
+
+/* ─── Expander Glass ─── */
+details {
+    background: rgba(255, 255, 255, 0.05) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 12px !important;
+}
+
+/* ─── Download Button Glass ─── */
+div.stDownloadButton > button {
+    background: rgba(100, 150, 255, 0.12) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    color: #a0c4ff !important;
+    border: 1px solid rgba(100, 150, 255, 0.3) !important;
+    border-radius: 12px !important;
+    font-family: 'Space Mono', monospace !important;
+    font-weight: 700 !important;
+    transition: all 0.25s ease !important;
+}
+div.stDownloadButton > button:hover {
+    background: rgba(100, 150, 255, 0.22) !important;
+    transform: translateY(-2px) !important;
+}
+
+/* ─── Scrollbar styling ─── */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.1); }
+::-webkit-scrollbar-thumb { background: rgba(255, 230, 0, 0.3); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255, 230, 0, 0.5); }
+
+/* ─── Markdown inside glass ─── */
+.stMarkdown { color: #e0e0e0 !important; }
+.stMarkdown a { color: #FFE600 !important; }
+.stMarkdown code {
+    background: rgba(255, 255, 255, 0.08) !important;
+    color: #FFE600 !important;
+    border-radius: 6px !important;
+    padding: 2px 6px !important;
 }
 </style>
 
 <div class="brand-banner">
-    <div class="brand-logo">FORGE.AI <span class="brand-pill">SYSTEM V2.0</span></div>
-    <div>AUTONOMOUS AGENT FACTORY & QA PIPELINE</div>
-    <div style="font-family:'Space Mono', monospace; font-size:12px;">STATUS: OPERATIONAL</div>
+    <div class="brand-logo">⚡ FORGE.AI <span class="brand-pill">SYSTEM V2.0</span></div>
+    <div style="color: rgba(255,255,255,0.7);">AUTONOMOUS AGENT FACTORY & QA PIPELINE</div>
+    <div style="font-family:'Space Mono', monospace; font-size:12px; color: #4ade80;">● STATUS: OPERATIONAL</div>
 </div>
 """, unsafe_allow_html=True)
 
