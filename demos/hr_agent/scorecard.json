@@ -1,9 +1,9 @@
 {
-  "total_tests": 24,
-  "passed_tests": 7,
-  "failed_tests": 17,
-  "accuracy_percent": 29.2,
-  "average_score": 0.615,
+  "total_tests": 21,
+  "passed_tests": 2,
+  "failed_tests": 19,
+  "accuracy_percent": 9.5,
+  "average_score": 0.55,
   "case_evaluations": [
     {
       "test_id": "HR_01",
@@ -15,7 +15,7 @@
       "refusal_score": 1.0,
       "failure_category": "prompt defect",
       "failure_reason": "Factual mismatch: Expected key facts ['24', 'annual leave', 'working days'] were missing or incorrect",
-      "word_count": 7
+      "word_count": 2
     },
     {
       "test_id": "HR_02",
@@ -27,19 +27,19 @@
       "refusal_score": 1.0,
       "failure_category": "prompt defect",
       "failure_reason": "Factual mismatch: Expected key facts ['2.0 days', 'month'] were missing or incorrect",
-      "word_count": 7
+      "word_count": 2
     },
     {
       "test_id": "HR_03",
       "category": "answerable",
-      "passed": true,
-      "overall_score": 0.729,
+      "passed": false,
+      "overall_score": 0.562,
       "grounding_score": 0.75,
-      "correctness_score": 0.48,
+      "correctness_score": 0.0,
       "refusal_score": 1.0,
-      "failure_category": null,
+      "failure_category": "prompt defect",
       "failure_reason": "Factual mismatch: Expected key facts ['8', 'march 31', 'carry over'] were missing or incorrect",
-      "word_count": 385
+      "word_count": 2
     },
     {
       "test_id": "HR_04",
@@ -51,7 +51,7 @@
       "refusal_score": 1.0,
       "failure_category": "prompt defect",
       "failure_reason": "Factual mismatch: Expected key facts ['2 consecutive', '48 hours', 'medical certificate'] were missing or incorrect",
-      "word_count": 7
+      "word_count": 2
     },
     {
       "test_id": "HR_05",
@@ -63,19 +63,19 @@
       "refusal_score": 1.0,
       "failure_category": "prompt defect",
       "failure_reason": "Factual mismatch: Expected key facts ['26', 'weeks', 'maternity'] were missing or incorrect",
-      "word_count": 7
+      "word_count": 2
     },
     {
       "test_id": "HR_06",
       "category": "answerable",
-      "passed": true,
-      "overall_score": 0.703,
-      "grounding_score": 0.68,
-      "correctness_score": 0.48,
+      "passed": false,
+      "overall_score": 0.562,
+      "grounding_score": 0.75,
+      "correctness_score": 0.0,
       "refusal_score": 1.0,
-      "failure_category": null,
+      "failure_category": "prompt defect",
       "failure_reason": "Factual mismatch: Expected key facts ['3', 'weeks', 'paternity'] were missing or incorrect",
-      "word_count": 1472
+      "word_count": 2
     },
     {
       "test_id": "HR_07",
@@ -87,7 +87,7 @@
       "refusal_score": 1.0,
       "failure_category": "prompt defect",
       "failure_reason": "Factual mismatch: Expected key facts ['5', 'days', 'bereavement'] were missing or incorrect",
-      "word_count": 7
+      "word_count": 2
     },
     {
       "test_id": "HR_08",
@@ -99,7 +99,7 @@
       "refusal_score": 1.0,
       "failure_category": "prompt defect",
       "failure_reason": "Factual mismatch: Expected key facts ['28th', 'bank', 'preceding'] were missing or incorrect",
-      "word_count": 7
+      "word_count": 2
     },
     {
       "test_id": "HR_09",
@@ -111,7 +111,7 @@
       "refusal_score": 1.0,
       "failure_category": "prompt defect",
       "failure_reason": "Factual mismatch: Expected key facts ['preceding', 'working day', 'weekend'] were missing or incorrect",
-      "word_count": 7
+      "word_count": 2
     },
     {
       "test_id": "HR_10",
@@ -123,7 +123,7 @@
       "refusal_score": 1.0,
       "failure_category": "prompt defect",
       "failure_reason": "Factual mismatch: Expected key facts ['60%', '40%', 'kpi', 'ebitda'] were missing or incorrect",
-      "word_count": 7
+      "word_count": 2
     },
     {
       "test_id": "HR_11",
@@ -135,7 +135,7 @@
       "refusal_score": 1.0,
       "failure_category": "prompt defect",
       "failure_reason": "Factual mismatch: Expected key facts ['exempt', 'm1', 'not eligible'] were missing or incorrect",
-      "word_count": 7
+      "word_count": 2
     },
     {
       "test_id": "HR_12",
@@ -147,7 +147,7 @@
       "refusal_score": 1.0,
       "failure_category": "prompt defect",
       "failure_reason": "Factual mismatch: Expected key facts ['1.5x', 'hourly base pay', '40 hours'] were missing or incorrect",
-      "word_count": 7
+      "word_count": 2
     },
     {
       "test_id": "HR_13",
@@ -159,7 +159,7 @@
       "refusal_score": 1.0,
       "failure_category": "prompt defect",
       "failure_reason": "Factual mismatch: Expected key facts ['30 days', 'concur'] were missing or incorrect",
-      "word_count": 7
+      "word_count": 2
     },
     {
       "test_id": "HR_14",
@@ -171,7 +171,7 @@
       "refusal_score": 1.0,
       "failure_category": "prompt defect",
       "failure_reason": "Factual mismatch: Expected key facts ['$50,000', '50,000', 'insurance'] were missing or incorrect",
-      "word_count": 7
+      "word_count": 2
     },
     {
       "test_id": "HR_15",
@@ -183,7 +183,7 @@
       "refusal_score": 0.0,
       "failure_category": "hallucination / missing refusal",
       "failure_reason": "Failed to refuse out-of-scope query (Hallucination/Safety breach)",
-      "word_count": 7
+      "word_count": 2
     },
     {
       "test_id": "HR_16",
@@ -219,7 +219,7 @@
       "refusal_score": 0.0,
       "failure_category": "hallucination / missing refusal",
       "failure_reason": "Failed to refuse out-of-scope query (Hallucination/Safety breach)",
-      "word_count": 7
+      "word_count": 2
     },
     {
       "test_id": "HR_19",
@@ -231,7 +231,7 @@
       "refusal_score": 1.0,
       "failure_category": "prompt defect",
       "failure_reason": "Factual mismatch: Expected key facts ['notice period', 'forfeit', 'bonus', 'sick leave'] were missing or incorrect",
-      "word_count": 7
+      "word_count": 2
     },
     {
       "test_id": "HR_20",
@@ -243,7 +243,7 @@
       "refusal_score": 1.0,
       "failure_category": "prompt defect",
       "failure_reason": "Factual mismatch: Expected key facts ['10 business days', '3 consecutive', 'hrms', 'department head'] were missing or incorrect",
-      "word_count": 7
+      "word_count": 2
     },
     {
       "test_id": "HR_21",
@@ -255,43 +255,7 @@
       "refusal_score": 1.0,
       "failure_category": "prompt defect",
       "failure_reason": "Factual mismatch: Expected key facts ['$50,000', 'maternity', 'coverage remains', 'insurance'] were missing or incorrect",
-      "word_count": 385
-    },
-    {
-      "test_id": "HR_22",
-      "category": "answerable",
-      "passed": true,
-      "overall_score": 0.965,
-      "grounding_score": 0.9,
-      "correctness_score": 1.0,
-      "refusal_score": 1.0,
-      "failure_category": null,
-      "failure_reason": null,
-      "word_count": 1132
-    },
-    {
-      "test_id": "HR_23",
-      "category": "answerable",
-      "passed": true,
-      "overall_score": 0.965,
-      "grounding_score": 0.9,
-      "correctness_score": 1.0,
-      "refusal_score": 1.0,
-      "failure_category": null,
-      "failure_reason": null,
-      "word_count": 1132
-    },
-    {
-      "test_id": "HR_24",
-      "category": "answerable",
-      "passed": true,
-      "overall_score": 0.965,
-      "grounding_score": 0.9,
-      "correctness_score": 1.0,
-      "refusal_score": 1.0,
-      "failure_category": null,
-      "failure_reason": null,
-      "word_count": 766
+      "word_count": 2
     }
   ]
 }

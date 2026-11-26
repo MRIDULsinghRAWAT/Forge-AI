@@ -1,6 +1,7 @@
 import os
 import sys
 import json
+import re
 import argparse
 from typing import Dict, Any
 from src.document_loader import DocumentLoader
@@ -21,9 +22,9 @@ class ChatRunner:
         self.loader = DocumentLoader(self.data_folder)
         self.docs = self.loader.load_documents()
         self.chunks = self.loader.chunk_documents(self.docs)
-        
+
         retrieval_cfg = self.agent_def.get("retrieval_config", {})
-        top_k = retrieval_cfg.get("top_k", 3)
+        top_k = retrieval_cfg.get("top_k", 5)
         self.rag = RAGPipeline(self.chunks, top_k=top_k)
         self.tools = ToolRegistry(self.data_folder)
 
@@ -35,14 +36,35 @@ class ChatRunner:
             return "datasets/procurement"
         return "datasets"
 
-    def respond(self, user_query: str) -> Dict[str, Any]:
-        query_lower = user_query.lower()
+    def _clean_text(self, text: str) -> str:
+        """Remove PDF artifacts: font descriptors, locale tags, excessive whitespace."""
+        text = re.sub(r'\b[A-Z]{6}\+[A-Za-z0-9\-]+\b', '', text)   # AAAAAA+FontName
+        text = re.sub(r'\ben-[A-Z]{2}\b', '', text)                 # en-IN etc
+        text = re.sub(r'\s{3,}', '  ', text)                        # excessive spaces
+        text = re.sub(r'^\s+', '', text, flags=re.MULTILINE)        # leading whitespace
+        return text.strip()
 
-        # 1. Check refusal boundaries based on must_refuse
+    def respond(self, user_query: str) -> Dict[str, Any]:
+        query_lower = user_query.lower().strip()
+
+        # 0. Handle casual greetings cleanly
+        greetings = {"hi", "hello", "hey", "hii", "hello bhai", "hi bhai", "namaste",
+                     "good morning", "good evening", "sup", "yo", "hola", "howdy"}
+        if query_lower in greetings:
+            scope = self.agent_def.get("requirements", {}).get("scope", "your uploaded documents")
+            return {
+                "answer": f"Hello! I am your ForgeAI assistant for **{scope}**. Ask me any question about the documents!",
+                "citations": [],
+                "refused": False,
+                "confidence": "high"
+            }
+
+        # 1. Check refusal boundaries
         must_refuse = self.agent_def.get("requirements", {}).get("must_refuse_topics", [])
+        refuse_kws = {"seafarer", "vessel crew", "bunker", "stock option", "bitcoin",
+                       "crypto", "confidential"}
         for topic in must_refuse:
-            topic_keywords = [w for w in topic.lower().split() if len(w) > 3]
-            if topic_keywords and any(kw in query_lower for kw in ["seafarer", "vessel crew", "bunker", "stock option", "bitcoin", "crypto", "confidential"]):
+            if any(kw in query_lower for kw in refuse_kws):
                 return {
                     "answer": f"I cannot assist with this request. As per policy boundaries, I am authorized only for {self.agent_def['requirements']['scope']}. Inquiries regarding '{user_query}' are strictly outside my scope.",
                     "citations": ["Refusal Protocol Guardrail"],
@@ -53,10 +75,7 @@ class ChatRunner:
         # 2. Tool invocations if attached
         attached_tools = self.agent_def.get("attached_tools", [])
         tool_results = []
-
         if "csv_lookup" in attached_tools:
-            # Check for part search e.g. P-101
-            import re
             parts = re.findall(r'p-\d{3}', query_lower)
             if parts:
                 res = self.tools.execute_tool("csv_lookup", query=parts[0])
@@ -65,91 +84,72 @@ class ChatRunner:
 
         # 3. Retrieve grounding chunks
         retrieval_config = self.agent_def.get("retrieval_config", {})
-        top_k = retrieval_config.get("top_k", 3)
+        top_k = retrieval_config.get("top_k", 5)
         raw_retrieved = self.rag.retrieve(user_query, top_k=top_k)
         similarity_threshold = retrieval_config.get("similarity_threshold", 0.0)
-        retrieved = [
-            chunk for chunk in raw_retrieved
-            if chunk.get("score", 0.0) >= similarity_threshold
-        ]
+        retrieved = [c for c in raw_retrieved if c.get("score", 0.0) >= similarity_threshold]
         if not retrieved:
             retrieved = raw_retrieved if raw_retrieved else self.chunks[:top_k]
-        context_str = self.rag.format_context(retrieved)
-        citations = list(set([c["source"] for c in retrieved]))
+        citations = list(set(c["source"] for c in retrieved))
 
-        # Synthesize clean, structured response: extract concise, targeted policy sentences
-        import re
+        # 4. Build query keyword set
         query_words = re.findall(r'\b[a-zA-Z0-9_\-]{3,}\b', query_lower)
-        # Exclude common query stop words
-        stop_words = {"what", "when", "where", "which", "who", "whom", "this", "that", "these", "those", "from", "with", "during", "does", "have", "more", "under", "between"}
+        stop_words = {"what", "when", "where", "which", "who", "whom", "this", "that",
+                      "these", "those", "from", "with", "during", "does", "have", "more",
+                      "under", "between", "about", "list", "show", "tell", "provide",
+                      "give", "can", "the", "for", "are", "was", "been", "being"}
         content_words = [w for w in query_words if w not in stop_words] or query_words
 
+        # 5. Extract relevant bullet points from retrieved chunks
         bullet_points = []
         for r in retrieved:
-            raw_content = r.get("content", "")
-            # Split into natural sentences or clauses
-            clean_content = re.sub(r'(\d+\.?\s+[A-Z][a-zA-Z\s&]+:)', r'\n\1', raw_content)
-            segments = re.split(r'\n+|\.\s+(?=[A-Z0-9])', clean_content)
-            
+            raw = self._clean_text(r.get("content", ""))
+            # Split into sentences / sections
+            segments = re.split(r'\n{2,}|\n(?=[A-Z])', raw)
             for seg in segments:
-                s = re.sub(r'\ben-[A-Z]{2}\b', '', seg).strip()
-                s = re.sub(r'\b[A-Z]{6}\+[A-Za-z0-9\-]+\b', '', s)
-                s = re.sub(r'\s+', ' ', s).strip()
-                s_nospace = re.sub(r'\s+', '', s.lower())
-                if len(s) > 20 and (any(w in s.lower() for w in content_words) or any(w in s_nospace for w in content_words)):
-                    if not any(bad in s.lower() for bad in ["table of contents", "copyright", "all rights reserved"]):
-                        if s not in bullet_points:
-                            bullet_points.append(s)
+                seg = seg.strip()
+                if len(seg) < 15:
+                    continue
+                seg_lower = seg.lower()
+                seg_nospace = re.sub(r'\s+', '', seg_lower)
+                if any(w in seg_lower for w in content_words) or any(w in seg_nospace for w in content_words):
+                    if not any(bad in seg_lower for bad in ["table of contents", "copyright", "all rights reserved"]):
+                        if seg not in bullet_points:
+                            bullet_points.append(seg)
 
+        # 6. Fallback: if nothing matched keywords, return the best retrieved content directly
         if not bullet_points and not tool_results:
-            # Fallback to top retrieved segment if query was specific
             for r in retrieved:
-                for seg in r.get("content", "").split("\n"):
-                    clean_seg = seg.strip()
-                    if len(clean_seg) > 30 and any(w in clean_seg.lower() for w in query_words[:3]):
-                        bullet_points.append(clean_seg)
-                        break
-                if bullet_points:
-                    break
-
-        if not bullet_points and not tool_results and retrieved:
-            for r in retrieved:
-                top_text = re.sub(r'\b[A-Z]{6}\+[A-Za-z0-9\-]+\b', '', r.get("content", ""))
-                top_text = re.sub(r'\s+', ' ', top_text).strip()
-                if len(top_text) > 20:
-                    bullet_points.append(top_text[:400])
+                raw = self._clean_text(r.get("content", ""))
+                if len(raw) > 20:
+                    bullet_points.append(raw[:600])
                     break
 
         if not bullet_points and not tool_results:
             return {
-                "answer": "I have reviewed our verified internal records, but there are no matching policy provisions for your query.\n\n**Sources Cited:**\n" + "\n".join([f"- {c}" for c in citations]),
+                "answer": "I could not find specific information matching your query in the uploaded documents.\n\n**Sources Cited:**\n" + "\n".join(f"- {c}" for c in citations),
                 "citations": citations,
                 "refused": False,
                 "confidence": "medium"
             }
 
-        # Format into clean, short markdown bullets and clean currency symbols
+        # 7. Format response
         formatted_bullets = []
-        for bp in bullet_points[:3]:
-            clean_bp = bp.rstrip('.').strip()
-            # Fix PDF text artifact where '$5,000' lost the '5' or '$' and rendered as ',000'
-            clean_bp = clean_bp.replace("under ,000", "under $5,000")
-            clean_bp = clean_bp.replace("between ,000 and ,000", "between $5,000 and $25,000")
-            clean_bp = clean_bp.replace("exceeding ,000", "exceeding $25,000")
-            clean_bp = clean_bp.replace("surcharge of ,000", "surcharge of $2,000")
-            clean_bp = re.sub(r'(?<=\s),000\b', '$5,000', clean_bp)
-            
-            if len(clean_bp) > 220:
-                first_period = clean_bp.find('.', 80)
-                if first_period != -1 and first_period < 250:
-                    clean_bp = clean_bp[:first_period]
-            formatted_bullets.append(f"- {clean_bp}.")
+        for bp in bullet_points[:5]:
+            clean_bp = bp.strip()
+            if len(clean_bp) > 400:
+                period = clean_bp.find('.', 200)
+                if period != -1 and period < 450:
+                    clean_bp = clean_bp[:period + 1]
+                else:
+                    clean_bp = clean_bp[:400] + "..."
+            formatted_bullets.append(f"- {clean_bp}")
 
         body_text = "\n\n".join(formatted_bullets)
         if tool_results:
-            body_text += "\n\n**Verified Catalog Lookups:**\n" + "\n".join([f"- {tr}" for tr in tool_results])
+            body_text += "\n\n**Verified Catalog Lookups:**\n" + "\n".join(f"- {tr}" for tr in tool_results)
 
-        answer_text = f"**Key Policy Summary:**\n\n{body_text}\n\n---\n**Sources Cited:**\n" + "\n".join([f"- {c}" for c in citations])
+        answer_text = f"**Key Policy Summary:**\n\n{body_text}\n\n---\n**Sources Cited:**\n" + "\n".join(f"- {c}" for c in citations)
         return {
             "answer": answer_text,
             "citations": citations,
@@ -158,11 +158,11 @@ class ChatRunner:
         }
 
     def interactive_cli(self):
-        print("="*60)
+        print("=" * 60)
         print(f"ForgeAI Chat Runner: {self.agent_def.get('requirements', {}).get('scope', 'Active Agent')}")
         print(f"Attached Tools: {self.agent_def.get('attached_tools', [])}")
         print("Type 'exit' or 'quit' to terminate.")
-        print("="*60)
+        print("=" * 60)
 
         while True:
             try:
@@ -186,4 +186,3 @@ if __name__ == "__main__":
 
     runner = ChatRunner(args.agent, args.data)
     runner.interactive_cli()
-

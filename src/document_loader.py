@@ -45,14 +45,30 @@ class DocumentLoader:
         return documents
 
     def _read_pdf(self, file_path: str) -> str:
-        # Standard PDF reader supporting both uncompressed and FlateDecode compressed streams
+        """Extract text from PDF using pypdf (high-quality) with zlib fallback."""
+        # --- Primary: pypdf gives clean, properly ordered text ---
+        try:
+            from pypdf import PdfReader
+            reader = PdfReader(file_path)
+            pages = []
+            for page in reader.pages:
+                page_text = page.extract_text() or ""
+                if page_text.strip():
+                    pages.append(page_text.strip())
+            if pages:
+                full_text = "\n\n".join(pages)
+                # Light cleanup: collapse excessive whitespace
+                full_text = re.sub(r' {3,}', '  ', full_text)
+                return full_text
+        except Exception:
+            pass
+
+        # --- Fallback: raw zlib stream parser for edge-case PDFs ---
         extracted_text = []
         import zlib
         try:
             with open(file_path, "rb") as f:
                 data = f.read()
-
-            # 1. Try decompressed streams (for FlateDecode PDFs like USA_Employee_Handbook)
             pos = 0
             while True:
                 idx = data.find(b'stream', pos)
@@ -69,35 +85,16 @@ class DocumentLoader:
                     raw = raw[:-1]
                 try:
                     decomp = zlib.decompress(raw)
-                    # Filter out binary streams / image data
-                    is_binary_stream = any(marker in decomp for marker in (b'Adobe UCS', b'/Image', b'/DCTDecode'))
-                    if not is_binary_stream:
+                    if not any(m in decomp for m in (b'Adobe UCS', b'/Image', b'/DCTDecode')):
                         strings = re.findall(r"\(([^)]+)\)", decomp.decode('latin-1', errors='ignore'))
                         if strings:
-                            # Clean spaces between individual letters if present
                             avg_len = sum(len(s) for s in strings) / max(len(strings), 1)
                             line_content = "".join(strings) if avg_len < 6 else " ".join(strings)
-                            # Remove non-ascii noise or font glyph binary noise
-                            if not any(c in line_content for c in ['ÿ', '÷', 'ö', 'õ', 'ô', 'ó', 'ò', 'ñ', 'ð']):
-                                line_content = re.sub(r'(?<=\b\w)\s(?=\w\b)', '', line_content)
+                            if not any(c in line_content for c in ['ÿ', '÷', 'ö']):
                                 extracted_text.append(line_content)
                 except Exception:
                     pass
                 pos = end_idx + 9
-
-            # 2. If no streams or uncompressed text
-            if not extracted_text:
-                content_str = data.decode("latin-1", errors="ignore")
-                strings = re.findall(r"\(([^)]+)\)\s*Tj", content_str)
-                if not strings:
-                    tj_arrays = re.findall(r"\[(.*?)\]\s*TJ", content_str)
-                    for arr in tj_arrays:
-                        arr_strings = re.findall(r"\(([^)]+)\)", arr)
-                        if arr_strings:
-                            strings.append("".join(arr_strings))
-                if strings:
-                    extracted_text.append(" ".join(strings))
-
         except Exception as e:
             extracted_text.append(f"Error reading PDF: {e}")
 

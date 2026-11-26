@@ -503,6 +503,7 @@ with right_workspace:
                         for uf in uploaded_files:
                             with open(os.path.join(upload_dir, uf.name), "wb") as out_f:
                                 out_f.write(uf.getbuffer())
+                        st.session_state.pop("chat_runner_instance", None)
                     folder_choice = upload_dir
 
             if st.button("1. Analyze Documents & Requirements", type="primary"):

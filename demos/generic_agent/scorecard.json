@@ -1,81 +1,8 @@
 {
-  "total_tests": 6,
-  "passed_tests": 6,
+  "total_tests": 0,
+  "passed_tests": 0,
   "failed_tests": 0,
-  "accuracy_percent": 100.0,
-  "average_score": 0.965,
-  "case_evaluations": [
-    {
-      "test_id": "DYN_01",
-      "category": "answerable",
-      "passed": true,
-      "overall_score": 0.965,
-      "grounding_score": 0.9,
-      "correctness_score": 1.0,
-      "refusal_score": 1.0,
-      "failure_category": null,
-      "failure_reason": null,
-      "word_count": 1132
-    },
-    {
-      "test_id": "DYN_02",
-      "category": "answerable",
-      "passed": true,
-      "overall_score": 0.965,
-      "grounding_score": 0.9,
-      "correctness_score": 1.0,
-      "refusal_score": 1.0,
-      "failure_category": null,
-      "failure_reason": null,
-      "word_count": 1132
-    },
-    {
-      "test_id": "DYN_03",
-      "category": "answerable",
-      "passed": true,
-      "overall_score": 0.965,
-      "grounding_score": 0.9,
-      "correctness_score": 1.0,
-      "refusal_score": 1.0,
-      "failure_category": null,
-      "failure_reason": null,
-      "word_count": 766
-    },
-    {
-      "test_id": "GENERIC_04",
-      "category": "answerable",
-      "passed": true,
-      "overall_score": 0.965,
-      "grounding_score": 0.9,
-      "correctness_score": 1.0,
-      "refusal_score": 1.0,
-      "failure_category": null,
-      "failure_reason": null,
-      "word_count": 1132
-    },
-    {
-      "test_id": "GENERIC_05",
-      "category": "answerable",
-      "passed": true,
-      "overall_score": 0.965,
-      "grounding_score": 0.9,
-      "correctness_score": 1.0,
-      "refusal_score": 1.0,
-      "failure_category": null,
-      "failure_reason": null,
-      "word_count": 1132
-    },
-    {
-      "test_id": "GENERIC_06",
-      "category": "answerable",
-      "passed": true,
-      "overall_score": 0.965,
-      "grounding_score": 0.9,
-      "correctness_score": 1.0,
-      "refusal_score": 1.0,
-      "failure_category": null,
-      "failure_reason": null,
-      "word_count": 766
-    }
-  ]
+  "accuracy_percent": 0.0,
+  "average_score": 0.0,
+  "case_evaluations": []
 }
