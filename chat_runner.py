@@ -65,12 +65,15 @@ class ChatRunner:
 
         # 3. Retrieve grounding chunks
         retrieval_config = self.agent_def.get("retrieval_config", {})
-        retrieved = self.rag.retrieve(user_query, top_k=retrieval_config.get("top_k", 3))
+        top_k = retrieval_config.get("top_k", 3)
+        raw_retrieved = self.rag.retrieve(user_query, top_k=top_k)
         similarity_threshold = retrieval_config.get("similarity_threshold", 0.0)
         retrieved = [
-            chunk for chunk in retrieved
+            chunk for chunk in raw_retrieved
             if chunk.get("score", 0.0) >= similarity_threshold
         ]
+        if not retrieved:
+            retrieved = raw_retrieved if raw_retrieved else self.chunks[:top_k]
         context_str = self.rag.format_context(retrieved)
         citations = list(set([c["source"] for c in retrieved]))
 
@@ -89,9 +92,11 @@ class ChatRunner:
             segments = re.split(r'\n+|\.\s+(?=[A-Z0-9])', clean_content)
             
             for seg in segments:
-                s = seg.strip()
-                s = re.sub(r'\s+', ' ', s)
-                if len(s) > 20 and any(w in s.lower() for w in content_words):
+                s = re.sub(r'\ben-[A-Z]{2}\b', '', seg).strip()
+                s = re.sub(r'\b[A-Z]{6}\+[A-Za-z0-9\-]+\b', '', s)
+                s = re.sub(r'\s+', ' ', s).strip()
+                s_nospace = re.sub(r'\s+', '', s.lower())
+                if len(s) > 20 and (any(w in s.lower() for w in content_words) or any(w in s_nospace for w in content_words)):
                     if not any(bad in s.lower() for bad in ["table of contents", "copyright", "all rights reserved"]):
                         if s not in bullet_points:
                             bullet_points.append(s)
@@ -105,6 +110,14 @@ class ChatRunner:
                         bullet_points.append(clean_seg)
                         break
                 if bullet_points:
+                    break
+
+        if not bullet_points and not tool_results and retrieved:
+            for r in retrieved:
+                top_text = re.sub(r'\b[A-Z]{6}\+[A-Za-z0-9\-]+\b', '', r.get("content", ""))
+                top_text = re.sub(r'\s+', ' ', top_text).strip()
+                if len(top_text) > 20:
+                    bullet_points.append(top_text[:400])
                     break
 
         if not bullet_points and not tool_results:

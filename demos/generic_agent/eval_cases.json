@@ -1,1 +1,76 @@
-[]
+[
+  {
+    "id": "DYN_01",
+    "category": "answerable",
+    "question": "What are the verified terms regarding 2026     July  2026   en-IN en-IN   Eng in ee re d  an  e dg e - AI  m od el  c om pre ssi on  p ip e li ne   fo r  Mobile Net V2 ,  benchmarking  Dynamic  Ra nge ,  Fl oa t1 6 ,  and  I NT8   TF Li te  quan ti zation   using  a  cus to m  evalua ti on  harness according to Mridul Singh Rawat_ Resume.pdf?",
+    "expected_answer_contains": [
+      "2026",
+      "eng",
+      "pre",
+      "ssi"
+    ],
+    "expected_source": "Mridul Singh Rawat_ Resume.pdf",
+    "should_refuse": false
+  },
+  {
+    "id": "DYN_02",
+    "category": "answerable",
+    "question": "What are the verified terms regarding 200  F PS\\   wh ile  re ta ining   99 according to Mridul Singh Rawat_ Resume.pdf?",
+    "expected_answer_contains": [
+      "ile",
+      "ining"
+    ],
+    "expected_source": "Mridul Singh Rawat_ Resume.pdf",
+    "should_refuse": false
+  },
+  {
+    "id": "DYN_03",
+    "category": "answerable",
+    "question": "What are the verified terms regarding 5  OWASP AP I  To p  10   c la sses     BO LA/I DO R, Bro ken  Au th  \\(alg  according to Mridul Singh Rawat_ Resume.pdf?",
+    "expected_answer_contains": [
+      "sses",
+      "bro",
+      "ken",
+      "alg"
+    ],
+    "expected_source": "Mridul Singh Rawat_ Resume.pdf",
+    "should_refuse": false
+  },
+  {
+    "id": "GENERIC_04",
+    "category": "answerable",
+    "question": "What are the verified terms regarding 2026     July  2026   en-IN en-IN   Eng in ee re d  an  e dg e - AI  m od el  c om pre ssi on  p ip e li ne   fo r  Mobile Net V2 ,  benchmarking  Dynamic  Ra nge ,  Fl oa t1 6 ,  and  I NT8   TF Li te  quan ti zation   using  a  cus to m  evalua ti on  harness according to Mridul Singh Rawat_ Resume.pdf?",
+    "expected_answer_contains": [
+      "2026",
+      "eng",
+      "pre",
+      "ssi"
+    ],
+    "expected_source": "Mridul Singh Rawat_ Resume.pdf",
+    "should_refuse": false
+  },
+  {
+    "id": "GENERIC_05",
+    "category": "answerable",
+    "question": "What are the verified terms regarding 200  F PS\\   wh ile  re ta ining   99 according to Mridul Singh Rawat_ Resume.pdf?",
+    "expected_answer_contains": [
+      "ile",
+      "ining"
+    ],
+    "expected_source": "Mridul Singh Rawat_ Resume.pdf",
+    "should_refuse": false
+  },
+  {
+    "id": "GENERIC_06",
+    "category": "answerable",
+    "question": "What are the verified terms regarding 5  OWASP AP I  To p  10   c la sses     BO LA/I DO R, Bro ken  Au th  \\(alg  according to Mridul Singh Rawat_ Resume.pdf?",
+    "expected_answer_contains": [
+      "sses",
+      "bro",
+      "ken",
+      "alg"
+    ],
+    "expected_source": "Mridul Singh Rawat_ Resume.pdf",
+    "should_refuse": false
+  }
+]

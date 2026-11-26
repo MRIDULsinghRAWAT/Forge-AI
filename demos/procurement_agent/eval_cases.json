@@ -265,53 +265,38 @@
   {
     "id": "PROCUREMENT_22",
     "category": "answerable",
-    "question": "What are the verified terms regarding 1    If  the  P urc ha se r  de te r mi ne s  that  the  S uppli er  has  e nga ged  in  c orr upt,    fr a udulent,  c oll usive,  c oe rc iv e   or  obst ruc ti ve   pra c ti ces,  in  c ompetin g   fo r  or  in  exec uti ng   the  C ontra ct,  then  the  P urc ha se r   ma y ,  a fte r  gi ving   14   da ys   noti ce   to   the  S uppli er,  te rmina te   the  S uppli er ' s   e mpl oy ment unde r the  C ontra ct and ca nc elt he  co ntra ct according to 1703225724.pdf?",
+    "question": "What are the verified terms regarding 2026     Pre sent   en-IN en-IN   Eng in ee re d  an  e dg e - AI  m od el  c om pre ssi on  p ip e li ne   fo r  Mobile Net V2 ,  benchmarking  Dynamic  Ra nge ,  Fl oa t1 6 ,  and  I NT8   TF Li te  quan ti zation   using  a  cus to m  evalua ti on  harness according to MRIDUL SINGH RAWAT _ Ocean AI.pdf?",
     "expected_answer_contains": [
-      "that",
-      "the",
-      "uppli",
-      "has"
+      "eng",
+      "pre",
+      "ssi",
+      "mobile"
     ],
-    "expected_source": "1703225724.pdf",
+    "expected_source": "MRIDUL SINGH RAWAT _ Ocean AI.pdf",
     "should_refuse": false
   },
   {
     "id": "PROCUREMENT_23",
     "category": "answerable",
-    "question": "What are the verified terms regarding 2   S hould  any   e mpl oyee   of  the  S uppli er  be   de ter mi ne d  to  ha ve   e ng a ge d  in  c orr upt,  fr a udulent,   c oll usive,  c oe rc ive,  or  o bstruc ti ve   pra c ti ce   during   the  purc ha se   of  the  G oods,  then  that  e mpl oyee  sha ll  be  re mov ed according to 1703225724.pdf?",
+    "question": "What are the verified terms regarding 200  F PS\\   wh ile  re ta ining   99 according to MRIDUL SINGH RAWAT _ Ocean AI.pdf?",
     "expected_answer_contains": [
-      "pli",
-      "ter",
-      "orr",
-      "upt"
+      "ile",
+      "ining"
     ],
-    "expected_source": "1703225724.pdf",
+    "expected_source": "MRIDUL SINGH RAWAT _ Ocean AI.pdf",
     "should_refuse": false
   },
   {
     "id": "PROCUREMENT_24",
     "category": "answerable",
-    "question": "What are the verified terms regarding 20 Pennsylvania Parkway, Status according to Grocery_Inventory new v1.csv?",
+    "question": "What are the verified terms regarding 5  OWASP AP I  To p  10   c la sses     BO LA/I DO R, Bro ken  Au th  \\(alg  according to MRIDUL SINGH RAWAT _ Ocean AI.pdf?",
     "expected_answer_contains": [
-      "status",
-      "discontinued",
-      "017",
-      "6255"
+      "sses",
+      "bro",
+      "ken",
+      "alg"
     ],
-    "expected_source": "Grocery_Inventory new v1.csv",
-    "should_refuse": false
-  },
-  {
-    "id": "PROCUREMENT_25",
-    "category": "answerable",
-    "question": "What are the verified terms regarding 03643 Oakridge Lane, Status according to Grocery_Inventory new v1.csv?",
-    "expected_answer_contains": [
-      "status",
-      "backordered",
-      "569",
-      "8856"
-    ],
-    "expected_source": "Grocery_Inventory new v1.csv",
+    "expected_source": "MRIDUL SINGH RAWAT _ Ocean AI.pdf",
     "should_refuse": false
   }
 ]

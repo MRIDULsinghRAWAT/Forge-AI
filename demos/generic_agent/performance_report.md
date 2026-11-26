@@ -1,15 +1,13 @@
 # ForgeAI - Autonomous Agent Build & Evaluation Report
 
-**Generated for:** Knowledge Assistant derived from brief: I need an supply chain data
-  
-**Agent ID:** `agent_generic_8805` (Version 1)  
-**Final Eval Accuracy:** **0.0%** (0/0 test cases passing)  
+**Generated for:** Knowledge Assistant derived from brief: projects  
+**Agent ID:** `agent_generic_9352` (Version 1)  
+**Final Eval Accuracy:** **0.0%** (6/6 test cases passing)  
 
 ---
 
 ## 1. Executive Summary & Brief Analysis
-- **User Brief**: *"I need an supply chain data
-"*
+- **User Brief**: *"projects "*
 - **Target Audience**: Authorized company personnel
 - **Persona & Tone**: Helpful, factual, and strictly grounded
 - **Groundability Guard Status**:
@@ -18,12 +16,11 @@ No unsupported requests detected in brief.
 ---
 
 ## 2. Declarative Agent Definition
-- **Attached Tools**: `['csv_lookup']` *(Verified: Only tools needed by the brief are attached)*
-- **Retrieval Parameters**: Top-K: `4`, Chunk Size: `500`, Algorithm: `tfidf_cosine`
+- **Attached Tools**: `[]` *(Verified: Only tools needed by the brief are attached)*
+- **Retrieval Parameters**: Top-K: `3`, Chunk Size: `350`, Algorithm: `tfidf_cosine`
 - **System Prompt Snapshot**:
 ```text
-You are the official ForgeAI Agent for: Knowledge Assistant derived from brief: I need an supply chain data
-.
+You are the official ForgeAI Agent for: Knowledge Assistant derived from brief: projects.
 Your primary audience: Authorized company personnel.
 Tone & Personality: Helpful, factual, and strictly grounded.
 
@@ -34,16 +31,14 @@ OPERATIONAL RULES & BOUNDARIES:
 - Any topic not verified in the uploaded documentation
 When refusing out-of-scope or unauthorized requests, provide a clear refusal rationale (e.g. 'I am authorized only to provide verified information for shore staff policies. Vessel seafarer inquiries must be directed to Fleet Operations.').
 4. MUST-ANSWER COVERAGE:
-- part catalog & pricing
-- emergency air freight & aog
-- purchase order approval thresholds
-- approved marine suppliers
+
 5. AVAILABLE TOOLS:
-[csv_lookup]
+[No external tools]
 Use these tools when precise calculations or table lookups are needed.
 
 OUTPUT CONTRACT:
 Structure your answers clearly using concise paragraphs or bullet points. Include a 'Sources Cited' section at the end of each substantive answer.
+STYLE: Zero speculation. Refuse any out-of-scope or unverified query immediately.
 ```
 
 ---
@@ -53,7 +48,7 @@ The factory autonomously performed surgical adaptations across iterations:
 
 | Iteration | Accuracy | Avg Score | Failures | Actions Applied |
 |---|---|---|---|---|
-| 1 | 0.0% | 0.0 | 0 | Initial baseline run / converged |
+| 1 | 100.0% | 0.965 | 0 | Initial baseline run / converged |
 
 ---
 

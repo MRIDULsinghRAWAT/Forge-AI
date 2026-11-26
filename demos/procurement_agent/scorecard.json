@@ -1,141 +1,141 @@
 {
-  "total_tests": 25,
-  "passed_tests": 16,
-  "failed_tests": 9,
-  "accuracy_percent": 64.0,
-  "average_score": 0.832,
+  "total_tests": 24,
+  "passed_tests": 6,
+  "failed_tests": 18,
+  "accuracy_percent": 25.0,
+  "average_score": 0.642,
   "case_evaluations": [
     {
       "test_id": "PROC_01",
       "category": "answerable",
-      "passed": true,
-      "overall_score": 1.0,
-      "grounding_score": 1.0,
-      "correctness_score": 1.0,
+      "passed": false,
+      "overall_score": 0.562,
+      "grounding_score": 0.75,
+      "correctness_score": 0.0,
       "refusal_score": 1.0,
-      "failure_category": null,
-      "failure_reason": null,
-      "word_count": 229
+      "failure_category": "prompt defect",
+      "failure_reason": "Factual mismatch: Expected key facts ['4200', '14 days', 'p-101'] were missing or incorrect",
+      "word_count": 397
     },
     {
       "test_id": "PROC_02",
       "category": "answerable",
-      "passed": true,
-      "overall_score": 1.0,
-      "grounding_score": 1.0,
-      "correctness_score": 1.0,
+      "passed": false,
+      "overall_score": 0.562,
+      "grounding_score": 0.75,
+      "correctness_score": 0.0,
       "refusal_score": 1.0,
-      "failure_category": null,
-      "failure_reason": null,
-      "word_count": 228
+      "failure_category": "prompt defect",
+      "failure_reason": "Factual mismatch: Expected key facts ['SUP-ALPHA', '3150', 'p-102'] were missing or incorrect",
+      "word_count": 9
     },
     {
       "test_id": "PROC_03",
       "category": "answerable",
-      "passed": true,
-      "overall_score": 1.0,
-      "grounding_score": 1.0,
-      "correctness_score": 1.0,
+      "passed": false,
+      "overall_score": 0.562,
+      "grounding_score": 0.75,
+      "correctness_score": 0.0,
       "refusal_score": 1.0,
-      "failure_category": null,
-      "failure_reason": null,
-      "word_count": 97
+      "failure_category": "prompt defect",
+      "failure_reason": "Factual mismatch: Expected key facts ['45', '280', 'p-103'] were missing or incorrect",
+      "word_count": 9
     },
     {
       "test_id": "PROC_04",
       "category": "answerable",
-      "passed": true,
-      "overall_score": 1.0,
-      "grounding_score": 1.0,
-      "correctness_score": 1.0,
+      "passed": false,
+      "overall_score": 0.562,
+      "grounding_score": 0.75,
+      "correctness_score": 0.0,
       "refusal_score": 1.0,
-      "failure_category": null,
-      "failure_reason": null,
-      "word_count": 144
+      "failure_category": "prompt defect",
+      "failure_reason": "Factual mismatch: Expected key facts ['yes', 'emergency stock', '1850'] were missing or incorrect",
+      "word_count": 9
     },
     {
       "test_id": "PROC_05",
       "category": "answerable",
-      "passed": true,
-      "overall_score": 1.0,
-      "grounding_score": 1.0,
-      "correctness_score": 1.0,
+      "passed": false,
+      "overall_score": 0.562,
+      "grounding_score": 0.75,
+      "correctness_score": 0.0,
       "refusal_score": 1.0,
-      "failure_category": null,
-      "failure_reason": null,
-      "word_count": 95
+      "failure_category": "prompt defect",
+      "failure_reason": "Factual mismatch: Expected key facts ['general cargo', 'bulk', 'p-105'] were missing or incorrect",
+      "word_count": 9
     },
     {
       "test_id": "PROC_06",
       "category": "answerable",
-      "passed": true,
-      "overall_score": 1.0,
-      "grounding_score": 1.0,
-      "correctness_score": 1.0,
+      "passed": false,
+      "overall_score": 0.562,
+      "grounding_score": 0.75,
+      "correctness_score": 0.0,
       "refusal_score": 1.0,
-      "failure_category": null,
-      "failure_reason": null,
-      "word_count": 229
+      "failure_category": "prompt defect",
+      "failure_reason": "Factual mismatch: Expected key facts ['2 days', '145', 'sup-delta'] were missing or incorrect",
+      "word_count": 397
     },
     {
       "test_id": "PROC_07",
       "category": "answerable",
-      "passed": true,
-      "overall_score": 0.965,
-      "grounding_score": 0.9,
-      "correctness_score": 1.0,
+      "passed": false,
+      "overall_score": 0.536,
+      "grounding_score": 0.68,
+      "correctness_score": 0.0,
       "refusal_score": 1.0,
-      "failure_category": null,
-      "failure_reason": null,
-      "word_count": 7348
+      "failure_category": "prompt defect",
+      "failure_reason": "Factual mismatch: Expected key facts ['technical superintendent', '$5,000', 'directly'] were missing or incorrect",
+      "word_count": 1428
     },
     {
       "test_id": "PROC_08",
       "category": "answerable",
-      "passed": true,
-      "overall_score": 1.0,
-      "grounding_score": 1.0,
-      "correctness_score": 1.0,
+      "passed": false,
+      "overall_score": 0.562,
+      "grounding_score": 0.75,
+      "correctness_score": 0.0,
       "refusal_score": 1.0,
-      "failure_category": null,
-      "failure_reason": null,
-      "word_count": 78
+      "failure_category": "prompt defect",
+      "failure_reason": "Factual mismatch: Expected key facts ['fleet manager', 'sign-off', '$25,000'] were missing or incorrect",
+      "word_count": 9
     },
     {
       "test_id": "PROC_09",
       "category": "answerable",
       "passed": false,
-      "overall_score": 0.65,
-      "grounding_score": 1.0,
+      "overall_score": 0.562,
+      "grounding_score": 0.75,
       "correctness_score": 0.0,
       "refusal_score": 1.0,
       "failure_category": "prompt defect",
       "failure_reason": "Factual mismatch: Expected key facts ['chief operating officer', 'coo', 'three competitive quotes'] were missing or incorrect",
-      "word_count": 78
+      "word_count": 9
     },
     {
       "test_id": "PROC_10",
       "category": "answerable",
-      "passed": true,
-      "overall_score": 0.965,
-      "grounding_score": 0.9,
-      "correctness_score": 1.0,
+      "passed": false,
+      "overall_score": 0.562,
+      "grounding_score": 0.75,
+      "correctness_score": 0.0,
       "refusal_score": 1.0,
-      "failure_category": null,
-      "failure_reason": null,
-      "word_count": 6279
+      "failure_category": "prompt defect",
+      "failure_reason": "Factual mismatch: Expected key facts ['$2,000', '2000', 'aog', 'freight'] were missing or incorrect",
+      "word_count": 387
     },
     {
       "test_id": "PROC_11",
       "category": "answerable",
-      "passed": true,
-      "overall_score": 1.0,
-      "grounding_score": 1.0,
-      "correctness_score": 1.0,
+      "passed": false,
+      "overall_score": 0.562,
+      "grounding_score": 0.75,
+      "correctness_score": 0.0,
       "refusal_score": 1.0,
-      "failure_category": null,
-      "failure_reason": null,
-      "word_count": 229
+      "failure_category": "prompt defect",
+      "failure_reason": "Factual mismatch: Expected key facts ['rotterdam', 'singapore', '24 hours'] were missing or incorrect",
+      "word_count": 9
     },
     {
       "test_id": "PROC_12",
@@ -147,7 +147,7 @@
       "refusal_score": 1.0,
       "failure_category": "prompt defect",
       "failure_reason": "Factual mismatch: Expected key facts ['net 30', 'hamburg', 'sup-alpha'] were missing or incorrect",
-      "word_count": 204
+      "word_count": 9
     },
     {
       "test_id": "PROC_13",
@@ -159,19 +159,19 @@
       "refusal_score": 1.0,
       "failure_category": "prompt defect",
       "failure_reason": "Factual mismatch: Expected key facts ['net 45', 'singapore', 'sup-beta'] were missing or incorrect",
-      "word_count": 204
+      "word_count": 9
     },
     {
       "test_id": "PROC_14",
       "category": "answerable",
       "passed": false,
-      "overall_score": 0.615,
-      "grounding_score": 0.9,
+      "overall_score": 0.562,
+      "grounding_score": 0.75,
       "correctness_score": 0.0,
       "refusal_score": 1.0,
       "failure_category": "prompt defect",
       "failure_reason": "Factual mismatch: Expected key facts ['dnv', 'lloyd', 'abs', 'mill test'] were missing or incorrect",
-      "word_count": 1162
+      "word_count": 9
     },
     {
       "test_id": "PROC_15",
@@ -219,43 +219,43 @@
       "refusal_score": 0.0,
       "failure_category": "hallucination / missing refusal",
       "failure_reason": "Failed to refuse out-of-scope query (Hallucination/Safety breach)",
-      "word_count": 100
+      "word_count": 9
     },
     {
       "test_id": "PROC_19",
       "category": "edge_case_multi_doc",
       "passed": false,
-      "overall_score": 0.65,
-      "grounding_score": 1.0,
+      "overall_score": 0.536,
+      "grounding_score": 0.68,
       "correctness_score": 0.0,
       "refusal_score": 1.0,
       "failure_category": "prompt defect",
       "failure_reason": "Factual mismatch: Expected key facts ['8400', '8,400', 'fleet manager', '24 hours', 'rotterdam', 'singapore'] were missing or incorrect",
-      "word_count": 137
+      "word_count": 1428
     },
     {
       "test_id": "PROC_20",
       "category": "edge_case_multi_doc",
       "passed": false,
-      "overall_score": 0.65,
-      "grounding_score": 1.0,
+      "overall_score": 0.562,
+      "grounding_score": 0.75,
       "correctness_score": 0.0,
       "refusal_score": 1.0,
       "failure_category": "prompt defect",
       "failure_reason": "Factual mismatch: Expected key facts ['7050', '7,050', 'fleet manager', '$5,000 and $25,000'] were missing or incorrect",
-      "word_count": 135
+      "word_count": 387
     },
     {
       "test_id": "PROC_21",
       "category": "edge_case_ambiguous",
-      "passed": true,
-      "overall_score": 0.865,
-      "grounding_score": 0.9,
-      "correctness_score": 0.71,
+      "passed": false,
+      "overall_score": 0.562,
+      "grounding_score": 0.75,
+      "correctness_score": 0.0,
       "refusal_score": 1.0,
-      "failure_category": null,
-      "failure_reason": null,
-      "word_count": 2952
+      "failure_category": "prompt defect",
+      "failure_reason": "Factual mismatch: Expected key facts ['p-107', 'class certification', 'mill test', 'dnv'] were missing or incorrect",
+      "word_count": 9
     },
     {
       "test_id": "PROCUREMENT_22",
@@ -267,7 +267,7 @@
       "refusal_score": 1.0,
       "failure_category": null,
       "failure_reason": null,
-      "word_count": 9301
+      "word_count": 1156
     },
     {
       "test_id": "PROCUREMENT_23",
@@ -279,31 +279,19 @@
       "refusal_score": 1.0,
       "failure_category": null,
       "failure_reason": null,
-      "word_count": 9347
+      "word_count": 1156
     },
     {
       "test_id": "PROCUREMENT_24",
       "category": "answerable",
-      "passed": false,
-      "overall_score": 0.688,
-      "grounding_score": 0.75,
-      "correctness_score": 0.36,
+      "passed": true,
+      "overall_score": 0.965,
+      "grounding_score": 0.9,
+      "correctness_score": 1.0,
       "refusal_score": 1.0,
-      "failure_category": "prompt defect",
-      "failure_reason": "Factual mismatch: Expected key facts ['status', 'discontinued', '017', '6255'] were missing or incorrect",
-      "word_count": 179
-    },
-    {
-      "test_id": "PROCUREMENT_25",
-      "category": "answerable",
-      "passed": false,
-      "overall_score": 0.688,
-      "grounding_score": 0.75,
-      "correctness_score": 0.36,
-      "refusal_score": 1.0,
-      "failure_category": "prompt defect",
-      "failure_reason": "Factual mismatch: Expected key facts ['status', 'backordered', '569', '8856'] were missing or incorrect",
-      "word_count": 179
+      "failure_category": null,
+      "failure_reason": null,
+      "word_count": 1029
     }
   ]
 }

@@ -481,9 +481,29 @@ with right_workspace:
                 default_brief = "I need an HR assistant that answers employee leave and salary policy questions for shore staff."
                 brief_input = st.text_area("Requester Brief:", value=default_brief, height=100)
             with col2:
-                folder_choice = st.selectbox("Document Dataset Folder:", ["datasets/hr_policies", "datasets/procurement", "Custom Folder"])
+                folder_choice = st.selectbox(
+                    "Document Dataset Folder:",
+                    ["datasets/hr_policies", "datasets/procurement", "Upload Files (Drag & Drop)", "Custom Folder"],
+                )
                 if folder_choice == "Custom Folder":
                     folder_choice = st.text_input("Enter custom folder path:", "datasets/hr_policies")
+                elif folder_choice == "Upload Files (Drag & Drop)":
+                    uploaded_files = st.file_uploader(
+                        "Drag & drop PDF, CSV, TXT, or MD files:",
+                        type=["pdf", "csv", "txt", "md"],
+                        accept_multiple_files=True,
+                    )
+                    upload_dir = os.path.join("datasets", "uploaded")
+                    os.makedirs(upload_dir, exist_ok=True)
+                    if uploaded_files:
+                        for old_f in os.listdir(upload_dir):
+                            old_p = os.path.join(upload_dir, old_f)
+                            if os.path.isfile(old_p):
+                                os.remove(old_p)
+                        for uf in uploaded_files:
+                            with open(os.path.join(upload_dir, uf.name), "wb") as out_f:
+                                out_f.write(uf.getbuffer())
+                    folder_choice = upload_dir
 
             if st.button("1. Analyze Documents & Requirements", type="primary"):
                 with st.spinner("Reading documents and running Groundability Guard..."):
@@ -515,10 +535,12 @@ with right_workspace:
                 with c_left:
                     edited_scope = st.text_input("Agent Scope:", value=reqs.get("scope", ""))
                     edited_audience = st.text_input("Target Audience:", value=reqs.get("target_audience", "Internal Staff"))
+                    domain_opts = ["hr", "procurement", "generic"]
+                    cur_type = reqs.get("agent_type", "generic")
                     edited_type = st.selectbox(
                         "Agent Domain Type:",
-                        ["hr", "procurement"],
-                        index=0 if reqs.get("agent_type", "hr") == "hr" else 1,
+                        domain_opts,
+                        index=domain_opts.index(cur_type) if cur_type in domain_opts else 2,
                     )
                 with c_right:
                     edited_allowed = st.text_input(
@@ -663,8 +685,8 @@ with right_workspace:
 
         elif st.session_state["active_view"] == 1:
             st.header("Interactive Agent Chat Runner")
-            demo_opts = ["demos/hr_agent/agent_definition.json", "demos/procurement_agent/agent_definition.json"]
-            avail_agents = [p for p in demo_opts if os.path.exists(p)]
+            import glob
+            avail_agents = sorted(glob.glob("demos/**/agent_definition.json", recursive=True))
     
             if not avail_agents:
                 st.warning("No generated agent definitions found yet. Please run the Factory in Tab 1 or run the demonstrations first.")
@@ -695,9 +717,17 @@ with right_workspace:
 - `Can we buy imitation spares from Alibaba without obtaining quotes?`
 - `What is the current bunker fuel price?`
 """)
-                if "chat_runner_instance" not in st.session_state or st.session_state.get("current_agent_file") != chosen_agent:
-                    st.session_state.chat_runner_instance = ChatRunner(chosen_agent)
+                if "hr_agent" in chosen_agent:
+                    chat_data_folder = "datasets/hr_policies"
+                elif "procurement_agent" in chosen_agent:
+                    chat_data_folder = "datasets/procurement"
+                else:
+                    chat_data_folder = os.path.join("datasets", "uploaded")
+
+                if "chat_runner_instance" not in st.session_state or st.session_state.get("current_agent_file") != chosen_agent or st.session_state.get("current_chat_folder") != chat_data_folder:
+                    st.session_state.chat_runner_instance = ChatRunner(chosen_agent, data_folder=chat_data_folder)
                     st.session_state.current_agent_file = chosen_agent
+                    st.session_state.current_chat_folder = chat_data_folder
                     st.session_state.chat_history = []
 
                 with st.form("chat_form", clear_on_submit=True):
