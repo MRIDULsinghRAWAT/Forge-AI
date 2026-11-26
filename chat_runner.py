@@ -104,18 +104,46 @@ class ChatRunner:
         bullet_points = []
         for r in retrieved:
             raw = self._clean_text(r.get("content", ""))
-            # Split into sentences / sections
-            segments = re.split(r'\n{2,}|\n(?=[A-Z])', raw)
-            for seg in segments:
-                seg = seg.strip()
-                if len(seg) < 15:
+            # Split into meaningful sections by double-newline, or single-newline if no double-newlines
+            sections = re.split(r'\n{2,}', raw)
+            if len(sections) <= 1:
+                sections = [line.strip() for line in raw.split('\n') if line.strip()]
+
+            # First pass: find sections that contain a keyword
+            matched_indices = set()
+            for idx, sec in enumerate(sections):
+                sec_stripped = sec.strip()
+                if len(sec_stripped) < 5:
                     continue
-                seg_lower = seg.lower()
-                seg_nospace = re.sub(r'\s+', '', seg_lower)
-                if any(w in seg_lower for w in content_words) or any(w in seg_nospace for w in content_words):
-                    if not any(bad in seg_lower for bad in ["table of contents", "copyright", "all rights reserved"]):
-                        if seg not in bullet_points:
-                            bullet_points.append(seg)
+                sec_lower = sec_stripped.lower()
+                sec_nospace = re.sub(r'\s+', '', sec_lower)
+                if any(w in sec_lower for w in content_words) or any(w in sec_nospace for w in content_words):
+                    matched_indices.add(idx)
+
+            # For section-header queries (e.g. "projects", "experience", "skills"),
+            # also include the lines/sections that follow the header
+            header_words = {"projects", "experience", "education", "skills",
+                            "achievements", "summary", "certifications"}
+            is_section_query = bool(set(content_words) & header_words)
+            if is_section_query and matched_indices:
+                # Prefer exact header match if present
+                exact_headers = [i for i in matched_indices if sections[i].strip().lower() in header_words]
+                anchor_indices = exact_headers if exact_headers else list(matched_indices)
+                expanded = set()
+                span = 18 if len(sections) > 10 else 6
+                for mi in anchor_indices:
+                    for offset in range(0, span):
+                        if mi + offset < len(sections):
+                            expanded.add(mi + offset)
+                matched_indices = expanded
+
+            for idx in sorted(matched_indices):
+                sec = sections[idx].strip()
+                if len(sec) < 10:
+                    continue
+                if not any(bad in sec.lower() for bad in ["table of contents", "copyright", "all rights reserved"]):
+                    if sec not in bullet_points:
+                        bullet_points.append(sec)
 
         # 6. Fallback: if nothing matched keywords, return the best retrieved content directly
         if not bullet_points and not tool_results:
