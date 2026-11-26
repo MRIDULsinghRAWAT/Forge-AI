@@ -1,5 +1,5 @@
 {
-  "agent_id": "agent_hr_8554",
+  "agent_id": "agent_hr_6554",
   "brief": "I need an HR assistant that answers employee leave and salary policy questions for shore staff.",
   "requirements": {
     "agent_type": "hr",
@@ -27,8 +27,8 @@
     "groundability_assessment": {
       "supported_topics": [],
       "unsupported_flags": [],
-      "doc_count": 0,
-      "total_tokens_approx": 0
+      "doc_count": 1,
+      "total_tokens_approx": 1471
     },
     "human_approved": true,
     "target_audience": "Internal Staff",

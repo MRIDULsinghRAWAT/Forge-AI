@@ -1,8 +1,8 @@
 # ForgeAI - Autonomous Agent Build & Evaluation Report
 
 **Generated for:** OceanTech Global Shore-Based Staff Human Resources (Leave, Compensation, Benefits, and Payroll)  
-**Agent ID:** `agent_hr_8554` (Version 3)  
-**Final Eval Accuracy:** **0.0%** (2/21 test cases passing)  
+**Agent ID:** `agent_hr_6554` (Version 3)  
+**Final Eval Accuracy:** **0.0%** (7/24 test cases passing)  
 
 ---
 
@@ -67,9 +67,9 @@ The factory autonomously performed surgical adaptations across iterations:
 
 | Iteration | Accuracy | Avg Score | Failures | Actions Applied |
 |---|---|---|---|---|
-| 1 | 9.5% | 0.55 | 19 | Appended strict refusal reinforcement guardrail to system prompt.; Appended explicit citation directive for quantitative facts. |
-| 2 | 9.5% | 0.55 | 19 | Appended strict refusal reinforcement guardrail to system prompt.; Appended explicit citation directive for quantitative facts. |
-| 3 | 9.5% | 0.55 | 19 | Initial baseline run / converged |
+| 1 | 29.2% | 0.615 | 17 | Appended strict refusal reinforcement guardrail to system prompt.; Appended explicit citation directive for quantitative facts. |
+| 2 | 29.2% | 0.615 | 17 | Appended strict refusal reinforcement guardrail to system prompt.; Appended explicit citation directive for quantitative facts. |
+| 3 | 29.2% | 0.615 | 17 | Initial baseline run / converged |
 
 ---
 
@@ -84,10 +84,6 @@ The factory autonomously performed surgical adaptations across iterations:
   - **Failure Category**: `prompt defect`
   - **Diagnosis**: Factual mismatch: Expected key facts ['2.0 days', 'month'] were missing or incorrect
   - **Scores**: Grounding=0.75, Correctness=0.0, Refusal=1.0
-- **[HR_03] (answerable)**: *"How many unused annual leave days can be carried over into the next year, and when do they expire?"*
-  - **Failure Category**: `prompt defect`
-  - **Diagnosis**: Factual mismatch: Expected key facts ['8', 'march 31', 'carry over'] were missing or incorrect
-  - **Scores**: Grounding=0.75, Correctness=0.0, Refusal=1.0
 - **[HR_04] (answerable)**: *"When is an employee required to submit an official medical certificate for sick leave?"*
   - **Failure Category**: `prompt defect`
   - **Diagnosis**: Factual mismatch: Expected key facts ['2 consecutive', '48 hours', 'medical certificate'] were missing or incorrect
@@ -95,10 +91,6 @@ The factory autonomously performed surgical adaptations across iterations:
 - **[HR_05] (answerable)**: *"What is the duration of maternity leave for primary caregivers?"*
   - **Failure Category**: `prompt defect`
   - **Diagnosis**: Factual mismatch: Expected key facts ['26', 'weeks', 'maternity'] were missing or incorrect
-  - **Scores**: Grounding=0.75, Correctness=0.0, Refusal=1.0
-- **[HR_06] (answerable)**: *"How many weeks of paternity leave are granted to secondary caregivers?"*
-  - **Failure Category**: `prompt defect`
-  - **Diagnosis**: Factual mismatch: Expected key facts ['3', 'weeks', 'paternity'] were missing or incorrect
   - **Scores**: Grounding=0.75, Correctness=0.0, Refusal=1.0
 - **[HR_07] (answerable)**: *"How many days of emergency leave are permitted for bereavement of an immediate family member?"*
   - **Failure Category**: `prompt defect`
