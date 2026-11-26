@@ -75,7 +75,8 @@ class DocumentLoader:
                         strings = re.findall(r"\(([^)]+)\)", decomp.decode('latin-1', errors='ignore'))
                         if strings:
                             # Clean spaces between individual letters if present
-                            line_content = " ".join(strings)
+                            avg_len = sum(len(s) for s in strings) / max(len(strings), 1)
+                            line_content = "".join(strings) if avg_len < 6 else " ".join(strings)
                             # Remove non-ascii noise or font glyph binary noise
                             if not any(c in line_content for c in ['ÿ', '÷', 'ö', 'õ', 'ô', 'ó', 'ò', 'ñ', 'ð']):
                                 line_content = re.sub(r'(?<=\b\w)\s(?=\w\b)', '', line_content)
