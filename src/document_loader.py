@@ -44,14 +44,14 @@ class DocumentLoader:
 
         return documents
 
-    def _read_pdf(self, file_path: str) -> str:
+    def _read_pdf(self, file_path: str, max_pages: int = 30) -> str:
         """Extract text from PDF using pypdf (high-quality) with zlib fallback."""
         # --- Primary: pypdf gives clean, properly ordered text ---
         try:
             from pypdf import PdfReader
             reader = PdfReader(file_path)
             pages = []
-            for page in reader.pages:
+            for page in reader.pages[:max_pages]:
                 page_text = page.extract_text() or ""
                 if page_text.strip():
                     pages.append(page_text.strip())
