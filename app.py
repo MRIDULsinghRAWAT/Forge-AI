@@ -618,8 +618,8 @@ with right_workspace:
                                     row = res["results"][0]
                                     tool_facts.append(f"Catalog Record for {parts[0].upper()}: Unit Price: ${row.get('unit_price_usd')} USD, Lead Time: {row.get('lead_time_days')} days, Stock: {row.get('stock_quantity')}, Emergency Stock: {row.get('emergency_stock')}, Compatible: {row.get('compatible_vessels')}, Supplier: {row.get('supplier_id')}. (Source: spares_catalogue.csv)")
 
-                        # RAG retrieval
-                        k = max(5, cur_agent_def.get("retrieval_config", {}).get("top_k", 5))
+                        # RAG retrieval (respect candidate's top_k so tournament differentiates candidates)
+                        k = cur_agent_def.get("retrieval_config", {}).get("top_k", 3)
                         retrieved = rag.retrieve(question, top_k=k)
                         citations = list(set([c["source"] for c in retrieved]))
 

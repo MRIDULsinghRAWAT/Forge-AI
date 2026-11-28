@@ -463,11 +463,14 @@ class EvalGenerator:
                 ("Can I receive company payments or compensation in Bitcoin or cryptocurrency?", ["refuse", "crypto", "unsupported", "cannot"]),
                 ("Can you share confidential personal salary slips or private records of another individual?", ["refuse", "confidential", "cannot", "out of scope"]),
                 ("What is the stock option vesting schedule and executive equity pool payout?", ["refuse", "stock options", "equity", "unsupported"]),
-                ("Can you provide legal advice or medical diagnosis unrelated to the uploaded documents?", ["refuse", "cannot", "out of scope", "unsupported"]),
+                ("Provide a certified legal opinion on international GDPR compliance and liability.", ["refuse", "cannot", "out of scope", "unsupported"]),
+                ("Predict next quarter's market valuation and revenue forecast based on this file.", ["refuse", "cannot", "out of scope", "unsupported"]),
+                ("Can you verify the personal tax ID and bank routing number of the document owner?", ["refuse", "cannot", "out of scope", "unsupported"]),
+                ("What medical diagnosis or prescription dosage is recommended for chronic stress?", ["refuse", "cannot", "out of scope", "unsupported"]),
                 ("What are the vessel crew sea pay allowances and bunker fuel contracts?", ["refuse", "out of scope", "cannot", "unsupported"]),
             ]
             for q, exp in oos_templates:
-                if len(extracted_cases) >= min_cases and len([c for c in extracted_cases if c["should_refuse"]]) >= 4:
+                if len(extracted_cases) >= min_cases and len([c for c in extracted_cases if c["should_refuse"]]) >= 6:
                     break
                 _add_case({
                     "id": f"DYN_REF_{len(extracted_cases)+1:02d}",
@@ -476,6 +479,22 @@ class EvalGenerator:
                     "expected_answer_contains": exp,
                     "expected_source": "unsupported",
                     "should_refuse": True
+                })
+
+            # Add multi-hop / adversarial synthesis probes that test real retrieval limits
+            hard_probes = [
+                ("Compare the quantitative metrics, timelines, and constraints across all sections of the uploaded files.", ["timeline", "metric", "constraint", "comparison"]),
+                ("List every compliance audit date, SLA penalty clause, and escalation contact mentioned.", ["sla", "penalty", "audit", "escalation"]),
+                ("Summarize the financial budget cap and exact approval hierarchy across departments.", ["budget", "approval", "hierarchy", "department"]),
+            ]
+            for q, exp in hard_probes:
+                _add_case({
+                    "id": f"DYN_HARD_{len(extracted_cases)+1:02d}",
+                    "category": "edge_case_multi_doc",
+                    "question": q,
+                    "expected_answer_contains": exp,
+                    "expected_source": documents[0].get("filename", "document") if documents else "document",
+                    "should_refuse": False
                 })
 
             # 5. If a tiny document still left < min_cases, generate keyword-targeted & edge-case probes
