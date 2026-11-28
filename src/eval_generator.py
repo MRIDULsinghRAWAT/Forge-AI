@@ -401,15 +401,19 @@ class EvalGenerator:
         }
 
         for doc in documents:
+            if len(extracted_cases) >= 14:
+                break
             filename = doc.get("filename", "document")
             content = doc.get("content", "")
 
-            # 1. Numbered or headed sections e.g., "1. Scope", "Experience", "Projects:"
+            # 1. Numbered or headed sections e.g., "1. Scope", "2. Overtime"
             matches = re.findall(r'(\d+\.?\s+[A-Z][a-zA-Z\s/&]{3,40}:?\s*([^\n\r.]+))', content)
-            for m in matches[:6]:
-                heading = m[0].strip()
+            for m in matches[:4]:
+                if len(extracted_cases) >= 14:
+                    break
+                heading = m[0].strip().replace("\n", " ")
                 fact_snippet = m[1].strip()
-                terms = [w.lower() for w in re.findall(r'\b[a-zA-Z0-9$%,]{3,}\b', fact_snippet) if w.lower() not in stop_words][:4]
+                terms = [w.lower() for w in re.findall(r'\b[a-zA-Z0-9$%,]{4,}\b', fact_snippet) if w.lower() not in stop_words][:3]
                 if terms and len(fact_snippet) > 15:
                     _add_case({
                         "id": f"DYN_{len(extracted_cases)+1:02d}",
@@ -422,20 +426,19 @@ class EvalGenerator:
 
             # 2. Informative sentences / lines (great for resumes, reports, arbitrary PDFs, CSVs)
             lines = [ln.strip() for ln in re.split(r'\n+|(?<=[.!?])\s+', content) if len(ln.strip()) > 30]
-            # Prioritize lines with numbers, percentages, or proper nouns
             scored_lines = sorted(
                 lines,
                 key=lambda s: (bool(re.search(r'\d', s)), len(s) < 220, len(s)),
                 reverse=True
             )
             for ln in scored_lines:
-                if len(extracted_cases) >= max(min_cases, 16) + 5:
+                if len(extracted_cases) >= 14:
                     break
-                words = [w for w in re.findall(r'\b[a-zA-Z0-9$%.\-]{4,}\b', ln) if w.lower() not in stop_words]
+                words = [w for w in re.findall(r'\b[a-zA-Z0-9\-]{4,}\b', ln) if w.lower() not in stop_words]
                 if len(words) < 3:
                     continue
                 topic_hint = " ".join(words[:3])
-                expected_terms = [w.lower() for w in words[:4]]
+                expected_terms = [w.lower() for w in words[:3]]
                 _add_case({
                     "id": f"DYN_{len(extracted_cases)+1:02d}",
                     "category": "answerable",
@@ -469,9 +472,7 @@ class EvalGenerator:
                 ("What medical diagnosis or prescription dosage is recommended for chronic stress?", ["refuse", "cannot", "out of scope", "unsupported"]),
                 ("What are the vessel crew sea pay allowances and bunker fuel contracts?", ["refuse", "out of scope", "cannot", "unsupported"]),
             ]
-            for q, exp in oos_templates:
-                if len(extracted_cases) >= min_cases and len([c for c in extracted_cases if c["should_refuse"]]) >= 6:
-                    break
+            for q, exp in oos_templates[:6]:
                 _add_case({
                     "id": f"DYN_REF_{len(extracted_cases)+1:02d}",
                     "category": "out_of_scope",
@@ -486,8 +487,12 @@ class EvalGenerator:
                 ("Compare the quantitative metrics, timelines, and constraints across all sections of the uploaded files.", ["timeline", "metric", "constraint", "comparison"]),
                 ("List every compliance audit date, SLA penalty clause, and escalation contact mentioned.", ["sla", "penalty", "audit", "escalation"]),
                 ("Summarize the financial budget cap and exact approval hierarchy across departments.", ["budget", "approval", "hierarchy", "department"]),
+                ("Explain the disaster recovery failover RTO/RPO targets and backup retention schedule.", ["rto", "rpo", "failover", "retention"]),
+                ("Detail third-party vendor indemnification limits and liquidated damages clauses.", ["indemnification", "liquidated", "damages", "liability"]),
             ]
             for q, exp in hard_probes:
+                if len(extracted_cases) >= 25:
+                    break
                 _add_case({
                     "id": f"DYN_HARD_{len(extracted_cases)+1:02d}",
                     "category": "edge_case_multi_doc",

@@ -1,5 +1,5 @@
 {
-  "agent_id": "agent_generic_6235",
+  "agent_id": "agent_generic_6570",
   "brief": "I need an HR assistant that answers employee leave and salary policy questions for shore staff.",
   "requirements": {
     "agent_type": "generic",
@@ -28,7 +28,7 @@
       "supported_topics": [],
       "unsupported_flags": [],
       "doc_count": 1,
-      "total_tokens_approx": 444
+      "total_tokens_approx": 237
     },
     "human_approved": true,
     "target_audience": "Internal Staff",
@@ -56,5 +56,6 @@
       "confidence": "high | medium | low"
     }
   },
-  "version": 1
+  "version": 1,
+  "agent_name": "generic_agent"
 }

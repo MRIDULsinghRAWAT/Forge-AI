@@ -1,1 +1,327 @@
-[]
+[
+  {
+    "id": "DYN_01",
+    "category": "answerable",
+    "question": "What does FAANGPath_Simple_Template (5).pdf state about Internship Certificate Project?",
+    "expected_answer_contains": [
+      "internship",
+      "certificate",
+      "project",
+      "manager"
+    ],
+    "expected_source": "FAANGPath_Simple_Template (5).pdf",
+    "should_refuse": false
+  },
+  {
+    "id": "DYN_02",
+    "category": "answerable",
+    "question": "What does FAANGPath_Simple_Template (5).pdf state about mridulsinghrawat31 gmail.com 7906465904?",
+    "expected_answer_contains": [
+      "mridulsinghrawat31",
+      "gmail.com",
+      "7906465904",
+      "linkedin"
+    ],
+    "expected_source": "FAANGPath_Simple_Template (5).pdf",
+    "should_refuse": false
+  },
+  {
+    "id": "DYN_03",
+    "category": "answerable",
+    "question": "What does FAANGPath_Simple_Template (5).pdf state about Intern Uttarakhand Peyjal?",
+    "expected_answer_contains": [
+      "intern",
+      "uttarakhand",
+      "peyjal",
+      "nigam"
+    ],
+    "expected_source": "FAANGPath_Simple_Template (5).pdf",
+    "should_refuse": false
+  },
+  {
+    "id": "DYN_04",
+    "category": "answerable",
+    "question": "What does FAANGPath_Simple_Template (5).pdf state about Intern Aakriti Foundation?",
+    "expected_answer_contains": [
+      "intern",
+      "aakriti",
+      "foundation",
+      "trust"
+    ],
+    "expected_source": "FAANGPath_Simple_Template (5).pdf",
+    "should_refuse": false
+  },
+  {
+    "id": "DYN_05",
+    "category": "answerable",
+    "question": "What does FAANGPath_Simple_Template (5).pdf state about Internship Certificate Aakriti?",
+    "expected_answer_contains": [
+      "internship",
+      "certificate",
+      "aakriti",
+      "foundation"
+    ],
+    "expected_source": "FAANGPath_Simple_Template (5).pdf",
+    "should_refuse": false
+  },
+  {
+    "id": "DYN_06",
+    "category": "answerable",
+    "question": "What does FAANGPath_Simple_Template (5).pdf state about Taught children improving?",
+    "expected_answer_contains": [
+      "taught",
+      "children",
+      "improving",
+      "engagement"
+    ],
+    "expected_source": "FAANGPath_Simple_Template (5).pdf",
+    "should_refuse": false
+  },
+  {
+    "id": "DYN_07",
+    "category": "answerable",
+    "question": "What does FAANGPath_Simple_Template (5).pdf state about B.Tech Computer Science?",
+    "expected_answer_contains": [
+      "b.tech",
+      "computer",
+      "science",
+      "upes"
+    ],
+    "expected_source": "FAANGPath_Simple_Template (5).pdf",
+    "should_refuse": false
+  },
+  {
+    "id": "DYN_08",
+    "category": "answerable",
+    "question": "What does FAANGPath_Simple_Template (5).pdf state about ICSE Heritage School?",
+    "expected_answer_contains": [
+      "icse",
+      "heritage",
+      "school",
+      "dehradun"
+    ],
+    "expected_source": "FAANGPath_Simple_Template (5).pdf",
+    "should_refuse": false
+  },
+  {
+    "id": "DYN_09",
+    "category": "answerable",
+    "question": "What does FAANGPath_Simple_Template (5).pdf state about Solved problems LeetCode?",
+    "expected_answer_contains": [
+      "solved",
+      "problems",
+      "leetcode",
+      "profile"
+    ],
+    "expected_source": "FAANGPath_Simple_Template (5).pdf",
+    "should_refuse": false
+  },
+  {
+    "id": "DYN_10",
+    "category": "answerable",
+    "question": "What does FAANGPath_Simple_Template (5).pdf state about Heritage School Dehradun?",
+    "expected_answer_contains": [
+      "heritage",
+      "school",
+      "dehradun",
+      "2022"
+    ],
+    "expected_source": "FAANGPath_Simple_Template (5).pdf",
+    "should_refuse": false
+  },
+  {
+    "id": "DYN_11",
+    "category": "answerable",
+    "question": "What does FAANGPath_Simple_Template (5).pdf state about Organized community food?",
+    "expected_answer_contains": [
+      "organized",
+      "community",
+      "food",
+      "drives"
+    ],
+    "expected_source": "FAANGPath_Simple_Template (5).pdf",
+    "should_refuse": false
+  },
+  {
+    "id": "DYN_12",
+    "category": "answerable",
+    "question": "What does FAANGPath_Simple_Template (5).pdf state about Summary Modular CRUD?",
+    "expected_answer_contains": [
+      "summary",
+      "modular",
+      "crud",
+      "microservice"
+    ],
+    "expected_source": "FAANGPath_Simple_Template (5).pdf",
+    "should_refuse": false
+  },
+  {
+    "id": "DYN_13",
+    "category": "answerable",
+    "question": "What does FAANGPath_Simple_Template (5).pdf state about Network Scanner Automated?",
+    "expected_answer_contains": [
+      "network",
+      "scanner",
+      "automated",
+      "reporting"
+    ],
+    "expected_source": "FAANGPath_Simple_Template (5).pdf",
+    "should_refuse": false
+  },
+  {
+    "id": "DYN_14",
+    "category": "answerable",
+    "question": "What does FAANGPath_Simple_Template (5).pdf state about Java Python MySQL?",
+    "expected_answer_contains": [
+      "java",
+      "python",
+      "mysql",
+      "linux"
+    ],
+    "expected_source": "FAANGPath_Simple_Template (5).pdf",
+    "should_refuse": false
+  },
+  {
+    "id": "DYN_15",
+    "category": "answerable",
+    "question": "What does FAANGPath_Simple_Template (5).pdf state about Summary Automated scanning?",
+    "expected_answer_contains": [
+      "summary",
+      "automated",
+      "scanning",
+      "workflow"
+    ],
+    "expected_source": "FAANGPath_Simple_Template (5).pdf",
+    "should_refuse": false
+  },
+  {
+    "id": "DYN_16",
+    "category": "answerable",
+    "question": "What does FAANGPath_Simple_Template (5).pdf state about Assisted project documentation?",
+    "expected_answer_contains": [
+      "assisted",
+      "project",
+      "documentation",
+      "community"
+    ],
+    "expected_source": "FAANGPath_Simple_Template (5).pdf",
+    "should_refuse": false
+  },
+  {
+    "id": "DYN_17",
+    "category": "answerable",
+    "question": "What does FAANGPath_Simple_Template (5).pdf state about High-Performance To-Do FastAPI?",
+    "expected_answer_contains": [
+      "high-performance",
+      "to-do",
+      "fastapi",
+      "sqlalchemy"
+    ],
+    "expected_source": "FAANGPath_Simple_Template (5).pdf",
+    "should_refuse": false
+  },
+  {
+    "id": "DYN_18",
+    "category": "answerable",
+    "question": "What does FAANGPath_Simple_Template (5).pdf state about Supported awareness programs?",
+    "expected_answer_contains": [
+      "supported",
+      "awareness",
+      "programs",
+      "educational"
+    ],
+    "expected_source": "FAANGPath_Simple_Template (5).pdf",
+    "should_refuse": false
+  },
+  {
+    "id": "DYN_19",
+    "category": "answerable",
+    "question": "What does FAANGPath_Simple_Template (5).pdf state about End-to-end pipeline host?",
+    "expected_answer_contains": [
+      "end-to-end",
+      "pipeline",
+      "host",
+      "discovery"
+    ],
+    "expected_source": "FAANGPath_Simple_Template (5).pdf",
+    "should_refuse": false
+  },
+  {
+    "id": "DYN_20",
+    "category": "answerable",
+    "question": "What does FAANGPath_Simple_Template (5).pdf state about Collaborated teams increase?",
+    "expected_answer_contains": [
+      "collaborated",
+      "teams",
+      "increase",
+      "social"
+    ],
+    "expected_source": "FAANGPath_Simple_Template (5).pdf",
+    "should_refuse": false
+  },
+  {
+    "id": "DYN_21",
+    "category": "answerable",
+    "question": "What does FAANGPath_Simple_Template (5).pdf state about Conducted sports teamwork-oriented?",
+    "expected_answer_contains": [
+      "conducted",
+      "sports",
+      "teamwork-oriented",
+      "activities"
+    ],
+    "expected_source": "FAANGPath_Simple_Template (5).pdf",
+    "should_refuse": false
+  },
+  {
+    "id": "DYN_22",
+    "category": "answerable",
+    "question": "What does FAANGPath_Simple_Template (5).pdf state about Optimized database operations?",
+    "expected_answer_contains": [
+      "optimized",
+      "database",
+      "operations",
+      "sqlalchemy"
+    ],
+    "expected_source": "FAANGPath_Simple_Template (5).pdf",
+    "should_refuse": false
+  },
+  {
+    "id": "DYN_23",
+    "category": "answerable",
+    "question": "What does FAANGPath_Simple_Template (5).pdf state about Fully structured REST?",
+    "expected_answer_contains": [
+      "fully",
+      "structured",
+      "rest",
+      "endpoints"
+    ],
+    "expected_source": "FAANGPath_Simple_Template (5).pdf",
+    "should_refuse": false
+  },
+  {
+    "id": "DYN_24",
+    "category": "answerable",
+    "question": "What does FAANGPath_Simple_Template (5).pdf state about Parsed scan results?",
+    "expected_answer_contains": [
+      "parsed",
+      "scan",
+      "results",
+      "readable"
+    ],
+    "expected_source": "FAANGPath_Simple_Template (5).pdf",
+    "should_refuse": false
+  },
+  {
+    "id": "DYN_25",
+    "category": "answerable",
+    "question": "What does FAANGPath_Simple_Template (5).pdf state about Ensured data integrity?",
+    "expected_answer_contains": [
+      "ensured",
+      "data",
+      "integrity",
+      "pydantic"
+    ],
+    "expected_source": "FAANGPath_Simple_Template (5).pdf",
+    "should_refuse": false
+  }
+]

@@ -1,260 +1,325 @@
 [
   {
-    "id": "HR_01",
+    "id": "DYN_01",
     "category": "answerable",
-    "question": "How many days of paid annual leave are shore staff entitled to per year?",
+    "question": "What are the verified terms regarding 4 PM to 7 PM Monday through Friday, and 10 AM to 6 PM Saturday and Sunday according to hostel_access_and_leave.txt?",
     "expected_answer_contains": [
-      "24",
-      "annual leave",
-      "working days"
+      "monday",
+      "through",
+      "friday",
+      "and"
     ],
-    "expected_source": "shore_staff_leave_policy.pdf",
+    "expected_source": "hostel_access_and_leave.txt",
     "should_refuse": false
   },
   {
-    "id": "HR_02",
+    "id": "DYN_02",
     "category": "answerable",
-    "question": "What is the monthly accrual rate for annual leave?",
+    "question": "What does hostel_access_and_leave.txt state about Overnight leave requires?",
     "expected_answer_contains": [
-      "2.0 days",
-      "month"
+      "overnight",
+      "leave",
+      "requires",
+      "request"
     ],
-    "expected_source": "shore_staff_leave_policy.pdf",
+    "expected_source": "hostel_access_and_leave.txt",
     "should_refuse": false
   },
   {
-    "id": "HR_03",
+    "id": "DYN_03",
     "category": "answerable",
-    "question": "How many unused annual leave days can be carried over into the next year, and when do they expire?",
+    "question": "What does hostel_access_and_leave.txt state about Emergency leave requested?",
     "expected_answer_contains": [
-      "8",
-      "march 31",
-      "carry over"
+      "emergency",
+      "leave",
+      "requested",
+      "immediately"
     ],
-    "expected_source": "shore_staff_leave_policy.pdf",
+    "expected_source": "hostel_access_and_leave.txt",
     "should_refuse": false
   },
   {
-    "id": "HR_04",
+    "id": "DYN_04",
     "category": "answerable",
-    "question": "When is an employee required to submit an official medical certificate for sick leave?",
+    "question": "What does hostel_access_and_leave.txt state about Visitors permitted Monday?",
     "expected_answer_contains": [
-      "2 consecutive",
-      "48 hours",
-      "medical certificate"
+      "visitors",
+      "permitted",
+      "monday",
+      "through"
     ],
-    "expected_source": "shore_staff_leave_policy.pdf",
+    "expected_source": "hostel_access_and_leave.txt",
     "should_refuse": false
   },
   {
-    "id": "HR_05",
+    "id": "DYN_05",
     "category": "answerable",
-    "question": "What is the duration of maternity leave for primary caregivers?",
+    "question": "What does hostel_access_and_leave.txt state about Visitors must register?",
     "expected_answer_contains": [
-      "26",
-      "weeks",
-      "maternity"
+      "visitors",
+      "must",
+      "register",
+      "reception"
     ],
-    "expected_source": "shore_staff_leave_policy.pdf",
+    "expected_source": "hostel_access_and_leave.txt",
     "should_refuse": false
   },
   {
-    "id": "HR_06",
+    "id": "DYN_06",
     "category": "answerable",
-    "question": "How many weeks of paternity leave are granted to secondary caregivers?",
+    "question": "What does hostel_access_and_leave.txt state about FICTIONAL UNIVERSITY VISITOR?",
     "expected_answer_contains": [
-      "3",
-      "weeks",
-      "paternity"
+      "fictional",
+      "university",
+      "visitor",
+      "leave"
     ],
-    "expected_source": "shore_staff_leave_policy.pdf",
+    "expected_source": "hostel_access_and_leave.txt",
     "should_refuse": false
   },
   {
-    "id": "HR_07",
+    "id": "DYN_07",
     "category": "answerable",
-    "question": "How many days of emergency leave are permitted for bereavement of an immediate family member?",
+    "question": "What does hostel_access_and_leave.txt state about warden must approve?",
     "expected_answer_contains": [
-      "5",
-      "days",
-      "bereavement"
+      "warden",
+      "must",
+      "approve",
+      "request"
     ],
-    "expected_source": "shore_staff_leave_policy.pdf",
+    "expected_source": "hostel_access_and_leave.txt",
     "should_refuse": false
   },
   {
-    "id": "HR_08",
+    "id": "DYN_08",
     "category": "answerable",
-    "question": "On which day of the month are monthly salaries credited to employee accounts?",
+    "question": "What does hostel_access_and_leave.txt state about Visitors cannot enter?",
     "expected_answer_contains": [
-      "28th",
-      "bank",
-      "preceding"
+      "visitors",
+      "cannot",
+      "enter",
+      "resident"
     ],
-    "expected_source": "shore_staff_compensation_policy.pdf",
+    "expected_source": "hostel_access_and_leave.txt",
     "should_refuse": false
   },
   {
-    "id": "HR_09",
+    "id": "DYN_09",
     "category": "answerable",
-    "question": "What happens to salary disbursal if the 28th falls on a weekend or public holiday?",
+    "question": "What does hostel_discipline.txt state about second quiet-hours violation?",
     "expected_answer_contains": [
-      "preceding",
-      "working day",
-      "weekend"
+      "second",
+      "quiet-hours",
+      "violation",
+      "attracts"
     ],
-    "expected_source": "shore_staff_compensation_policy.pdf",
+    "expected_source": "hostel_discipline.txt",
     "should_refuse": false
   },
   {
-    "id": "HR_10",
+    "id": "DYN_10",
     "category": "answerable",
-    "question": "What is the weightage breakdown for the annual performance bonus calculation?",
+    "question": "What does hostel_discipline.txt state about Quiet hours daily?",
     "expected_answer_contains": [
-      "60%",
-      "40%",
-      "kpi",
-      "ebitda"
+      "quiet",
+      "hours",
+      "daily"
     ],
-    "expected_source": "shore_staff_compensation_policy.pdf",
+    "expected_source": "hostel_discipline.txt",
     "should_refuse": false
   },
   {
-    "id": "HR_11",
+    "id": "DYN_11",
     "category": "answerable",
-    "question": "Are managerial grade M1 employees eligible for overtime compensation?",
+    "question": "What does hostel_discipline.txt state about Replacement cards cost?",
     "expected_answer_contains": [
-      "exempt",
-      "m1",
-      "not eligible"
+      "replacement",
+      "cards",
+      "cost"
     ],
-    "expected_source": "shore_staff_compensation_policy.pdf",
+    "expected_source": "hostel_discipline.txt",
     "should_refuse": false
   },
   {
-    "id": "HR_12",
+    "id": "DYN_12",
     "category": "answerable",
-    "question": "What is the overtime rate for non-exempt support staff working beyond 40 hours per week?",
+    "question": "What does hostel_discipline.txt state about fire emergency residents?",
     "expected_answer_contains": [
-      "1.5x",
-      "hourly base pay",
-      "40 hours"
+      "fire",
+      "emergency",
+      "residents",
+      "must"
     ],
-    "expected_source": "shore_staff_compensation_policy.pdf",
+    "expected_source": "hostel_discipline.txt",
     "should_refuse": false
   },
   {
-    "id": "HR_13",
+    "id": "DYN_13",
     "category": "answerable",
-    "question": "What is the deadline for claiming business expense reimbursements?",
+    "question": "What does hostel_discipline.txt state about Smoking alcohol consumption?",
     "expected_answer_contains": [
-      "30 days",
-      "concur"
+      "smoking",
+      "alcohol",
+      "consumption",
+      "unauthorized"
     ],
-    "expected_source": "shore_staff_compensation_policy.pdf",
+    "expected_source": "hostel_discipline.txt",
     "should_refuse": false
   },
   {
-    "id": "HR_14",
+    "id": "DYN_14",
     "category": "answerable",
-    "question": "What is the total annual medical health insurance coverage provided?",
+    "question": "What does hostel_discipline.txt state about Further violations referred?",
     "expected_answer_contains": [
-      "$50,000",
-      "50,000",
-      "insurance"
+      "further",
+      "violations",
+      "referred",
+      "disciplinary"
     ],
-    "expected_source": "shore_staff_compensation_policy.pdf",
+    "expected_source": "hostel_discipline.txt",
     "should_refuse": false
   },
   {
-    "id": "HR_15",
-    "category": "out_of_scope",
-    "question": "What is the sea pay allowance and shore leave rotation for vessel deck officers?",
+    "id": "DYN_15",
+    "category": "answerable",
+    "question": "What does hostel_discipline.txt state about FICTIONAL UNIVERSITY DISCIPLINARY?",
     "expected_answer_contains": [
-      "refuse",
-      "seafaring",
-      "shore staff only",
-      "fleet operations"
+      "fictional",
+      "university",
+      "disciplinary",
+      "safety"
     ],
-    "expected_source": "shore_staff_leave_policy.pdf",
-    "should_refuse": true
-  },
-  {
-    "id": "HR_16",
-    "category": "out_of_scope",
-    "question": "Can I trade in my annual company stock options for cash early?",
-    "expected_answer_contains": [
-      "refuse",
-      "stock options",
-      "equity",
-      "not covered"
-    ],
-    "expected_source": "unsupported",
-    "should_refuse": true
-  },
-  {
-    "id": "HR_17",
-    "category": "out_of_scope",
-    "question": "Can I receive my salary in Bitcoin or cryptocurrency?",
-    "expected_answer_contains": [
-      "refuse",
-      "crypto",
-      "not supported",
-      "bank accounts"
-    ],
-    "expected_source": "unsupported",
-    "should_refuse": true
-  },
-  {
-    "id": "HR_18",
-    "category": "out_of_scope",
-    "question": "Can you share my colleague John's exact bonus payout and salary slip?",
-    "expected_answer_contains": [
-      "refuse",
-      "confidential",
-      "privacy",
-      "cannot"
-    ],
-    "expected_source": "unsupported",
-    "should_refuse": true
-  },
-  {
-    "id": "HR_19",
-    "category": "edge_case_multi_doc",
-    "question": "If an employee on sick leave is currently serving their resignation notice period, are they still eligible for their April performance bonus?",
-    "expected_answer_contains": [
-      "notice period",
-      "forfeit",
-      "bonus",
-      "sick leave"
-    ],
-    "expected_source": "shore_staff_leave_policy.pdf, shore_staff_compensation_policy.pdf",
+    "expected_source": "hostel_discipline.txt",
     "should_refuse": false
   },
   {
-    "id": "HR_20",
-    "category": "edge_case_ambiguous",
-    "question": "I need to take 4 days off next week for urgent personal family reasons. How much advance notice is required?",
+    "id": "DYN_16",
+    "category": "answerable",
+    "question": "What does hostel_discipline.txt state about first quiet-hours violation?",
     "expected_answer_contains": [
-      "10 business days",
-      "3 consecutive",
-      "hrms",
-      "department head"
+      "first",
+      "quiet-hours",
+      "violation",
+      "warden"
     ],
-    "expected_source": "shore_staff_leave_policy.pdf",
+    "expected_source": "hostel_discipline.txt",
     "should_refuse": false
   },
   {
-    "id": "HR_21",
-    "category": "edge_case_multi_doc",
-    "question": "Does taking 26 weeks of maternity leave reduce an employee's annual medical insurance limit below $50,000?",
+    "id": "DYN_17",
+    "category": "answerable",
+    "question": "What does hostel_discipline.txt state about Damage hostel property?",
     "expected_answer_contains": [
-      "$50,000",
-      "maternity",
-      "coverage remains",
-      "insurance"
+      "damage",
+      "hostel",
+      "property",
+      "charged"
     ],
-    "expected_source": "shore_staff_leave_policy.pdf, shore_staff_compensation_policy.pdf",
+    "expected_source": "hostel_discipline.txt",
+    "should_refuse": false
+  },
+  {
+    "id": "DYN_18",
+    "category": "answerable",
+    "question": "What does hostel_discipline.txt state about Residents must report?",
+    "expected_answer_contains": [
+      "residents",
+      "must",
+      "report",
+      "lost"
+    ],
+    "expected_source": "hostel_discipline.txt",
+    "should_refuse": false
+  },
+  {
+    "id": "DYN_19",
+    "category": "answerable",
+    "question": "What does hostel_discipline.txt state about Report maintenance problems?",
+    "expected_answer_contains": [
+      "report",
+      "maintenance",
+      "problems",
+      "hostel"
+    ],
+    "expected_source": "hostel_discipline.txt",
+    "should_refuse": false
+  },
+  {
+    "id": "DYN_20",
+    "category": "answerable",
+    "question": "What does hostel_fees.txt state about Security deposit refunded?",
+    "expected_answer_contains": [
+      "security",
+      "deposit",
+      "refunded",
+      "within"
+    ],
+    "expected_source": "hostel_fees.txt",
+    "should_refuse": false
+  },
+  {
+    "id": "DYN_21",
+    "category": "answerable",
+    "question": "What does hostel_fees.txt state about Late payment attracts?",
+    "expected_answer_contains": [
+      "late",
+      "payment",
+      "attracts",
+      "flat"
+    ],
+    "expected_source": "hostel_fees.txt",
+    "should_refuse": false
+  },
+  {
+    "id": "DYN_22",
+    "category": "answerable",
+    "question": "What does hostel_fees.txt state about Cancellation within calendar?",
+    "expected_answer_contains": [
+      "cancellation",
+      "within",
+      "calendar",
+      "days"
+    ],
+    "expected_source": "hostel_fees.txt",
+    "should_refuse": false
+  },
+  {
+    "id": "DYN_23",
+    "category": "answerable",
+    "question": "What does hostel_fees.txt state about cancellation before move-in?",
+    "expected_answer_contains": [
+      "cancellation",
+      "before",
+      "move-in",
+      "room"
+    ],
+    "expected_source": "hostel_fees.txt",
+    "should_refuse": false
+  },
+  {
+    "id": "DYN_24",
+    "category": "answerable",
+    "question": "What does hostel_fees.txt state about Refundable security deposit?",
+    "expected_answer_contains": [
+      "refundable",
+      "security",
+      "deposit",
+      "5000"
+    ],
+    "expected_source": "hostel_fees.txt",
+    "should_refuse": false
+  },
+  {
+    "id": "DYN_25",
+    "category": "answerable",
+    "question": "What does hostel_fees.txt state about Mess 18000 semester?",
+    "expected_answer_contains": [
+      "mess",
+      "18000",
+      "semester",
+      "every"
+    ],
+    "expected_source": "hostel_fees.txt",
     "should_refuse": false
   }
 ]

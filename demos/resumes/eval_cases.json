@@ -1,0 +1,326 @@
+[
+  {
+    "id": "DYN_01",
+    "category": "answerable",
+    "question": "What are the verified terms regarding 2021\nExperience\nUltimez Technology | Web Developer Intern according to 72db1a9d-611c-4ce9-9734-8f2ec19fd6ad.pdf?",
+    "expected_answer_contains": [
+      "web",
+      "developer",
+      "intern"
+    ],
+    "expected_source": "72db1a9d-611c-4ce9-9734-8f2ec19fd6ad.pdf",
+    "should_refuse": false
+  },
+  {
+    "id": "DYN_02",
+    "category": "answerable",
+    "question": "What does 72db1a9d-611c-4ce9-9734-8f2ec19fd6ad.pdf state about real-time network attack-path?",
+    "expected_answer_contains": [
+      "real-time",
+      "network",
+      "attack-path",
+      "intelligence"
+    ],
+    "expected_source": "72db1a9d-611c-4ce9-9734-8f2ec19fd6ad.pdf",
+    "should_refuse": false
+  },
+  {
+    "id": "DYN_03",
+    "category": "answerable",
+    "question": "What does 72db1a9d-611c-4ce9-9734-8f2ec19fd6ad.pdf state about Built full-stack attack-graph?",
+    "expected_answer_contains": [
+      "built",
+      "full-stack",
+      "attack-graph",
+      "platform"
+    ],
+    "expected_source": "72db1a9d-611c-4ce9-9734-8f2ec19fd6ad.pdf",
+    "should_refuse": false
+  },
+  {
+    "id": "DYN_04",
+    "category": "answerable",
+    "question": "What does 72db1a9d-611c-4ce9-9734-8f2ec19fd6ad.pdf state about Engineered CVSS-weighted Dijkstra?",
+    "expected_answer_contains": [
+      "engineered",
+      "cvss-weighted",
+      "dijkstra",
+      "engine"
+    ],
+    "expected_source": "72db1a9d-611c-4ce9-9734-8f2ec19fd6ad.pdf",
+    "should_refuse": false
+  },
+  {
+    "id": "DYN_05",
+    "category": "answerable",
+    "question": "What does 72db1a9d-611c-4ce9-9734-8f2ec19fd6ad.pdf state about Built AI-powered phishing?",
+    "expected_answer_contains": [
+      "built",
+      "ai-powered",
+      "phishing",
+      "detection"
+    ],
+    "expected_source": "72db1a9d-611c-4ce9-9734-8f2ec19fd6ad.pdf",
+    "should_refuse": false
+  },
+  {
+    "id": "DYN_06",
+    "category": "answerable",
+    "question": "What does 72db1a9d-611c-4ce9-9734-8f2ec19fd6ad.pdf state about Reduced model memory?",
+    "expected_answer_contains": [
+      "reduced",
+      "model",
+      "memory",
+      "footprint"
+    ],
+    "expected_source": "72db1a9d-611c-4ce9-9734-8f2ec19fd6ad.pdf",
+    "should_refuse": false
+  },
+  {
+    "id": "DYN_07",
+    "category": "answerable",
+    "question": "What does 72db1a9d-611c-4ce9-9734-8f2ec19fd6ad.pdf state about Engineered edge-AI model?",
+    "expected_answer_contains": [
+      "engineered",
+      "edge-ai",
+      "model",
+      "compression"
+    ],
+    "expected_source": "72db1a9d-611c-4ce9-9734-8f2ec19fd6ad.pdf",
+    "should_refuse": false
+  },
+  {
+    "id": "DYN_08",
+    "category": "answerable",
+    "question": "What does 72db1a9d-611c-4ce9-9734-8f2ec19fd6ad.pdf state about Cybersecurity Network Security?",
+    "expected_answer_contains": [
+      "cybersecurity",
+      "network",
+      "security",
+      "cybersecurity"
+    ],
+    "expected_source": "72db1a9d-611c-4ce9-9734-8f2ec19fd6ad.pdf",
+    "should_refuse": false
+  },
+  {
+    "id": "DYN_09",
+    "category": "answerable",
+    "question": "What does 72db1a9d-611c-4ce9-9734-8f2ec19fd6ad.pdf state about Compared four models?",
+    "expected_answer_contains": [
+      "compared",
+      "four",
+      "models",
+      "using"
+    ],
+    "expected_source": "72db1a9d-611c-4ce9-9734-8f2ec19fd6ad.pdf",
+    "should_refuse": false
+  },
+  {
+    "id": "DYN_10",
+    "category": "answerable",
+    "question": "What does 72db1a9d-611c-4ce9-9734-8f2ec19fd6ad.pdf state about Chained findings kill?",
+    "expected_answer_contains": [
+      "chained",
+      "findings",
+      "kill",
+      "chains"
+    ],
+    "expected_source": "72db1a9d-611c-4ce9-9734-8f2ec19fd6ad.pdf",
+    "should_refuse": false
+  },
+  {
+    "id": "DYN_11",
+    "category": "answerable",
+    "question": "What does 72db1a9d-611c-4ce9-9734-8f2ec19fd6ad.pdf state about Built OpenAPI Swagger-aware?",
+    "expected_answer_contains": [
+      "built",
+      "openapi",
+      "swagger-aware",
+      "exploit"
+    ],
+    "expected_source": "72db1a9d-611c-4ce9-9734-8f2ec19fd6ad.pdf",
+    "should_refuse": false
+  },
+  {
+    "id": "DYN_12",
+    "category": "answerable",
+    "question": "What does 72db1a9d-611c-4ce9-9734-8f2ec19fd6ad.pdf state about Hackathon Shortlisted nationwide?",
+    "expected_answer_contains": [
+      "hackathon",
+      "shortlisted",
+      "nationwide",
+      "teams"
+    ],
+    "expected_source": "72db1a9d-611c-4ce9-9734-8f2ec19fd6ad.pdf",
+    "should_refuse": false
+  },
+  {
+    "id": "DYN_13",
+    "category": "answerable",
+    "question": "What does 72db1a9d-611c-4ce9-9734-8f2ec19fd6ad.pdf state about Smart India Hackathon?",
+    "expected_answer_contains": [
+      "smart",
+      "india",
+      "hackathon",
+      "team"
+    ],
+    "expected_source": "72db1a9d-611c-4ce9-9734-8f2ec19fd6ad.pdf",
+    "should_refuse": false
+  },
+  {
+    "id": "DYN_14",
+    "category": "answerable",
+    "question": "What does 72db1a9d-611c-4ce9-9734-8f2ec19fd6ad.pdf state about while retaining 99.2?",
+    "expected_answer_contains": [
+      "while",
+      "retaining",
+      "99.2",
+      "baseline"
+    ],
+    "expected_source": "72db1a9d-611c-4ce9-9734-8f2ec19fd6ad.pdf",
+    "should_refuse": false
+  },
+  {
+    "id": "DYN_15",
+    "category": "answerable",
+    "question": "What does 72db1a9d-611c-4ce9-9734-8f2ec19fd6ad.pdf state about Final-year B.Tech undergraduate?",
+    "expected_answer_contains": [
+      "final-year",
+      "b.tech",
+      "undergraduate",
+      "specializing"
+    ],
+    "expected_source": "72db1a9d-611c-4ce9-9734-8f2ec19fd6ad.pdf",
+    "should_refuse": false
+  },
+  {
+    "id": "DYN_16",
+    "category": "answerable",
+    "question": "What does 72db1a9d-611c-4ce9-9734-8f2ec19fd6ad.pdf state about Integrated MLflow MLOps?",
+    "expected_answer_contains": [
+      "integrated",
+      "mlflow",
+      "mlops",
+      "tracking"
+    ],
+    "expected_source": "72db1a9d-611c-4ce9-9734-8f2ec19fd6ad.pdf",
+    "should_refuse": false
+  },
+  {
+    "id": "DYN_17",
+    "category": "answerable",
+    "question": "What does 72db1a9d-611c-4ce9-9734-8f2ec19fd6ad.pdf state about Deployed lightweight inference?",
+    "expected_answer_contains": [
+      "deployed",
+      "lightweight",
+      "inference",
+      "backend"
+    ],
+    "expected_source": "72db1a9d-611c-4ce9-9734-8f2ec19fd6ad.pdf",
+    "should_refuse": false
+  },
+  {
+    "id": "DYN_18",
+    "category": "answerable",
+    "question": "What does 72db1a9d-611c-4ce9-9734-8f2ec19fd6ad.pdf state about attack-path analysis workflows?",
+    "expected_answer_contains": [
+      "attack-path",
+      "analysis",
+      "workflows",
+      "using"
+    ],
+    "expected_source": "72db1a9d-611c-4ce9-9734-8f2ec19fd6ad.pdf",
+    "should_refuse": false
+  },
+  {
+    "id": "DYN_19",
+    "category": "answerable",
+    "question": "What does 72db1a9d-611c-4ce9-9734-8f2ec19fd6ad.pdf state about Added live enrichment?",
+    "expected_answer_contains": [
+      "added",
+      "live",
+      "enrichment",
+      "what-if"
+    ],
+    "expected_source": "72db1a9d-611c-4ce9-9734-8f2ec19fd6ad.pdf",
+    "should_refuse": false
+  },
+  {
+    "id": "DYN_20",
+    "category": "answerable",
+    "question": "What does 72db1a9d-611c-4ce9-9734-8f2ec19fd6ad.pdf state about Auto-generated client-ready HTML?",
+    "expected_answer_contains": [
+      "auto-generated",
+      "client-ready",
+      "html",
+      "pentest"
+    ],
+    "expected_source": "72db1a9d-611c-4ce9-9734-8f2ec19fd6ad.pdf",
+    "should_refuse": false
+  },
+  {
+    "id": "DYN_21",
+    "category": "answerable",
+    "question": "What does 72db1a9d-611c-4ce9-9734-8f2ec19fd6ad.pdf state about Enabled faster safer?",
+    "expected_answer_contains": [
+      "enabled",
+      "faster",
+      "safer",
+      "phishing"
+    ],
+    "expected_source": "72db1a9d-611c-4ce9-9734-8f2ec19fd6ad.pdf",
+    "should_refuse": false
+  },
+  {
+    "id": "DYN_22",
+    "category": "answerable",
+    "question": "What does 72db1a9d-611c-4ce9-9734-8f2ec19fd6ad.pdf state about framework Random Forest-based?",
+    "expected_answer_contains": [
+      "framework",
+      "random",
+      "forest-based",
+      "phishing"
+    ],
+    "expected_source": "72db1a9d-611c-4ce9-9734-8f2ec19fd6ad.pdf",
+    "should_refuse": false
+  },
+  {
+    "id": "DYN_23",
+    "category": "answerable",
+    "question": "What does 72db1a9d-611c-4ce9-9734-8f2ec19fd6ad.pdf state about B.Tech Computer Science?",
+    "expected_answer_contains": [
+      "b.tech",
+      "computer",
+      "science",
+      "engineering"
+    ],
+    "expected_source": "72db1a9d-611c-4ce9-9734-8f2ec19fd6ad.pdf",
+    "should_refuse": false
+  },
+  {
+    "id": "DYN_24",
+    "category": "answerable",
+    "question": "What does 72db1a9d-611c-4ce9-9734-8f2ec19fd6ad.pdf state about telemetry zero-downtime model?",
+    "expected_answer_contains": [
+      "telemetry",
+      "zero-downtime",
+      "model",
+      "hot-swapping"
+    ],
+    "expected_source": "72db1a9d-611c-4ce9-9734-8f2ec19fd6ad.pdf",
+    "should_refuse": false
+  },
+  {
+    "id": "DYN_25",
+    "category": "answerable",
+    "question": "What does 72db1a9d-611c-4ce9-9734-8f2ec19fd6ad.pdf state about accuracy drive production?",
+    "expected_answer_contains": [
+      "accuracy",
+      "drive",
+      "production",
+      "deployment"
+    ],
+    "expected_source": "72db1a9d-611c-4ce9-9734-8f2ec19fd6ad.pdf",
+    "should_refuse": false
+  }
+]
