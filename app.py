@@ -461,6 +461,7 @@ with left_rail:
         "**Build New Agent**\n\nEnter a brief, review requirements at the Human Checkpoint, and auto-optimize.",
         "**Interactive Chat**\n\nTest your generated agent with grounded RAG responses and strict refusals.",
         "**Evaluation Reports**\n\nInspect 20+ auto-generated test cases, accuracy metrics, and audit logs.",
+        "**Saved Agents**\n\nBrowse all generated agents, view saved paths, download configs, or manage.",
     ]
     selected_nav = st.radio(
         "Navigation",
@@ -812,6 +813,64 @@ with right_workspace:
                         pass
                 with open(selected_rep, "r", encoding="utf-8") as f:
                     st.markdown(f.read())
+
+        elif st.session_state["active_view"] == 3:
+            st.header("Saved Agents Registry")
+            st.caption("All generated agents are stored locally under the `demos/` directory.")
+            import glob
+            import shutil
+
+            saved_files = sorted(glob.glob("demos/**/agent_definition.json", recursive=True))
+            if not saved_files:
+                st.info("No saved agents found yet. Build a new agent in the first tab to see it here.")
+            else:
+                for idx, agent_path in enumerate(saved_files):
+                    agent_dir = os.path.dirname(agent_path)
+                    folder_label = os.path.basename(agent_dir)
+                    try:
+                        with open(agent_path, "r", encoding="utf-8") as af:
+                            adata = json.load(af)
+                    except Exception:
+                        adata = {}
+
+                    display_name = adata.get("agent_name") or folder_label
+                    agent_id = adata.get("agent_id", "unknown")
+                    version = adata.get("version", 1)
+                    scope = adata.get("requirements", {}).get("scope", "N/A")
+                    tools_list = adata.get("attached_tools", [])
+
+                    # Read accuracy from scorecard.json if available
+                    sc_path = os.path.join(agent_dir, "scorecard.json")
+                    acc_text = "N/A"
+                    if os.path.exists(sc_path):
+                        try:
+                            with open(sc_path, "r", encoding="utf-8") as sf:
+                                sc = json.load(sf)
+                                acc_text = f"{sc.get('accuracy_percent', 0)}% ({sc.get('passed_tests', 0)}/{sc.get('total_tests', 0)})"
+                        except Exception:
+                            pass
+
+                    with st.container(border=True):
+                        c_info, c_actions = st.columns([0.72, 0.28])
+                        with c_info:
+                            st.markdown(f"### {display_name}")
+                            st.write(f"**Agent ID:** `{agent_id}` | **Version:** `{version}` | **Accuracy:** `{acc_text}`")
+                            st.write(f"**Scope:** {scope}")
+                            st.write(f"**Tools:** `{tools_list}` | **Saved Path:** `{agent_dir.replace(chr(92), '/')}/`")
+                        with c_actions:
+                            st.download_button(
+                                "Download JSON",
+                                json.dumps(adata, indent=2),
+                                file_name=f"{folder_label}_agent_definition.json",
+                                key=f"dl_saved_{idx}",
+                                use_container_width=True,
+                            )
+                            if st.button("Delete Agent", key=f"del_saved_{idx}", use_container_width=True):
+                                try:
+                                    shutil.rmtree(agent_dir)
+                                    st.rerun()
+                                except Exception as ex:
+                                    st.error(f"Could not delete: {ex}")
 
 st.markdown(
     """
