@@ -23,7 +23,7 @@ class ReportGenerator:
         eval_summary: Dict[str, Any],
         iterations_log: List[Dict[str, Any]]
     ) -> str:
-        final_score = eval_summary.get("score_before", 0.0)
+        final_score = eval_summary.get("accuracy_percent", eval_summary.get("score_before", 0.0))
         passed_count = len([c for c in eval_summary.get("case_evaluations", []) if c.get("passed")])
         total_count = len(eval_cases)
 

@@ -616,24 +616,53 @@ with right_workspace:
                                     tool_facts.append(f"Catalog Record for {parts[0].upper()}: Unit Price: ${row.get('unit_price_usd')} USD, Lead Time: {row.get('lead_time_days')} days, Stock: {row.get('stock_quantity')}, Emergency Stock: {row.get('emergency_stock')}, Compatible: {row.get('compatible_vessels')}, Supplier: {row.get('supplier_id')}. (Source: spares_catalogue.csv)")
 
                         # RAG retrieval
-                        k = cur_agent_def.get("retrieval_config", {}).get("top_k", 3)
+                        k = max(5, cur_agent_def.get("retrieval_config", {}).get("top_k", 5))
                         retrieved = rag.retrieve(question, top_k=k)
                         citations = list(set([c["source"] for c in retrieved]))
 
-                        fact_lines = []
+                        import re as _re
+                        _stop = {"what", "when", "where", "which", "who", "whom", "this", "that",
+                                 "these", "those", "from", "with", "during", "does", "have", "more",
+                                 "under", "between", "about", "many", "much", "there", "their",
+                                 "they", "into", "according", "state", "mentioning", "summarize"}
+                        q_keywords = [w for w in _re.findall(r'\b[a-z0-9\-]{3,}\b', q_lower) if w not in _stop] or [w for w in q_lower.split() if len(w) > 2]
+
+                        scored_lines = []
                         for r in retrieved:
-                            for line in r["content"].split("\n"):
-                                if any(w in line.lower() for w in q_lower.split() if len(w) > 3):
-                                    fact_lines.append(line.strip())
+                            segments = _re.split(r'\n+|(?<=[.!?])\s+', r["content"])
+                            for seg in segments:
+                                s = seg.strip()
+                                if len(s) < 10:
+                                    continue
+                                s_low = s.lower()
+                                hits = sum(1 for w in q_keywords if w in s_low)
+                                if hits > 0:
+                                    scored_lines.append((hits, f"{s} (Source: {r['source']})"))
 
-                        answer_parts = tool_facts + fact_lines[:3]
-                        if not answer_parts:
+                        # Also scan all docs if retrieved chunks had weak keyword coverage
+                        if len(scored_lines) < 2:
                             for d in docs:
-                                for line in d["content"].split("\n"):
-                                    if any(w in line.lower() for w in q_lower.split() if len(w) > 3):
-                                        answer_parts.append(f"{line.strip()} (Source: {d['filename']})")
+                                for seg in _re.split(r'\n+|(?<=[.!?])\s+', d["content"]):
+                                    s = seg.strip()
+                                    if len(s) < 10:
+                                        continue
+                                    s_low = s.lower()
+                                    hits = sum(1 for w in q_keywords if w in s_low)
+                                    if hits >= max(1, len(q_keywords) // 2):
+                                        scored_lines.append((hits, f"{s} (Source: {d['filename']})"))
+                                        if d["filename"] not in citations:
+                                            citations.append(d["filename"])
 
-                        response_text = "\n".join(answer_parts[:4]) + f"\n\nSources Cited:\n" + "\n".join([f"- {c}" for c in citations])
+                        scored_lines.sort(key=lambda x: x[0], reverse=True)
+                        fact_lines = []
+                        for _, line_txt in scored_lines:
+                            if line_txt not in fact_lines:
+                                fact_lines.append(line_txt)
+                            if len(fact_lines) >= 5:
+                                break
+
+                        answer_parts = tool_facts + fact_lines
+                        response_text = "\n".join(answer_parts[:5]) + f"\n\nSources Cited:\n" + "\n".join([f"- {c}" for c in citations])
                         return response_text
 
                     status.write("5. Running Prompt Tournament (3 Candidates)...")

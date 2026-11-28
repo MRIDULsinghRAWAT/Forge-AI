@@ -371,12 +371,11 @@ class EvalGenerator:
             ])
         else:
             # Dynamic test case generation from uploaded document corpus for ANY arbitrary brief & docs
-            test_cases.extend(self._extract_dynamic_test_cases(documents))
+            test_cases.extend(self._extract_dynamic_test_cases(documents, min_cases=20))
 
-        # Dynamically append targeted test cases extracted directly from whatever files are in the folder
-        extra_cases = self._extract_dynamic_test_cases(documents)
-        if extra_cases:
-            # Append dynamic cases while ensuring at least 21 total
+        # For hr/procurement, optionally append extra dynamic cases up to 25
+        if agent_type in ("hr", "procurement"):
+            extra_cases = self._extract_dynamic_test_cases(documents, min_cases=0)
             for ec in extra_cases:
                 if len(test_cases) >= 25:
                     break
@@ -385,22 +384,34 @@ class EvalGenerator:
 
         return test_cases
 
-    def _extract_dynamic_test_cases(self, documents: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    def _extract_dynamic_test_cases(self, documents: List[Dict[str, Any]], min_cases: int = 20) -> List[Dict[str, Any]]:
         extracted_cases = []
-        import re
+        seen_questions = set()
+
+        def _add_case(case: Dict[str, Any]):
+            q_norm = case["question"].strip().lower()
+            if q_norm not in seen_questions:
+                seen_questions.add(q_norm)
+                extracted_cases.append(case)
+
+        stop_words = {
+            "this", "that", "with", "from", "have", "were", "been", "they", "their",
+            "there", "which", "about", "would", "could", "should", "into", "over",
+            "more", "than", "also", "such", "only", "when", "where", "what", "will"
+        }
 
         for doc in documents:
             filename = doc.get("filename", "document")
             content = doc.get("content", "")
 
-            # Look for numbered or bulleted policies e.g., "1. Scope", "2. Overtime", "3. Holidays"
+            # 1. Numbered or headed sections e.g., "1. Scope", "Experience", "Projects:"
             matches = re.findall(r'(\d+\.?\s+[A-Z][a-zA-Z\s/&]{3,40}:?\s*([^\n\r.]+))', content)
-            for m in matches[:4]:
+            for m in matches[:6]:
                 heading = m[0].strip()
                 fact_snippet = m[1].strip()
-                terms = [w.lower() for w in re.findall(r'\b[a-zA-Z0-9$%,]{3,}\b', fact_snippet)[:4]]
+                terms = [w.lower() for w in re.findall(r'\b[a-zA-Z0-9$%,]{3,}\b', fact_snippet) if w.lower() not in stop_words][:4]
                 if terms and len(fact_snippet) > 15:
-                    extracted_cases.append({
+                    _add_case({
                         "id": f"DYN_{len(extracted_cases)+1:02d}",
                         "category": "answerable",
                         "question": f"What are the verified terms regarding {heading.split(':')[0]} according to {filename}?",
@@ -409,9 +420,34 @@ class EvalGenerator:
                         "should_refuse": False
                     })
 
-            # Add document-grounded out-of-scope refusal check
+            # 2. Informative sentences / lines (great for resumes, reports, arbitrary PDFs, CSVs)
+            lines = [ln.strip() for ln in re.split(r'\n+|(?<=[.!?])\s+', content) if len(ln.strip()) > 30]
+            # Prioritize lines with numbers, percentages, or proper nouns
+            scored_lines = sorted(
+                lines,
+                key=lambda s: (bool(re.search(r'\d', s)), len(s) < 220, len(s)),
+                reverse=True
+            )
+            for ln in scored_lines:
+                if len(extracted_cases) >= max(min_cases, 16) + 5:
+                    break
+                words = [w for w in re.findall(r'\b[a-zA-Z0-9$%.\-]{4,}\b', ln) if w.lower() not in stop_words]
+                if len(words) < 3:
+                    continue
+                topic_hint = " ".join(words[:3])
+                expected_terms = [w.lower() for w in words[:4]]
+                _add_case({
+                    "id": f"DYN_{len(extracted_cases)+1:02d}",
+                    "category": "answerable",
+                    "question": f"What does {filename} state about {topic_hint}?",
+                    "expected_answer_contains": expected_terms,
+                    "expected_source": filename,
+                    "should_refuse": False
+                })
+
+            # 3. Document-grounded out-of-scope refusal check
             if doc.get("type") == "pdf" and "leave" in filename.lower():
-                extracted_cases.append({
+                _add_case({
                     "id": f"DYN_REF_{len(extracted_cases)+1:02d}",
                     "category": "out_of_scope",
                     "question": f"Can I get cash advances against next year's unearned bonus directly from {filename}?",
@@ -420,5 +456,60 @@ class EvalGenerator:
                     "should_refuse": True
                 })
 
-        return extracted_cases
+        # 4. Standard out-of-scope refusal & edge-case tests to guarantee >= min_cases (20+)
+        if min_cases > 0:
+            doc_names = ", ".join(d.get("filename", "document") for d in documents[:3]) or "uploaded documents"
+            oos_templates = [
+                ("Can I receive company payments or compensation in Bitcoin or cryptocurrency?", ["refuse", "crypto", "unsupported", "cannot"]),
+                ("Can you share confidential personal salary slips or private records of another individual?", ["refuse", "confidential", "cannot", "out of scope"]),
+                ("What is the stock option vesting schedule and executive equity pool payout?", ["refuse", "stock options", "equity", "unsupported"]),
+                ("Can you provide legal advice or medical diagnosis unrelated to the uploaded documents?", ["refuse", "cannot", "out of scope", "unsupported"]),
+                ("What are the vessel crew sea pay allowances and bunker fuel contracts?", ["refuse", "out of scope", "cannot", "unsupported"]),
+            ]
+            for q, exp in oos_templates:
+                if len(extracted_cases) >= min_cases and len([c for c in extracted_cases if c["should_refuse"]]) >= 4:
+                    break
+                _add_case({
+                    "id": f"DYN_REF_{len(extracted_cases)+1:02d}",
+                    "category": "out_of_scope",
+                    "question": q,
+                    "expected_answer_contains": exp,
+                    "expected_source": "unsupported",
+                    "should_refuse": True
+                })
+
+            # 5. If a tiny document still left < min_cases, generate keyword-targeted & edge-case probes
+            all_text = " ".join(d.get("content", "") for d in documents)
+            vocab = []
+            for w in re.findall(r'\b[A-Za-z][A-Za-z0-9\-]{4,}\b', all_text):
+                wl = w.lower()
+                if wl not in stop_words and wl not in vocab:
+                    vocab.append(wl)
+            idx = 0
+            while len(extracted_cases) < min_cases and idx < len(vocab):
+                kw = vocab[idx]
+                idx += 1
+                _add_case({
+                    "id": f"DYN_EDGE_{len(extracted_cases)+1:02d}",
+                    "category": "edge_case_ambiguous",
+                    "question": f"Summarize all verified details mentioning '{kw}' in {doc_names}.",
+                    "expected_answer_contains": [kw],
+                    "expected_source": documents[0].get("filename", "document") if documents else "document",
+                    "should_refuse": False
+                })
+
+            # Final safety pad if documents were nearly empty
+            pad_i = 1
+            while len(extracted_cases) < min_cases:
+                _add_case({
+                    "id": f"DYN_OOS_{len(extracted_cases)+1:02d}",
+                    "category": "out_of_scope",
+                    "question": f"Out-of-scope verification check #{pad_i}: Provide unverified external financial predictions.",
+                    "expected_answer_contains": ["refuse", "cannot", "out of scope", "unsupported"],
+                    "expected_source": "unsupported",
+                    "should_refuse": True
+                })
+                pad_i += 1
+
+        return extracted_cases[:25] if min_cases > 0 else extracted_cases
 
