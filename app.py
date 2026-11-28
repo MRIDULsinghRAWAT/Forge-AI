@@ -534,10 +534,12 @@ with right_workspace:
 
                 c_left, c_right = st.columns(2)
                 with c_left:
+                    cur_type = reqs.get("agent_type", "generic")
+                    default_name = f"{cur_type}_agent"
+                    edited_agent_name = st.text_input("Agent Name (used for saving & chat):", value=default_name)
                     edited_scope = st.text_input("Agent Scope:", value=reqs.get("scope", ""))
                     edited_audience = st.text_input("Target Audience:", value=reqs.get("target_audience", "Internal Staff"))
                     domain_opts = ["hr", "procurement", "generic"]
-                    cur_type = reqs.get("agent_type", "generic")
                     edited_type = st.selectbox(
                         "Agent Domain Type:",
                         domain_opts,
@@ -701,14 +703,19 @@ with right_workspace:
                     )
 
                     # Save artifacts
-                    demo_dir = f"demos/{agent_type}_agent"
+                    import re as _re_slug
+                    raw_name = (edited_agent_name or f"{agent_type}_agent").strip()
+                    safe_slug = _re_slug.sub(r'[^a-zA-Z0-9_\-]+', '_', raw_name).strip('_').lower() or f"{agent_type}_agent"
+                    final_agent["agent_name"] = raw_name
+                    demo_dir = f"demos/{safe_slug}"
                     report_gen.save_artifacts(demo_dir, report_md, final_agent, test_cases, final_scorecards)
 
-                    status.update(label=f"Agent Built & Certified | Score: {final_scorecards['accuracy_percent']}%", state="complete")
+                    status.update(label=f"Agent '{raw_name}' Built & Certified | Score: {final_scorecards['accuracy_percent']}%", state="complete")
 
                     st.balloons()
                     st.subheader("Agent Generation Summary")
-                    st.write(f"**Agent ID:** `{final_agent['agent_id']}` (Version {final_agent['version']})")
+                    st.write(f"**Agent Name:** `{raw_name}` | **Agent ID:** `{final_agent['agent_id']}` (Version {final_agent['version']})")
+                    st.success(f"**Saved Location:** `{demo_dir}/agent_definition.json` & `{demo_dir}/performance_report.md`")
                     st.write(f"**Final Accuracy:** `{final_scorecards['accuracy_percent']}%` ({final_scorecards['passed_tests']}/{final_scorecards['total_tests']} tests passed)")
                     st.download_button("Download Agent Definition (JSON)", json.dumps(final_agent, indent=2), "agent_definition.json")
                     st.download_button("Download Evaluation Report (Markdown)", report_md, "performance_report.md")
